@@ -59,17 +59,22 @@ struct LoginView: View {
     }
     
     func authenticateUser(username: String, password: String) {
-        if username.lowercased() == "testuser01" {
-            wrongUsername = 0
-            if password.lowercased() == "abc123" {
-                wrongPassword = 0
-                showingLoginScreen = true
-            } else {
-                wrongPassword = 2
-            }
-        } else {
+        
+        guard let user = users.first(where: {$0.username == username.lowercased()}) else{
             wrongUsername = 2
+            print("Wrong UserName")
+            return
         }
+        
+        guard password.lowercased() == user.password  else {
+            wrongPassword = 2
+            print("Wrong Password")
+            return
+        }
+        print("Success")
+        wrongUsername = 0
+        wrongPassword = 0
+        showingLoginScreen = true
     }
 }
 

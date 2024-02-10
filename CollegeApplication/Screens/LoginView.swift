@@ -75,23 +75,23 @@ struct LoginView: View {
         
         if username.isEmpty {
             wrongUsername = 2
-            self.errorMessage = "Empty Username"
+            self.errorMessage = ErrorCode.EmptyUsername.localizedDescription
             return
         } else if password.isEmpty {
             wrongPassword = 2
-            self.errorMessage = "Empty Password"
+            self.errorMessage = ErrorCode.EmptyPassword.localizedDescription
             return
         }
         
         guard let user = users.first(where: {$0.username == username.lowercased()}) else{
             wrongUsername = 2
-            self.errorMessage = "Wrong Username"
+            self.errorMessage = ErrorCode.WrongUsername.localizedDescription
             return
         }
         
         guard password.lowercased() == user.password  else {
             wrongPassword = 2
-            self.errorMessage = "Wrong Password"
+            self.errorMessage = ErrorCode.WrongPassword.localizedDescription
             return
         }
         

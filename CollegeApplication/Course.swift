@@ -12,7 +12,7 @@ class Course : CustomStringConvertible, Identifiable{
     var courseName : String = ""
     var courseDesc : String = ""
     var instructorList : [String] = []
-    var studentList: [String] = []
+    var studentList: [Student] = []
     
     
     var description: String{
@@ -35,8 +35,8 @@ class Course : CustomStringConvertible, Identifiable{
         }
     }
     
-    func addStudent(student:String){
-        if !self.studentList.contains(where:{$0 == student}){
+    func addStudent(student:Student){
+        if !self.studentList.contains(where:{$0.id == student.id}){
             self.studentList.append(student)
         }
     }

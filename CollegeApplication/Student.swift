@@ -24,7 +24,7 @@ class Student : User{
     
     func editCourseGrade(courseId:String, grade:Int){
         if self.courseGrade.contains(where: {$0.key == courseId}){
-            self.courseGrade[courseId] = grade            
+            self.courseGrade[courseId] = grade
         }
     }
 }

@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var wrongUsername: Int = 0
-    @State private var wrongPassword: Int = 0
-    @State private var showingLoginScreen: Bool = false
+    @State private var username = ""
+    @State private var password = ""
+    @State private var wrongUsername = 0
+    @State private var wrongPassword = 0
+    @State private var showingLoginScreen = false
     
-    @State private var errorMessage: String = ""
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color.blue
                     .ignoresSafeArea()
@@ -46,9 +45,7 @@ struct LoginView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
-                
-                   
-
+                    
                     Button("Login") {
                         authenticateUser(username: username, password: password)
                     }
@@ -56,16 +53,6 @@ struct LoginView: View {
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .navigationDestination(
-                        isPresented: $showingLoginScreen,
-                        destination: {
-                            CourseView()
-                        }
-                    )
-                    
-                    Text(self.errorMessage)
-                        .foregroundStyle(Color.red)
-                    
                 }
             }
         }.navigationBarHidden(true)
@@ -73,41 +60,24 @@ struct LoginView: View {
     
     func authenticateUser(username: String, password: String) {
         
-        if username.isEmpty {
-            wrongUsername = 2
-            self.errorMessage = ErrorCode.EmptyUsername.localizedDescription
-            return
-        } else if password.isEmpty {
-            wrongPassword = 2
-            self.errorMessage = ErrorCode.EmptyPassword.localizedDescription
-            return
-        }
-        
         guard let user = users.first(where: {$0.username == username.lowercased()}) else{
             wrongUsername = 2
-            self.errorMessage = ErrorCode.WrongUsername.localizedDescription
+            print("Wrong UserName")
             return
         }
         
         guard password.lowercased() == user.password  else {
             wrongPassword = 2
-            self.errorMessage = ErrorCode.WrongPassword.localizedDescription
+            print("Wrong Password")
             return
         }
-        
-        
-        self.errorMessage = ""
+        print("Success")
         wrongUsername = 0
         wrongPassword = 0
         showingLoginScreen = true
     }
 }
-//Instructor(name: "Jeremy", username: "jeremy", password: "jeremy"),
-//Instructor(name: "Hyun", username: "hyun", password: "hyun"),
-//Instructor(name: "Aman", username: "aman", password: "aman"),
-//Student(name: "Jack", username: "jack", password: "jack"),
-//Student(name: "Mike", username: "mike", password: "mike"),
-//Student(name: "Amy", username: "amy", password: "amy")
+
 #Preview {
     LoginView()
 }

@@ -14,6 +14,8 @@ struct LoginView: View {
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
     
+    @State private var currUser : User = User()
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -48,6 +50,7 @@ struct LoginView: View {
                     
                     Button("Login") {
                         authenticateUser(username: username, password: password)
+                        MainView().environmentObject(currUser)
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
@@ -58,7 +61,7 @@ struct LoginView: View {
         }.navigationBarHidden(true)
     }
     
-    func authenticateUser(username: String, password: String) {
+    func authenticateUser(username: String, password: String){
         
         guard let user = users.first(where: {$0.username == username.lowercased()}) else{
             wrongUsername = 2
@@ -72,9 +75,12 @@ struct LoginView: View {
             return
         }
         print("Success")
+        
+        
         wrongUsername = 0
         wrongPassword = 0
         showingLoginScreen = true
+        currUser = user
     }
 }
 

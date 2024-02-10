@@ -19,4 +19,11 @@ class User : Identifiable, ObservableObject{
         self.username = username
         self.password = password
     }
+    
+    init(){
+        self.name = "NA"
+        self.username = "NA"
+        self.password = "NA"
+        self.email = "NA"
+    }
 }

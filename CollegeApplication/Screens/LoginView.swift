@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var username = ""
-    @State private var password = ""
-    @State private var wrongUsername = 0
-    @State private var wrongPassword = 0
-    @State private var showingLoginScreen = false
+    @State private var username: String = ""
+    @State private var password: String = ""
+
+    @State private var showingLoginScreen: Bool = false
+    
+    @State private var isUsernameError: Bool = false
+    @State private var isPasswordError: Bool = false
+    @State private var errorMessage: String = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color.blue
                     .ignoresSafeArea()
@@ -37,43 +40,66 @@ struct LoginView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUsername))
+                        .border(isUsernameError ? Color.red : Color.clear, width: 2)
                     
                     SecureField("Password", text: $password)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongPassword))
-                    
+                        .border(isPasswordError ? Color.red : Color.clear, width: 2)
+                
                     Button("Login") {
+                        isUsernameError = false
+                        isPasswordError = false
                         authenticateUser(username: username, password: password)
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
+                    .navigationDestination(
+                        isPresented: $showingLoginScreen,
+                        destination: {
+                            CourseView()
+                        }
+                    )
+                    
+                    Text(self.errorMessage)
+                        .foregroundColor(.red)
+                    
                 }
             }
         }.navigationBarHidden(true)
     }
     
     func authenticateUser(username: String, password: String) {
+  
         
-        guard let user = users.first(where: {$0.username == username.lowercased()}) else{
-            wrongUsername = 2
-            print("Wrong UserName")
+        if username.isEmpty {
+            isUsernameError = true
+            errorMessage = ErrorCode.EmptyUsername.localizedDescription
+            return
+        } else if password.isEmpty {
+            isPasswordError = true
+            errorMessage = ErrorCode.EmptyPassword.localizedDescription
             return
         }
         
-        guard password.lowercased() == user.password  else {
-            wrongPassword = 2
-            print("Wrong Password")
+        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
+            isUsernameError = true
+            errorMessage = ErrorCode.WrongUsername.localizedDescription
             return
         }
-        print("Success")
-        wrongUsername = 0
-        wrongPassword = 0
+        
+        guard password.lowercased() == user.password else {
+            isPasswordError = true
+            errorMessage = ErrorCode.WrongPassword.localizedDescription
+            return
+        }
+        
+        // No errors
+ 
         showingLoginScreen = true
     }
 }

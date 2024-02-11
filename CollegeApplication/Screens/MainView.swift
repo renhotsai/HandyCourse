@@ -11,7 +11,6 @@ struct MainView: View {
     @EnvironmentObject var user : User
     
     var body: some View {
-        NavigationStack{
             VStack{
                 List{
                     ForEach(courses){ course in
@@ -24,7 +23,7 @@ struct MainView: View {
                 }//List
             }//VStack
             .navigationTitle("College")
-        }//NavigationStack
+            .navigationBarBackButtonHidden()
     }
 }
 

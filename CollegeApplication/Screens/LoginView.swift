@@ -19,9 +19,14 @@ struct LoginView: View {
     
     @State private var currUser : User = User()
     
+    
+    @State private var linkSelection : Int? = nil
+    
     var body: some View {
-        NavigationStack {
             ZStack {
+                NavigationLink(destination: MainView().environmentObject(currUser)
+                               , tag: 1, selection: self.$linkSelection){}
+                
                 Color.blue
                     .ignoresSafeArea()
                 Circle()
@@ -55,25 +60,19 @@ struct LoginView: View {
                         isUsernameError = false
                         isPasswordError = false
                         authenticateUser(username: username, password: password)
-                        MainView().environmentObject(currUser)
-                    }
+                        
+                        self.linkSelection = 1
+                             }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .navigationDestination(
-                        isPresented: $showingLoginScreen,
-                        destination: {
-                            CourseView()
-                        }
-                    )
                     
                     Text(self.errorMessage)
                         .foregroundColor(.red)
                     
                 }
             }
-        }.navigationBarHidden(true)
     }
     
     func authenticateUser(username: String, password: String) {

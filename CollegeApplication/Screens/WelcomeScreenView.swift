@@ -55,7 +55,7 @@ struct WelcomeScreenView: View {
                 }
                 .padding()
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 

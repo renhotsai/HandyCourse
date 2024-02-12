@@ -10,76 +10,99 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var user : User
     
+    @State private var linkSelection : Int? = nil
+   
+  
     var body: some View {
+     
         NavigationStack {
+    
             VStack{
+              
                 List{
+                    
                     ForEach(courses){ course in
                         NavigationLink{
                             
                         }label: {
                             Text("\(course.courseName)")
                         }//NavigationLink
+          
                     }//ForEach
                 }//List
             }//VStack
             .navigationTitle("Let's learn!")
             .navigationBarTitleDisplayMode(.inline)
+
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        NavigationLink(
-                            destination: MainView(),
-                            label: {
-                                Text("Courses")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.white)
-                                    .cornerRadius(50.0)
-                                    .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0.0, y: 16)
-                                    .padding(.vertical)
-                            }
-                        )
-                        NavigationLink(
-                            destination: GradeView(),
-                            label: {
-                                Text("Grades")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.white)
-                                    .cornerRadius(50.0)
-                                    .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0.0, y: 16)
-                                    .padding(.vertical)
-                            }
-                        )
-                        NavigationLink(
-                            destination: WelcomeScreenView(),
-                            label: {
-                                Text("Log out")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.white)
-                                    .cornerRadius(50.0)
-                                    .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0.0, y: 16)
-                                    .padding(.vertical)
-                            }
-                        )
+                        if let student = user as? Student {
+                            NavigationLink(
+                                destination: ProfileView(),
+                                label: {
+                                    Text("Profile")
+                                }
+                            )
+                            NavigationLink(
+                                destination: MainView(),
+                                label: {
+                                    Text("Courses")
+                                }
+                            )
+                            NavigationLink(
+                                destination: GradeView(),
+                                label: {
+                                    Text("Grades")
+                                }
+                            )
+                            NavigationLink(
+                                destination: WelcomeScreenView(),
+                                label: {
+                                    Text("Log out")
+                                }
+                            )
+                        } else if let instructor = user as? Instructor {
+                            NavigationLink(
+                                destination: ProfileView(),
+                                label: {
+                                    Text("Profile")
+                                }
+                            )
+                            NavigationLink(
+                                destination: MainView(),
+                                label: {
+                                    Text("Courses")
+                                }
+                            )
+                            NavigationLink(
+                                destination: GradeView(),
+                                label: {
+                                    Text("Add New Course")
+                                }
+                            )
+                            NavigationLink(
+                                destination: WelcomeScreenView(),
+                                label: {
+                                    Text("Log out")
+                                }
+                            )
+                        }
+            
                     } label : {
                         Image(systemName: "ellipsis.circle.fill")
-
                     }
                 }
             }
-        }
+    
+         
+           
+        }.navigationBarBackButtonHidden(true)
       
     }
 }
+
+
 
 #Preview {
     MainView()

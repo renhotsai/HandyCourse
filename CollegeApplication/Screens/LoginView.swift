@@ -10,14 +10,23 @@ import SwiftUI
 struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var wrongUsername: Int = 0
-    @State private var wrongPassword: Int = 0
+
     @State private var showingLoginScreen: Bool = false
     
+    @State private var isUsernameError: Bool = false
+    @State private var isPasswordError: Bool = false
     @State private var errorMessage: String = ""
+    
+    @State private var currUser : User = User()
+    
+    
+    @State private var linkSelection : Int? = nil
+    
     var body: some View {
-        NavigationStack {
             ZStack {
+                NavigationLink(destination: MainView().environmentObject(currUser)
+                               , tag: 1, selection: self.$linkSelection){}
+                
                 Color.blue
                     .ignoresSafeArea()
                 Circle()
@@ -38,76 +47,66 @@ struct LoginView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUsername))
+                        .border(isUsernameError ? Color.red : Color.clear, width: 2)
                     
                     SecureField("Password", text: $password)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongPassword))
+                        .border(isPasswordError ? Color.red : Color.clear, width: 2)
                 
-                   
-
                     Button("Login") {
+                        isUsernameError = false
+                        isPasswordError = false
                         authenticateUser(username: username, password: password)
-                    }
+                        
+                        self.linkSelection = 1
+                             }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .navigationDestination(
-                        isPresented: $showingLoginScreen,
-                        destination: {
-                            CourseView()
-                        }
-                    )
                     
                     Text(self.errorMessage)
-                        .foregroundStyle(Color.red)
+                        .foregroundColor(.red)
                     
                 }
             }
-        }.navigationBarHidden(true)
     }
     
     func authenticateUser(username: String, password: String) {
+  
         
         if username.isEmpty {
-            wrongUsername = 2
-            self.errorMessage = "Empty Username"
+            isUsernameError = true
+            errorMessage = ErrorCode.EmptyUsername.localizedDescription
             return
         } else if password.isEmpty {
-            wrongPassword = 2
-            self.errorMessage = "Empty Password"
+            isPasswordError = true
+            errorMessage = ErrorCode.EmptyPassword.localizedDescription
             return
         }
         
-        guard let user = users.first(where: {$0.username == username.lowercased()}) else{
-            wrongUsername = 2
-            self.errorMessage = "Wrong Username"
+        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
+            isUsernameError = true
+            errorMessage = ErrorCode.WrongUsername.localizedDescription
             return
         }
         
-        guard password.lowercased() == user.password  else {
-            wrongPassword = 2
-            self.errorMessage = "Wrong Password"
+        guard password.lowercased() == user.password else {
+            isPasswordError = true
+            errorMessage = ErrorCode.WrongPassword.localizedDescription
             return
         }
         
-        
-        self.errorMessage = ""
-        wrongUsername = 0
-        wrongPassword = 0
+        // No errors
+ 
         showingLoginScreen = true
+        currUser = user
     }
 }
-//Instructor(name: "Jeremy", username: "jeremy", password: "jeremy"),
-//Instructor(name: "Hyun", username: "hyun", password: "hyun"),
-//Instructor(name: "Aman", username: "aman", password: "aman"),
-//Student(name: "Jack", username: "jack", password: "jack"),
-//Student(name: "Mike", username: "mike", password: "mike"),
-//Student(name: "Amy", username: "amy", password: "amy")
+
 #Preview {
     LoginView()
 }

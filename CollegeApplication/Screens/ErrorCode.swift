@@ -24,5 +24,5 @@ enum ErrorCode : Error{
             case .WrongPassword:
                 return NSLocalizedString("Wrong Password", comment: "")
             }
-    }
+        }
 }

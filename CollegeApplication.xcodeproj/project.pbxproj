@@ -23,6 +23,8 @@
 		CA1F323F2B7572C3004C6AFB /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F323E2B7572C3004C6AFB /* SigninView.swift */; };
 		CA1F32412B757937004C6AFB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1F32402B757937004C6AFB /* LoginView.swift */; };
 		CA46E9102B79D9A6005E5D9E /* GradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46E90F2B79D9A6005E5D9E /* GradeView.swift */; };
+		CA46E9122B7AA5B1005E5D9E /* AddCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */; };
+		CA46E9142B7AAAF9005E5D9E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46E9132B7AAAF9005E5D9E /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		CA1F323E2B7572C3004C6AFB /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 		CA1F32402B757937004C6AFB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CA46E90F2B79D9A6005E5D9E /* GradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeView.swift; sourceTree = "<group>"; };
+		CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseView.swift; sourceTree = "<group>"; };
+		CA46E9132B7AAAF9005E5D9E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 				6CF2B7D62B76C08600B38B94 /* ErrorCode.swift */,
 				6CF2B7D42B76BDD200B38B94 /* UserMockData.swift */,
 				CA46E90F2B79D9A6005E5D9E /* GradeView.swift */,
+				CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */,
+				CA46E9132B7AAAF9005E5D9E /* ProfileView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -183,11 +189,13 @@
 			files = (
 				6CF2B7D92B76CB9200B38B94 /* CourseMockData.swift in Sources */,
 				6CF2B7DD2B76DC2100B38B94 /* MainView.swift in Sources */,
+				CA46E9122B7AA5B1005E5D9E /* AddCourseView.swift in Sources */,
 				CA1F323D2B757279004C6AFB /* WelcomeScreenView.swift in Sources */,
 				6CFD0F842B7573F000E2BA4E /* User.swift in Sources */,
 				6CFD0F7E2B75664800E2BA4E /* Course.swift in Sources */,
 				6CFD0F662B75399300E2BA4E /* ContentView.swift in Sources */,
 				CA46E9102B79D9A6005E5D9E /* GradeView.swift in Sources */,
+				CA46E9142B7AAAF9005E5D9E /* ProfileView.swift in Sources */,
 				CA1F323F2B7572C3004C6AFB /* SigninView.swift in Sources */,
 				CA1F32412B757937004C6AFB /* LoginView.swift in Sources */,
 				6CFD0F862B7574C600E2BA4E /* Student.swift in Sources */,

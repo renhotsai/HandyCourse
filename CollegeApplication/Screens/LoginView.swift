@@ -18,24 +18,18 @@ struct LoginView: View {
     @State private var errorMessage: String = ""
     
     @State private var currUser : User = User()
-    
+
     
     @State private var linkSelection : Int? = nil
     
     var body: some View {
             ZStack {
                 NavigationLink(destination: MainView().environmentObject(currUser)
-                               , tag: 1, selection: self.$linkSelection){}
+                               , tag: 1, selection: self.$linkSelection){
+                    
+                }
                 
-                Color.blue
-                    .ignoresSafeArea()
-                Circle()
-                    .scale(1.7)
-                    .foregroundColor(.white.opacity(0.15))
-                Circle()
-                    .scale(1.35)
-                    .foregroundColor(.white)
-                
+   
                 VStack {
                     Text("Login")
                         .font(.largeTitle)
@@ -61,8 +55,8 @@ struct LoginView: View {
                         isPasswordError = false
                         authenticateUser(username: username, password: password)
                         
-                        self.linkSelection = 1
-                             }
+          
+                    }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
@@ -73,11 +67,12 @@ struct LoginView: View {
                     
                 }
             }
+            
     }
     
     func authenticateUser(username: String, password: String) {
   
-        
+ 
         if username.isEmpty {
             isUsernameError = true
             errorMessage = ErrorCode.EmptyUsername.localizedDescription
@@ -89,21 +84,26 @@ struct LoginView: View {
         }
         
         guard let user = users.first(where: { $0.username == username.lowercased() }) else {
+            print("Error1")
             isUsernameError = true
             errorMessage = ErrorCode.WrongUsername.localizedDescription
             return
         }
         
         guard password.lowercased() == user.password else {
+            print("Error2")
             isPasswordError = true
             errorMessage = ErrorCode.WrongPassword.localizedDescription
             return
         }
         
         // No errors
- 
+        self.errorMessage = ""
         showingLoginScreen = true
         currUser = user
+                
+
+        self.linkSelection = 1
     }
 }
 

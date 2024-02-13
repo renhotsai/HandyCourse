@@ -23,7 +23,7 @@ struct MainView: View {
                     
                     ForEach(courses){ course in
                         NavigationLink{
-                            
+                            DetailView(course: course).environmentObject(user)
                         }label: {
                             Text("\(course.courseName)")
                         }//NavigationLink

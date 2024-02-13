@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DetailView: View {
+    
+    @EnvironmentObject var user : User
     var course : Course
     var body: some View {
         VStack{
@@ -19,6 +21,9 @@ struct DetailView: View {
                 }
             }
             Spacer()
+            if ((user as? Student) != nil){
+                Button("asdf", action: {})
+            }
         }
         .navigationTitle(course.courseName)
     }

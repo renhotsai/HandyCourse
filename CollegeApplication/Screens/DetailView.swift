@@ -11,8 +11,11 @@ struct DetailView: View {
     
     @EnvironmentObject var user : User
     var course : Course
+    @State private var isActive :Bool = false
     var body: some View {
-        VStack{
+        
+  
+       VStack{
             Text(course.courseDesc)
             HStack{
             Text("Instructor:")
@@ -22,12 +25,20 @@ struct DetailView: View {
             }
             Spacer()
             if ((user as? Student) != nil){
-                Button("asdf", action: {})
+                Button("asdf", action: {
+                    let student = user as? Student
+                    student?.addCourse(courseId: course.id.uuidString)
+                    self.isActive = true
+                }).navigationDestination(isPresented: $isActive){
+                    MainView().environmentObject(user)
+                }
             }
         }
         .navigationTitle(course.courseName)
     }
 }
+
+
 
 #Preview {
     DetailView(course:Course(courseName: "C-Course", courseDesc: "Test C", instructorList: ["aaa","bbb"]))

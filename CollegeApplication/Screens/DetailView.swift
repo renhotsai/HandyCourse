@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct DetailView: View {
+    var course : Course
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text(course.courseDesc)
+            HStack{
+            Text("Instructor:")
+                ForEach(course.instructorList,id: \.self){ instructor in
+                    Text(instructor)
+                }
+            }
+            Spacer()
+        }
+        .navigationTitle(course.courseName)
     }
 }
 
 #Preview {
-    DetailView()
+    DetailView(course:Course(courseName: "C-Course", courseDesc: "Test C", instructorList: ["aaa","bbb"]))
 }

@@ -24,13 +24,17 @@ struct DetailView: View {
                 }
             }
             Spacer()
-            if ((user as? Student) != nil){
-                Button("asdf", action: {
-                    let student = user as? Student
-                    student?.addCourse(courseId: course.id.uuidString)
-                    self.isActive = true
-                }).navigationDestination(isPresented: $isActive){
-                    MainView().environmentObject(user)
+            if user is Student {
+                let student = user as? Student
+                if student?.courseGrade[course.id.uuidString] == nil{
+                    Button("Add Course", action: {
+                        student?.addCourse(courseId: course.id.uuidString)
+                        self.isActive = true
+                    }).navigationDestination(isPresented: $isActive){
+                        MainView().environmentObject(user)
+                    }
+                }else{
+                    Text("Grade: \(student?.courseGrade[course.id.uuidString] ?? 0 )")
                 }
             }
         }

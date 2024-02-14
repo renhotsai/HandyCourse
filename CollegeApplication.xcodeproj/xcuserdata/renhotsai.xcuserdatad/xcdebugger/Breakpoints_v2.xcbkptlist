@@ -30,8 +30,8 @@
             filePath = "CollegeApplication/Screens/LoginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "authenticateUser(username:password:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,10 +46,10 @@
             filePath = "CollegeApplication/Screens/LoginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "authenticateUser(username:password:)"
-            landmarkType = "7">
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "body"
+            landmarkType = "24">
             <Locations>
                <Location
                   uuid = "E221D584-FB31-4AC9-8E85-860F276420E8 - bb86c94ce0e1ca74"

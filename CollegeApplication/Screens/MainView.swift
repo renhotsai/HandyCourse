@@ -18,17 +18,26 @@ struct MainView: View {
         NavigationStack {
     
             VStack{
-              
                 List{
-                    
-                    ForEach(courses){ course in
-                        NavigationLink{
+                    if user is Instructor{
+                        let instructor = user as! Instructor
+                        ForEach(instructor.courseList){ course in
+                            NavigationLink{
+                                DetailView(course: course).environmentObject(user)
+                            } label: {
+                                Text("\(course.courseName)")
+                            }//NavigationLink
+                        }//ForEach
+                    } else {
+                        ForEach(courses){ course in
+                            NavigationLink{
+                                DetailView(course: course).environmentObject(user)
+                            }label: {
+                                Text("\(course.courseName)")
+                            }//NavigationLink
                             
-                        }label: {
-                            Text("\(course.courseName)")
-                        }//NavigationLink
-          
-                    }//ForEach
+                        }//ForEach
+                    }//if
                 }//List
             }//VStack
             .navigationTitle("Let's learn!")

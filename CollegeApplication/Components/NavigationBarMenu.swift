@@ -12,7 +12,7 @@ struct NavigationBarMenu: View {
     
     var body: some View {
         Menu {
-            if let student = user as? Student {
+            if user is Student {
                 NavigationLink(
                     destination: ProfileView(),
                     label: {
@@ -37,7 +37,7 @@ struct NavigationBarMenu: View {
                         Text("Log out")
                     }
                 )
-            } else if let instructor = user as? Instructor {
+            } else if user is Instructor {
                 NavigationLink(
                     destination: ProfileView(),
                     label: {

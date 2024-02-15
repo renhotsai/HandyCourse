@@ -22,6 +22,12 @@ struct MainView: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(maxWidth: .infinity, maxHeight: 200)
                                     .clipped()
+                            } else {
+                                Image("default")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: .infinity, maxHeight: 200)
+                                    .clipped()
                             }
                             HStack {
                                 Text(course.courseName)

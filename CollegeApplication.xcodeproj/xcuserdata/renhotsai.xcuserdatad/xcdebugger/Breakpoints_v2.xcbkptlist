@@ -30,8 +30,8 @@
             filePath = "CollegeApplication/Screens/LoginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "authenticateUser(username:password:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "CollegeApplication/Screens/LoginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "authenticateUser(username:password:)"
             landmarkType = "7">
             <Locations>
@@ -80,6 +80,21 @@
                   startingLineNumber = "63"
                   endingLineNumber = "63"
                   offsetFromSymbolStart = "6826">
+               </Location>
+               <Location
+                  uuid = "E221D584-FB31-4AC9-8E85-860F276420E8 - e4300da4926c6953"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollegeApplication.LoginView.authenticateUser(username: Swift.String, password: Swift.String) -&gt; ()"
+                  moduleName = "CollegeApplication"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/renhotsai/Desktop/ClassStuff/IOS%20Development%20Intro/GroupProject/CollegeApplication/CollegeApplication/Screens/LoginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "610">
                </Location>
             </Locations>
          </BreakpointContent>

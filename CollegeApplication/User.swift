@@ -15,7 +15,7 @@ class User : Identifiable, ObservableObject{
     var email:String = ""
     var address: String = ""
     var phoneNumber: String = ""
-    var imageName: String = ""
+    var imageName: String?
     
     init(name: String, username: String, password: String, email: String, address: String, phoneNumber: String, imageName: String) {
         self.name = name
@@ -24,7 +24,16 @@ class User : Identifiable, ObservableObject{
         self.email = email
         self.address = address
         self.phoneNumber = phoneNumber
-        self.imageName = imageName 
+        self.imageName = imageName
+    }
+    
+    init(name: String, username: String, password: String, email: String, address: String, phoneNumber: String) {
+        self.name = name
+        self.username = username
+        self.password = password
+        self.email = email
+        self.address = address
+        self.phoneNumber = phoneNumber
     }
     
     init(){
@@ -34,7 +43,5 @@ class User : Identifiable, ObservableObject{
         self.email = "NA"
         self.address = "NA"
         self.phoneNumber = "NA"
-        self.imageName = "NA"
-        
     }
 }

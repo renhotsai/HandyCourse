@@ -63,8 +63,7 @@ struct LoginView: View {
     }
     
     func authenticateUser(username: String, password: String) {
-  
- 
+   
         if username.isEmpty {
             isUsernameError = true
             errorMessage = ErrorCode.EmptyUsername.localizedDescription

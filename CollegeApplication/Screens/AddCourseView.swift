@@ -66,13 +66,18 @@ struct AddCourseView: View {
             return
         }
         
+        // Get the current instructor's name
+        let instructorName = user.name
+        
+        // Create a new course and add the current instructor's name to the instructor list
         let newCourse = Course(courseName: courseName,
                                courseDesc: courseDescription,
                                studentLimit: studentLimitInt,
                                startDate: startDate,
-                               endDate: endDate)
+                               endDate: endDate,
+                               instructorList: [instructorName])
             
-        
+        // Add the new course to the instructor's course list
         user.addCourse(course: newCourse)
         
         // Optionally, you can reset the input fields here
@@ -82,6 +87,7 @@ struct AddCourseView: View {
         endDate = Date()
         studentLimit = ""
     }
+
 
 }
 

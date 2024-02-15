@@ -35,10 +35,26 @@ struct CourseInfoView: View {
                         Text("- \(instructorObject.name)")
                     }
                 }
-                Text("Start Date: \(formattedDate(course.startDate))")
-                    .font(.headline)
-                Text("End Date: \(formattedDate(course.endDate))")
-                    .font(.headline)
+                HStack {
+                    Text("Start Date:")
+                        .font(.headline)
+                        .padding(.trailing, 10)
+                    Text(formattedDate(course.startDate))
+                        .font(.subheadline)
+                        .padding(10)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                }
+                HStack {
+                    Text("End Date:")
+                        .font(.headline)
+                        .padding(.trailing, 10)
+                    Text(formattedDate(course.endDate))
+                        .font(.subheadline)
+                        .padding(10)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                }
                 
                 Spacer()
                 
@@ -46,6 +62,12 @@ struct CourseInfoView: View {
                     showAlert = true
                 }) {
                     Text("Delete Course")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
                 .padding()
                 .alert(isPresented: $showAlert) {

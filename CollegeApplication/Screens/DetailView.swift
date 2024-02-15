@@ -17,7 +17,7 @@ struct DetailView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(alignment: .leading) {
             if let imageName = course.courseImageName {
                 Image(imageName)
                     .resizable()
@@ -25,22 +25,62 @@ struct DetailView: View {
                     .frame(maxWidth: .infinity, maxHeight: 200)
                     .clipped()
             }
-            Text("Description: \(course.courseDesc)")
-                .font(.headline)
-            Text("Instructors:")
-                .font(.headline)
-            ForEach(course.instructorList, id: \.self) { instructor in
-                if let instructorObject = instructor as? Instructor {
-                    Text("- \(instructorObject.name)")
+            
+            // Instructors
+            HStack {
+                Text("Instructors:")
+                    .font(.headline)
+                    .padding(.trailing, 10)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    ForEach(course.instructorList, id: \.self) { instructorName in
+                        Text("- \(instructorName)")
+                            .font(.subheadline)
+                    }
                 }
             }
-            Text("Start Date: \(formattedDate(course.startDate))")
-                .font(.headline)
-            Text("End Date: \(formattedDate(course.endDate))")
-                .font(.headline)
-       
-          
+            .padding(.vertical, 10)
+            
+            // Description
+            HStack {
+                Text("Description:")
+                    .font(.headline)
+                    .padding(.trailing, 10)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("\(course.courseDesc)")
+                        .font(.body)
+                }
+            }
+            .padding(.vertical, 10)
+            
+            // Start and End Date
+            HStack(spacing: 25) {
+                VStack(alignment: .leading) {
+                    Text("Start Date:")
+                        .font(.headline)
+                    Text(formattedDate(course.startDate))
+                        .font(.subheadline)
+                }
+                .padding(10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                
+                VStack(alignment: .leading) {
+                    Text("End Date:")
+                        .font(.headline)
+                    Text(formattedDate(course.endDate))
+                        .font(.subheadline)
+                }
+                .padding(10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+            }
+            .padding(.vertical, 10)
+            
             Spacer()
+            
+            // Add Course Button
             if user is Student {
                 let student = user as? Student
                 if student?.courseGrade[course.id.uuidString] == nil {
@@ -55,23 +95,42 @@ struct DetailView: View {
                         }
                         
                     })
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(10)
                     .padding()
                     .alert(isPresented: $showAlert, content: {
                         alertMsg
                     })
                 } else {
-                    Text("This course added")
+                    Text("This course is added")
+                        .foregroundColor(.black)
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.yellow)
+                        .cornerRadius(10)
+                        .padding()
                 }
             }
         }
+        .padding()
         .navigationTitle(course.courseName)
     }
+    
     func formattedDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: date)
     }
 }
+
+
+
+
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {

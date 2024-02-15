@@ -12,10 +12,10 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var user : User
-    @State private var selectedSreen : Int? = 2
+    @State private var selectedScreen : Int = 3
     var body: some View {
         VStack{
-            TabView(selection: $selectedSreen){
+            TabView(selection: $selectedScreen){
                 if user is Student{
                     StudentCoursesView().environmentObject(user as! Student).tabItem {
                         Text("My Courses")
@@ -36,6 +36,7 @@ struct ContentView: View {
                     Text("Profile")
                     Image(systemName: "person")
                 }.tag(4)
+                
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -46,6 +47,7 @@ struct ContentView: View {
                 NavigationBarMenu()
             }
         }
+
     }
 }
 

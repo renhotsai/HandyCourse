@@ -12,6 +12,9 @@ struct DetailView: View {
     @EnvironmentObject var user : User
     var course : Course
     @State private var isActive :Bool = false
+    @State private var alertMsg: Alert = Alert(title: Text(""))
+    @State private var showAlert: Bool = false
+    
     var body: some View {
         
        VStack{
@@ -27,11 +30,21 @@ struct DetailView: View {
                 let student = user as? Student
                 if student?.courseGrade[course.id.uuidString] == nil{
                     Button("Add Course", action: {
-                        student?.addCourse(courseId: course.id.uuidString)
-                        self.isActive = true
+                        self.showAlert = true
+                        if (course.addStudent(student: student!)) {
+                            student?.addCourse(courseId: course.id.uuidString)
+                            self.isActive = true
+                            alertMsg = Alert(title: Text("Success"),message: Text("Successfully registered to the course"))
+                        } else {
+                            alertMsg = Alert(title: Text("Error"),message: Text("Error: Exceed max number of students"))
+                        }
+                        
                     }).navigationDestination(isPresented: $isActive){
                         MainView().environmentObject(user)
                     }
+                    .alert(isPresented: $showAlert, content: {
+                                        alertMsg
+                    })
                 }else{
                     Text("Grade: \(student?.courseGrade[course.id.uuidString] ?? 0 )")
                 }

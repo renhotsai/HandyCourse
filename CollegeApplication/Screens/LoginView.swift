@@ -20,54 +20,46 @@ struct LoginView: View {
     @State private var currUser : User = User()
 
     
-    @State private var linkSelection : Int? = nil
+    @State private var isLogin : Bool = false
     
     var body: some View {
-            ZStack {
-                NavigationLink(destination: MainView().environmentObject(currUser)
-                               , tag: 1, selection: self.$linkSelection){
-                    
-                }
-                
-   
-                VStack {
-                    Text("Login")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding()
-                    
-                    TextField("Username", text: $username)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.05))
-                        .cornerRadius(10)
-                        .border(isUsernameError ? Color.red : Color.clear, width: 2)
-                    
-                    SecureField("Password", text: $password)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.05))
-                        .cornerRadius(10)
-                        .border(isPasswordError ? Color.red : Color.clear, width: 2)
-                
-                    Button("Login") {
-                        isUsernameError = false
-                        isPasswordError = false
-                        authenticateUser(username: username, password: password)
-                        
-          
-                    }
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    
-                    Text(self.errorMessage)
-                        .foregroundColor(.red)
-                    
-                }
-            }
+        
+        VStack {
+            Text("Login")
+                .font(.largeTitle)
+                .bold()
+                .padding()
             
+            TextField("Username", text: $username)
+                .padding()
+                .frame(width: 300, height: 50)
+                .background(Color.black.opacity(0.05))
+                .cornerRadius(10)
+                .border(isUsernameError ? Color.red : Color.clear, width: 2)
+            
+            SecureField("Password", text: $password)
+                .padding()
+                .frame(width: 300, height: 50)
+                .background(Color.black.opacity(0.05))
+                .cornerRadius(10)
+                .border(isPasswordError ? Color.red : Color.clear, width: 2)
+            
+            Button("Login") {
+                isUsernameError = false
+                isPasswordError = false
+                authenticateUser(username: username, password: password)
+            }.navigationDestination(isPresented: $isLogin, destination: {
+                MainView().environmentObject(currUser)
+            })
+            .foregroundColor(.white)
+            .frame(width: 300, height: 50)
+            .background(Color.blue)
+            .cornerRadius(10)
+            
+            Text(self.errorMessage)
+                .foregroundColor(.red)
+            
+        }
     }
     
     func authenticateUser(username: String, password: String) {
@@ -103,7 +95,7 @@ struct LoginView: View {
         currUser = user
                 
 
-        self.linkSelection = 1
+        self.isLogin = true
     }
 }
 

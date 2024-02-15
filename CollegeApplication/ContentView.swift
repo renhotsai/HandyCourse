@@ -12,27 +12,31 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var user : User
-    @State private var selectedScreen : Int = 3
+    @State private var selectedScreen : Int = 2
     var body: some View {
         VStack{
             TabView(selection: $selectedScreen){
-                if user is Student{
-                    StudentCoursesView().environmentObject(user as! Student).tabItem {
-                        Text("My Courses")
-                        Image(systemName: "book.pages")
-                    }.tag(1)
-                } else {
-                    InstructorCoursesView().environmentObject(user as! Instructor).tabItem {
-                        Text("My Courses")
-                        Image(systemName: "book.pages")
-                    }.tag(2)
-                }
-                MainView().environmentObject(user).tabItem{
+                NavigationStack{
+                    if user is Student{
+                        StudentCoursesView().environmentObject(user as! Student)
+                    } else {
+                        InstructorCoursesView().environmentObject(user as! Instructor)
+                    }
+                }.tabItem {
+                    Text("My Courses")
+                    Image(systemName: "book.pages")
+                }.tag(1)
+                
+                NavigationStack{
+                    MainView().environmentObject(user)
+                }.tabItem{
                     Text("Home")
                     Image(systemName: "house")
-                }.tag(3)
+                }.tag(2)
                 
-                ProfileView().environmentObject(user).tabItem {
+                NavigationStack{
+                    ProfileView().environmentObject(user)
+                }                .tabItem {
                     Text("Profile")
                     Image(systemName: "person")
                 }.tag(4)
@@ -42,8 +46,6 @@ struct ContentView: View {
                         Text("About Us")
                         Image(systemName: "info.circle")
                     }.tag(5)
-                
-                
             }
         }
         .navigationBarBackButtonHidden(true)

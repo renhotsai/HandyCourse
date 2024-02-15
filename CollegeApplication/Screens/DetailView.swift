@@ -102,9 +102,6 @@ struct DetailView: View {
                     .background(Color.green)
                     .cornerRadius(10)
                     .padding()
-                    .alert(isPresented: $showAlert, content: {
-                        alertMsg
-                    })
                 } else {
                     Text("This course is added")
                         .foregroundColor(.black)
@@ -117,6 +114,9 @@ struct DetailView: View {
                 }
             }
         }
+        .alert(isPresented: $showAlert, content: {
+            alertMsg
+        })
         .padding()
         .navigationTitle(course.courseName)
     }

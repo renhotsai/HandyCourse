@@ -37,6 +37,13 @@ struct ContentView: View {
                     Image(systemName: "person")
                 }.tag(4)
                 
+                AboutUsView()
+                    .tabItem {
+                        Text("About Us")
+                        Image(systemName: "info.circle")
+                    }.tag(5)
+                
+                
             }
         }
         .navigationBarBackButtonHidden(true)

@@ -9,53 +9,131 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @EnvironmentObject var user : User
-    var course : Course
-    @State private var isActive :Bool = false
+    @EnvironmentObject var user: User
+    var course: Course
+    @State private var isActive: Bool = false
     @State private var alertMsg: Alert = Alert(title: Text(""))
     @State private var showAlert: Bool = false
     
     var body: some View {
         
-       VStack{
-            Text(course.courseDesc)
-            HStack{
-            Text("Instructor:")
-                ForEach(course.instructorList,id: \.self){ instructor in
-                    Text(instructor)
+        VStack(alignment: .leading) {
+            if let imageName = course.courseImageName {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .clipped()
+            }
+            
+            // Instructors
+            HStack {
+                Text("Instructors:")
+                    .font(.headline)
+                    .padding(.trailing, 10)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    ForEach(course.instructorList, id: \.self) { instructorName in
+                        Text("- \(instructorName)")
+                            .font(.subheadline)
+                    }
                 }
             }
+            .padding(.vertical, 10)
+            
+            // Description
+            HStack {
+                Text("Description:")
+                    .font(.headline)
+                    .padding(.trailing, 10)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("\(course.courseDesc)")
+                        .font(.body)
+                }
+            }
+            .padding(.vertical, 10)
+            
+            // Start and End Date
+            HStack(spacing: 25) {
+                VStack(alignment: .leading) {
+                    Text("Start Date:")
+                        .font(.headline)
+                    Text(formattedDate(course.startDate))
+                        .font(.subheadline)
+                }
+                .padding(10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                
+                VStack(alignment: .leading) {
+                    Text("End Date:")
+                        .font(.headline)
+                    Text(formattedDate(course.endDate))
+                        .font(.subheadline)
+                }
+                .padding(10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+            }
+            .padding(.vertical, 10)
+            
             Spacer()
+            
+            // Add Course Button
             if user is Student {
                 let student = user as? Student
-                if student?.courseGrade[course.id.uuidString] == nil{
+                if student?.courseGrade[course.id.uuidString] == nil {
                     Button("Add Course", action: {
                         self.showAlert = true
-                        if (course.addStudent(student: student!)) {
+                        if course.addStudent(student: student!) {
                             student?.addCourse(courseId: course.id.uuidString)
                             self.isActive = true
-                            alertMsg = Alert(title: Text("Success"),message: Text("Successfully registered to the course"))
+                            alertMsg = Alert(title: Text("Success"), message: Text("Successfully registered to the course"))
                         } else {
-                            alertMsg = Alert(title: Text("Error"),message: Text("Error: Exceed max number of students"))
+                            alertMsg = Alert(title: Text("Error"), message: Text("Error: Exceed max number of students"))
                         }
                         
-                    }).navigationDestination(isPresented: $isActive){
-                        MainView().environmentObject(user)
-                    }
-                    .alert(isPresented: $showAlert, content: {
-                                        alertMsg
                     })
-                }else{
-                    Text("Grade: \(student?.courseGrade[course.id.uuidString] ?? 0 )")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .padding()
+                    .alert(isPresented: $showAlert, content: {
+                        alertMsg
+                    })
+                } else {
+                    Text("This course is added")
+                        .foregroundColor(.black)
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.yellow)
+                        .cornerRadius(10)
+                        .padding()
                 }
             }
         }
+        .padding()
         .navigationTitle(course.courseName)
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
     }
 }
 
 
 
-#Preview {
-    DetailView(course: Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])).environmentObject(User())
+
+
+struct DetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailView(course: Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])).environmentObject(User())
+    }
 }

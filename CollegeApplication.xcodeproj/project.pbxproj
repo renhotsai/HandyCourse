@@ -29,8 +29,6 @@
 		CA46E9122B7AA5B1005E5D9E /* AddCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */; };
 		CA46E9142B7AAAF9005E5D9E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46E9132B7AAAF9005E5D9E /* ProfileView.swift */; };
 		CA46E9172B7AB274005E5D9E /* NavigationBarMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46E9162B7AB274005E5D9E /* NavigationBarMenu.swift */; };
-		CAB640732B7D93EB004FD863 /* AddNewCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB640722B7D93EB004FD863 /* AddNewCourseView.swift */; };
-		CAB640752B7D94E1004FD863 /* CourseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB640742B7D94E1004FD863 /* CourseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,8 +55,6 @@
 		CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseView.swift; sourceTree = "<group>"; };
 		CA46E9132B7AAAF9005E5D9E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CA46E9162B7AB274005E5D9E /* NavigationBarMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarMenu.swift; sourceTree = "<group>"; };
-		CAB640722B7D93EB004FD863 /* AddNewCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCourseView.swift; sourceTree = "<group>"; };
-		CAB640742B7D94E1004FD863 /* CourseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +97,6 @@
 				6CFD0F852B7574C600E2BA4E /* Student.swift */,
 				6CFD0F872B757B6E00E2BA4E /* Instructor.swift */,
 				6CFD0F692B75399800E2BA4E /* Preview Content */,
-				CAB640742B7D94E1004FD863 /* CourseManager.swift */,
 			);
 			path = CollegeApplication;
 			sourceTree = "<group>";
@@ -130,7 +125,6 @@
 				CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */,
 				CA46E9132B7AAAF9005E5D9E /* ProfileView.swift */,
 				6CF2B7FA2B7B275A00B38B94 /* DetailView.swift */,
-				CAB640722B7D93EB004FD863 /* AddNewCourseView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -213,9 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAB640732B7D93EB004FD863 /* AddNewCourseView.swift in Sources */,
 				6CF2B7D92B76CB9200B38B94 /* CourseMockData.swift in Sources */,
-				CAB640752B7D94E1004FD863 /* CourseManager.swift in Sources */,
 				6CF2B7FB2B7B275A00B38B94 /* DetailView.swift in Sources */,
 				6CF2B7DD2B76DC2100B38B94 /* MainView.swift in Sources */,
 				CA46E9122B7AA5B1005E5D9E /* AddCourseView.swift in Sources */,

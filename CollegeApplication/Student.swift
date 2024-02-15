@@ -8,7 +8,7 @@
 import Foundation
 
 class Student : User{
-    var courseGrade:[String:Int] = [:]
+    @Published var courseGrade:[String:Int] = [:]
     
     func addCourse(courseId:String){
         if !self.courseGrade.contains(where: {$0.key == courseId}){

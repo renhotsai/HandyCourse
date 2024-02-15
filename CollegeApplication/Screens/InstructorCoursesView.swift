@@ -15,6 +15,7 @@ struct InstructorCoursesView: View {
                 ForEach(user.courseList){ course in
                     NavigationLink(destination: {
                         // Instructor Course Detail View
+                        Text(course.courseName)
                     }, label: {
                         Text(course.courseName)
                     })

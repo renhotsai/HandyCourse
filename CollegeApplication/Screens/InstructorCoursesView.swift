@@ -38,6 +38,13 @@ struct InstructorCoursesView: View {
                 .navigationBarTitle("My Courses")
                 NavigationLink(destination: AddCourseView().environmentObject(user)) {
                     Text("Add Course")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .padding()
                 }
             }
         }

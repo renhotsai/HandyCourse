@@ -22,6 +22,7 @@ struct AddCourseView: View {
             Text("Add New Course")
                 .font(.title)
                 .padding(.bottom, 20)
+                .bold()
             
             TextField("Course Name", text: $courseName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -46,11 +47,15 @@ struct AddCourseView: View {
             Button(action: addCourse) {
                 Text("Add Course")
                     .padding()
+                    .frame(maxWidth: .infinity)
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
             }
             .padding()
+
+            
+
         }
         .padding()
     }

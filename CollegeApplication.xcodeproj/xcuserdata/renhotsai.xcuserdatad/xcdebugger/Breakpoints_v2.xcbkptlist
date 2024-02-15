@@ -48,8 +48,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
             endingLineNumber = "72"
-            landmarkName = "LoginView"
-            landmarkType = "14">
+            landmarkName = "authenticateUser(username:password:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "E221D584-FB31-4AC9-8E85-860F276420E8 - bb86c94ce0e1ca74"

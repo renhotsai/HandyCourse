@@ -45,5 +45,5 @@ struct DetailView: View {
 
 
 #Preview {
-    DetailView(course:Course(courseName: "C-Course", courseDesc: "Test C", instructorList: ["aaa","bbb"]))
+    DetailView(course:Course(courseName: "C-Course", courseDesc: "Test C", instructorList: ["aaa","bbb"])).environmentObject(User())
 }

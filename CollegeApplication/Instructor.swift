@@ -8,12 +8,14 @@
 import Foundation
 
 class Instructor : User{
-    var courseList:[Course] = []
+    @Published var courseList:[Course] = []
     
     func addCourse(course:Course){
         if !self.courseList.contains(where: {$0.id == course.id}){
             courseList.append(course)
+            courses.append(course)
         }
+        
     }
     
     func removeCourse(course:Course){

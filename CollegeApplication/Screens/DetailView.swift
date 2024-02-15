@@ -14,7 +14,6 @@ struct DetailView: View {
     @State private var isActive :Bool = false
     var body: some View {
         
-  
        VStack{
             Text(course.courseDesc)
             HStack{
@@ -45,5 +44,5 @@ struct DetailView: View {
 
 
 #Preview {
-    DetailView(course:Course(courseName: "C-Course", courseDesc: "Test C", instructorList: ["aaa","bbb"])).environmentObject(User())
+    DetailView(course: Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])).environmentObject(User())
 }

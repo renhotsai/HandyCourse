@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WelcomeScreenView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color("BgColor").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 VStack {
@@ -55,7 +55,8 @@ struct WelcomeScreenView: View {
                 }
                 .padding()
             }
-        }.navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 

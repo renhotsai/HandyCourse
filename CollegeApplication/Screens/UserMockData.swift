@@ -13,5 +13,6 @@ var users : [User] = [
 //    Instructor(name: "Aman", username: "aman", password: "aman"),
 //    Student(name: "Jack", username: "jack", password: "jack"),
 //    Student(name: "Mike", username: "mike", password: "mike"),
-    Student(name: "Amy", username: "amy", password: "amy",email: "amy@gmail.com",address: "30 Kennedy Rd.",phoneNumber: "234-423-1234",imageName: "hyun-image")
+    Student(name: "Amy", username: "amy", password: "amy",email: "amy@gmail.com",address: "30 Kennedy Rd.",phoneNumber: "234-423-1234",imageName: "hyun-image"),
+    Student(name: "John", username: "john", password: "john",email: "john@gmail.com",address: "30 Kennedy Rd.",phoneNumber: "234-423-1234")
 ]

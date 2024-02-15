@@ -49,7 +49,7 @@ struct LoginView: View {
                 isPasswordError = false
                 authenticateUser(username: username, password: password)
             }.navigationDestination(isPresented: $isLogin, destination: {
-                MainView().environmentObject(currUser)
+                ContentView().environmentObject(currUser)
             })
             .foregroundColor(.white)
             .frame(width: 300, height: 50)

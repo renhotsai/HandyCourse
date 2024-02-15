@@ -23,13 +23,12 @@ struct InstructorCoursesView: View {
             NavigationLink(destination: {
                 AddCourseView().environmentObject(user)
             }, label: {
-                Text("Add Course").foregroundColor(.white).bold()
-            }).padding(.all)
-                .frame(maxWidth: .infinity).background(.blue)
+                Text("Add Course")
+            })
         }
     }
 }
 
 #Preview {
-    InstructorCoursesView().environmentObject(Instructor(name: "Hyun", username: "hyun", password: "hyun", email: "devhyun05@gmail.com", address: "83 greenwin village rd", phoneNumber: "437-223-7368", imageName: "hyun-image"))
+    InstructorCoursesView().environmentObject(Instructor())
 }

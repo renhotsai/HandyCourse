@@ -8,18 +8,48 @@
 import SwiftUI
 
 struct StudentCoursesView: View {
-    @EnvironmentObject var user : Student
+    @EnvironmentObject var user: Student
+
     var body: some View {
-        VStack{
-            List{
-                ForEach(user.courseGrade.keys.sorted(), id: \.self){ courseId in
-                    let course = courses.first(where: {$0.id.uuidString == courseId})!
-                    Text("\(course.courseName) : \(user.courseGrade[courseId]!)")
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(courses) { course in
+                        if let grade = user.courseGrade[course.id.uuidString] {
+                            NavigationLink(destination: StudentCourseDetailView(course: course).environmentObject(user)) {
+                                HStack {
+                                    if let imageName = course.courseImageName {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(8)
+                                    }
+                                    VStack(alignment: .leading) {
+                                        Text(course.courseName)
+                                            .font(.headline)
+                                    }
+                                }
+                                .padding(.vertical)
+                            }
+                        }
+                    }
                 }
+                .navigationBarTitle("My Courses") // Set the navigation bar title
             }
         }
     }
+
+    func formattedDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd" // Format: Year.Month.Day
+        return dateFormatter.string(from: date)
+    }
 }
+
+
+
+
 
 #Preview {
     StudentCoursesView().environmentObject(Student())

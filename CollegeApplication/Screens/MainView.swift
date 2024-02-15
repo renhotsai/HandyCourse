@@ -18,7 +18,13 @@ struct MainView: View {
                     NavigationLink{
                         DetailView(course: course).environmentObject(user)
                     }label: {
-                        Text("\(course.courseName)")
+                        HStack {
+                                Text("\(course.courseName)")
+                                Spacer()
+                            
+                                Text("\(course.studentList.count)/\(course.studentLimit)")
+                        }
+
                     }//NavigationLink
                 }//ForEach
             }//List

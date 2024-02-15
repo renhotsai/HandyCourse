@@ -44,10 +44,15 @@ class Course: CustomStringConvertible, Identifiable {
         }
     }
     
-    func addStudent(student: Student) {
+    func addStudent(student: Student) -> Bool {
         if !studentList.contains(where: { $0.id == student.id }) {
-            studentList.append(student)
+            if (studentList.count < studentLimit) {
+                studentList.append(student)
+                return true
+            }
         }
+        
+        return false        
     }
 }
 

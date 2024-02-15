@@ -47,7 +47,7 @@ struct MainView: View {
                    NavigationBarMenu()
                 }
             }                    
-        }.navigationBarBackButtonHidden(true)
+        }
       
     }
 }

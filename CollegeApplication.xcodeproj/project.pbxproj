@@ -12,6 +12,7 @@
 		6CF2B7D92B76CB9200B38B94 /* CourseMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B7D82B76CB9200B38B94 /* CourseMockData.swift */; };
 		6CF2B7DD2B76DC2100B38B94 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B7DC2B76DC2100B38B94 /* MainView.swift */; };
 		6CF2B7FB2B7B275A00B38B94 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B7FA2B7B275A00B38B94 /* DetailView.swift */; };
+		6CF2B82F2B7D90F100B38B94 /* StudentCoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B82E2B7D90F100B38B94 /* StudentCoursesView.swift */; };
 		6CF2B82D2B7D847C00B38B94 /* InstructorCoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B82C2B7D847C00B38B94 /* InstructorCoursesView.swift */; };
 		6CFD0F642B75399300E2BA4E /* CollegeApplicationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD0F632B75399300E2BA4E /* CollegeApplicationApp.swift */; };
 		6CFD0F662B75399300E2BA4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD0F652B75399300E2BA4E /* ContentView.swift */; };
@@ -36,6 +37,7 @@
 		6CF2B7D82B76CB9200B38B94 /* CourseMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMockData.swift; sourceTree = "<group>"; };
 		6CF2B7DC2B76DC2100B38B94 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6CF2B7FA2B7B275A00B38B94 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		6CF2B82E2B7D90F100B38B94 /* StudentCoursesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCoursesView.swift; sourceTree = "<group>"; };
 		6CF2B82C2B7D847C00B38B94 /* InstructorCoursesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorCoursesView.swift; sourceTree = "<group>"; };
 		6CFD0F602B75399300E2BA4E /* CollegeApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollegeApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CFD0F632B75399300E2BA4E /* CollegeApplicationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeApplicationApp.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				6CF2B7DC2B76DC2100B38B94 /* MainView.swift */,
 				6CF2B7D82B76CB9200B38B94 /* CourseMockData.swift */,
 				6CF2B7D62B76C08600B38B94 /* ErrorCode.swift */,
+				6CF2B82E2B7D90F100B38B94 /* StudentCoursesView.swift */,
 				6CF2B7D42B76BDD200B38B94 /* UserMockData.swift */,
 				CA46E90F2B79D9A6005E5D9E /* GradeView.swift */,
 				CA46E9112B7AA5B1005E5D9E /* AddCourseView.swift */,
@@ -211,6 +214,7 @@
 				CA1F323D2B757279004C6AFB /* WelcomeScreenView.swift in Sources */,
 				6CFD0F842B7573F000E2BA4E /* User.swift in Sources */,
 				6CFD0F7E2B75664800E2BA4E /* Course.swift in Sources */,
+				6CF2B82F2B7D90F100B38B94 /* StudentCoursesView.swift in Sources */,
 				6CFD0F662B75399300E2BA4E /* ContentView.swift in Sources */,
 				CA46E9172B7AB274005E5D9E /* NavigationBarMenu.swift in Sources */,
 				CA46E9102B79D9A6005E5D9E /* GradeView.swift in Sources */,

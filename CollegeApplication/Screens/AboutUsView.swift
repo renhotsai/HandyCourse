@@ -7,14 +7,20 @@
 
 import SwiftUI
 
-struct AboutUsView:  View {
+struct AboutUsView : View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
                 Text("About Us")
                     .font(.largeTitle)
                     .bold()
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 10)
+                
+                // Online learning image
+                Image("online_learning")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.bottom, 10)
                 
                 Text("Welcome to Handy Course!")
                     .font(.title)
@@ -29,9 +35,8 @@ struct AboutUsView:  View {
                     AboutUsDetail(title: "Phone", value: "+1 (437) 477-6201")
                     AboutUsDetail(title: "Email", value: "contact@handycoursegbc.ca")
                 }
-                
-                Spacer()
-                
+                       
+
                 NavigationLink(destination: ContactView()) {
                     Text("Contact Us")
                         .foregroundColor(.white)
@@ -64,7 +69,6 @@ struct AboutUsDetail: View {
         }
     }
 }
-
 
 #Preview {
     AboutUsView()

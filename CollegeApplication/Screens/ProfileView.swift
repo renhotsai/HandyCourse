@@ -11,7 +11,7 @@ struct ProfileView: View {
     
     @EnvironmentObject var user: User
     @State private var profileUUID = UUID()
-    
+   
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {

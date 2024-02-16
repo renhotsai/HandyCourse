@@ -15,7 +15,8 @@ struct AddCourseView: View {
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var studentLimit = ""
-
+    @State private var showAlert = false // Add state variable for showing alert
+    @State private var alertMessage = "" // Add state variable for alert message
     
     var body: some View {
         VStack {
@@ -53,11 +54,15 @@ struct AddCourseView: View {
                     .cornerRadius(8)
             }
             .padding()
-
-            
-
         }
         .padding()
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Success"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     private func addCourse() {
@@ -86,9 +91,11 @@ struct AddCourseView: View {
         startDate = Date()
         endDate = Date()
         studentLimit = ""
+        
+        // Show success message
+        showAlert = true
+        alertMessage = "Course successfully added"
     }
-
-
 }
 
 struct AddCourseView_Previews: PreviewProvider {

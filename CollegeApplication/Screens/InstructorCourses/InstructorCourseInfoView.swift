@@ -51,6 +51,18 @@ struct InstructorCourseInfoView: View {
                 
                 Spacer()
                 
+                NavigationLink(destination: EditCourseView(course: course)) {
+                    Text("Update Course")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green) // Changed to light green
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                
                 Button(action: {
                     showAlert = true
                 }) {
@@ -77,6 +89,8 @@ struct InstructorCourseInfoView: View {
                         secondaryButton: .cancel(Text("No"))
                     )
                 }
+                
+               
             }
             .padding()
             .navigationBarTitle(course.courseName)

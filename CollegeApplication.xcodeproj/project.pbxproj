@@ -36,6 +36,8 @@
 		6C85B5392B8BB34500793AB9 /* ContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5342B8BB34500793AB9 /* ContentsView.swift */; };
 		6C85B53A2B8BB34500793AB9 /* StudentCourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5352B8BB34500793AB9 /* StudentCourseDetailView.swift */; };
 		6C85B53B2B8BB34500793AB9 /* GradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5362B8BB34500793AB9 /* GradesView.swift */; };
+		6C85B53E2B8BBCAF00793AB9 /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B53D2B8BBCAF00793AB9 /* RootScreen.swift */; };
+		6C85B5402B8BDE0A00793AB9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B53F2B8BDE0A00793AB9 /* HomeView.swift */; };
 		6CFD0F642B75399300E2BA4E /* CollegeApplicationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD0F632B75399300E2BA4E /* CollegeApplicationApp.swift */; };
 		6CFD0F662B75399300E2BA4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFD0F652B75399300E2BA4E /* ContentView.swift */; };
 		6CFD0F682B75399800E2BA4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFD0F672B75399800E2BA4E /* Assets.xcassets */; };
@@ -73,6 +75,8 @@
 		6C85B5342B8BB34500793AB9 /* ContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsView.swift; sourceTree = "<group>"; };
 		6C85B5352B8BB34500793AB9 /* StudentCourseDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentCourseDetailView.swift; sourceTree = "<group>"; };
 		6C85B5362B8BB34500793AB9 /* GradesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradesView.swift; sourceTree = "<group>"; };
+		6C85B53D2B8BBCAF00793AB9 /* RootScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootScreen.swift; sourceTree = "<group>"; };
+		6C85B53F2B8BDE0A00793AB9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6CFD0F602B75399300E2BA4E /* CollegeApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollegeApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CFD0F632B75399300E2BA4E /* CollegeApplicationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeApplicationApp.swift; sourceTree = "<group>"; };
 		6CFD0F652B75399300E2BA4E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 		6C85B4E72B8BB17A00793AB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6CFD0F652B75399300E2BA4E /* ContentView.swift */,
 				6C85B5312B8BB33800793AB9 /* Student */,
 				6C85B5242B8BB31100793AB9 /* Instuctor */,
 				6C85B4EA2B8BB19100793AB9 /* AboutUsView.swift */,
@@ -108,6 +113,7 @@
 				6C85B4F42B8BB19200793AB9 /* ProfileView.swift */,
 				6C85B4F12B8BB19200793AB9 /* SigninView.swift */,
 				6C85B4E92B8BB19100793AB9 /* WelcomeScreenView.swift */,
+				6C85B53F2B8BDE0A00793AB9 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +128,7 @@
 		6C85B5032B8BB1DB00793AB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6C85B53D2B8BBCAF00793AB9 /* RootScreen.swift */,
 				6C85B5132B8BB25800793AB9 /* Users */,
 				6C85B50A2B8BB21000793AB9 /* Course */,
 				6C85B5052B8BB1EB00793AB9 /* ErrorCode.swift */,
@@ -214,7 +221,6 @@
 				CA46E9152B7AB268005E5D9E /* Components */,
 				6CFD0F632B75399300E2BA4E /* CollegeApplicationApp.swift */,
 				6C85B5022B8BB1C200793AB9 /* Controllers */,
-				6CFD0F652B75399300E2BA4E /* ContentView.swift */,
 				6CFD0F672B75399800E2BA4E /* Assets.xcassets */,
 				6CFD0F692B75399800E2BA4E /* Preview Content */,
 			);
@@ -309,8 +315,10 @@
 			files = (
 				6C85B52C2B8BB31F00793AB9 /* InstructorCourseDetailView.swift in Sources */,
 				6C85B5222B8BB29800793AB9 /* Instructor.swift in Sources */,
+				6C85B53E2B8BBCAF00793AB9 /* RootScreen.swift in Sources */,
 				6C85B52B2B8BB31F00793AB9 /* AddCourseView.swift in Sources */,
 				6C85B4F82B8BB19300793AB9 /* EditProfileView.swift in Sources */,
+				6C85B5402B8BDE0A00793AB9 /* HomeView.swift in Sources */,
 				6C85B4F92B8BB19300793AB9 /* MainView.swift in Sources */,
 				6C85B4FE2B8BB19300793AB9 /* SigninView.swift in Sources */,
 				6C85B51C2B8BB27100793AB9 /* Student.swift in Sources */,

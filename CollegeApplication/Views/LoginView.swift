@@ -22,6 +22,7 @@ struct LoginView: View {
     
     @State private var isLogin : Bool = false
     
+    @Binding var rootScreen : RootScreen
     var body: some View {
         
         VStack {
@@ -48,9 +49,7 @@ struct LoginView: View {
                 isUsernameError = false
                 isPasswordError = false
                 authenticateUser(username: username, password: password)
-            }.navigationDestination(isPresented: $isLogin, destination: {
-                ContentView().environmentObject(currUser)
-            })
+            }
             .foregroundColor(.white)
             .frame(width: 300, height: 50)
             .background(Color.blue)
@@ -90,14 +89,6 @@ struct LoginView: View {
         
         // No errors
         self.errorMessage = ""
-        showingLoginScreen = true
-        currUser = user
-                
-
-        self.isLogin = true
+        self.rootScreen = .Main
     }
-}
-
-#Preview {
-    LoginView()
 }

@@ -56,8 +56,6 @@ struct MainView: View {
         dateFormatter.dateFormat = "yyyy.MM.dd" // Format: Year.Month.Day
         return dateFormatter.string(from: date)
     }
-
-    
 }
 
 

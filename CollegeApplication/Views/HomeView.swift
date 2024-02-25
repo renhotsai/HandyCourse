@@ -1,19 +1,21 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  CollegeApplication
 //
-//  Created by RENHO TSAI on 2024/2/8.
+//  Created by RENHO TSAI on 2024/2/25.
 //
-
-
-
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @EnvironmentObject var user : User
+    
     @State private var selectedScreen : Int = 2
+    
+    @Binding var rootScreen : RootScreen
+
     var body: some View {
+        
         VStack{
             TabView(selection: $selectedScreen){
                 NavigationStack{
@@ -56,10 +58,5 @@ struct ContentView: View {
                 NavigationBarMenu()
             }
         }
-
     }
-}
-
-#Preview {
-    ContentView().environmentObject(User())
 }

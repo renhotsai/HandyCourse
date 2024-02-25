@@ -17,7 +17,9 @@ struct NavigationBarMenu: View {
                 label: {
                     Text("Log out")
                 }
-            )
+            ).onTapGesture {
+                UserDefaults.standard.removeObject(forKey: "currUser")
+            }
         } label: {
             Image(systemName: "ellipsis.circle.fill")
         }

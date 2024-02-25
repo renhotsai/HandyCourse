@@ -28,11 +28,12 @@ struct CourseInfoView: View {
                 }
                 Text("Description: \(course.courseDesc)")
                     .font(.headline)
-                Text("Instructors:")
-                    .font(.headline)
-                ForEach(course.instructorList, id: \.self) { instructor in
-                    if let instructorObject = instructor as? Instructor {
-                        Text("- \(instructorObject.name)")
+                HStack {
+                    Text("Instructor:")
+                        .font(.headline)
+                    if let instructorName = course.instructorList.first {
+                        Text("\(instructorName)")
+                            .font(.subheadline)
                     }
                 }
                 HStack {

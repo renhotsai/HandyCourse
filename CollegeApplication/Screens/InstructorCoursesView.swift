@@ -15,7 +15,7 @@ struct InstructorCoursesView: View {
             VStack {
                 List {
                     ForEach(user.courseList) { course in
-                        NavigationLink(destination: InstructorCourseDetailView()) {
+                        NavigationLink(destination: InstructorCourseDetailView(course: course).environmentObject(user)) {
                             HStack {
                                 if let imageName = course.courseImageName {
                                     Image(imageName)

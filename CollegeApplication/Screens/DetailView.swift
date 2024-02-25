@@ -24,17 +24,23 @@ struct DetailView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(maxWidth: .infinity, maxHeight: 200)
                     .clipped()
+            } else {
+                Image("default")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .clipped()
             }
             
             // Instructors
             HStack {
-                Text("Instructors:")
+                Text("Instructor:")
                     .font(.headline)
                     .padding(.trailing, 10)
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    ForEach(course.instructorList, id: \.self) { instructorName in
-                        Text("- \(instructorName)")
+                    if let instructorName = course.instructorList.first {
+                        Text("\(instructorName)")
                             .font(.subheadline)
                     }
                 }
@@ -102,6 +108,7 @@ struct DetailView: View {
                     .background(Color.green)
                     .cornerRadius(10)
                     .padding()
+
                 } else {
                     Text("This course is added")
                         .foregroundColor(.black)

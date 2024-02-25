@@ -24,6 +24,12 @@ struct StudentCoursesView: View {
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: 100, height: 100)
                                             .cornerRadius(8)
+                                    } else {
+                                        Image("default")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(8)
                                     }
                                     VStack(alignment: .leading) {
                                         Text(course.courseName)

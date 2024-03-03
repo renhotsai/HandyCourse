@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct InstructorCoursesView: View {
-    @EnvironmentObject var user: Instructor
+    @EnvironmentObject var fireDBHelper: FireDBHelper
 
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(user.courseList) { course in
-                        NavigationLink(destination: InstructorCourseDetailView(course: course).environmentObject(user)) {
+                    var instructor = fireDBHelper.user as! Instructor
+                    ForEach(instructor.courseList) { course in
+                        NavigationLink(destination: InstructorCourseDetailView(course: course)) {
                             HStack {
                                 if let imageName = course.courseImageName {
                                     Image(imageName)
@@ -36,7 +37,7 @@ struct InstructorCoursesView: View {
                     }
                 }
                 .navigationBarTitle("My Courses")
-                NavigationLink(destination: AddCourseView().environmentObject(user)) {
+                NavigationLink(destination: AddCourseView().environmentObject(fireDBHelper)) {
                     Text("Add Course")
                         .foregroundColor(.white)
                         .font(.headline)
@@ -49,8 +50,4 @@ struct InstructorCoursesView: View {
             }
         }
     }
-}
-
-#Preview {
-    InstructorCoursesView().environmentObject(Instructor())
 }

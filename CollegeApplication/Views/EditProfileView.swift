@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var fireDBHelper :FireDBHelper
     @State private var newName = ""
     @State private var newUsername = ""
     @State private var newEmail = ""
@@ -33,7 +33,7 @@ struct EditProfileView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 10)
                 .onAppear {
-                    newName = user.name
+                    newName = fireDBHelper.user.name
                 }
             
             // New Username Field
@@ -43,7 +43,7 @@ struct EditProfileView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 10)
                 .onAppear {
-                    newUsername = user.username
+//                    newUsername = user.username
                 }
             
             // New Email Field
@@ -53,7 +53,7 @@ struct EditProfileView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 10)
                 .onAppear {
-                    newEmail = user.email
+                    newEmail = fireDBHelper.user.email
                 }
             
             // New Address Field
@@ -63,7 +63,7 @@ struct EditProfileView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 10)
                 .onAppear {
-                    newAddress = user.address
+                    newAddress = fireDBHelper.user.address
                 }
             
             // New Phone Number Field
@@ -73,20 +73,20 @@ struct EditProfileView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 20)
                 .onAppear {
-                    newPhoneNumber = user.phoneNumber
+                    newPhoneNumber = fireDBHelper.user.phoneNumber
                 }
             
             // Submission Button
             Button(action: {
                 // Update the user profile
-                user.name = newName
-                user.username = newUsername
-                user.email = newEmail
-                user.address = newAddress
-                user.phoneNumber = newPhoneNumber
+                fireDBHelper.user.name = newName
+//                user.username = newUsername
+                fireDBHelper.user.email = newEmail
+                fireDBHelper.user.address = newAddress
+                fireDBHelper.user.phoneNumber = newPhoneNumber
                 
                 // Send an object will change notification
-                user.objectWillChange.send()
+                //fireDBHelper.user.objectWillChange.send()
                 
                 // Show an alert message
                 alertTitle = "Profile Updated"

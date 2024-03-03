@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddCourseView: View {
-    @EnvironmentObject var user: Instructor
+    @EnvironmentObject var fireDBHelper: FireDBHelper
     
     @State private var courseName = ""
     @State private var courseDescription = ""
@@ -70,9 +70,10 @@ struct AddCourseView: View {
             // Handle invalid input
             return
         }
+        var instructor = fireDBHelper.user as! Instructor
         
         // Get the current instructor's name
-        let instructorName = user.name
+        let instructorName = instructor.name
         
         // Create a new course and add the current instructor's name to the instructor list
         let newCourse = Course(courseName: courseName,
@@ -83,7 +84,7 @@ struct AddCourseView: View {
                                instructorList: [instructorName])
             
         // Add the new course to the instructor's course list
-        user.addCourse(course: newCourse)
+        instructor.addCourse(course: newCourse)
         
         // Optionally, you can reset the input fields here
         courseName = ""

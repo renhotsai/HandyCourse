@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct StudentCoursesView: View {
-    @EnvironmentObject var user: Student
+    @EnvironmentObject var fireDBHelper: FireDBHelper
 
     var body: some View {
         NavigationView {
             VStack {
                 List {
                     ForEach(courses) { course in
-                        if let grade = user.courseGrade[course.id.uuidString] {
-                            NavigationLink(destination: StudentCourseDetailView(course: course).environmentObject(user)) {
+                        let student = fireDBHelper.user as! Student
+                        if let grade = student.courseGrade[course.id.uuidString] {
+                            NavigationLink(destination: StudentCourseDetailView(course: course)) {
                                 HStack {
                                     if let imageName = course.courseImageName {
                                         Image(imageName)
@@ -51,12 +52,4 @@ struct StudentCoursesView: View {
         dateFormatter.dateFormat = "yyyy.MM.dd" // Format: Year.Month.Day
         return dateFormatter.string(from: date)
     }
-}
-
-
-
-
-
-#Preview {
-    StudentCoursesView().environmentObject(Student())
 }

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var fireDBHelper : FireDBHelper
 
     var body: some View {
         VStack {
             List {
                 ForEach(courses) { course in
-                    NavigationLink(destination: DetailView(course: course).environmentObject(user)) {
+                    NavigationLink(destination: DetailView(course: course).environmentObject(fireDBHelper)) {
                         VStack(alignment: .leading) {
                             if let imageName = course.courseImageName {
                                 Image(imageName)
@@ -65,6 +65,3 @@ struct MainView: View {
 
 
 
-#Preview {
-    MainView().environmentObject(User())
-}

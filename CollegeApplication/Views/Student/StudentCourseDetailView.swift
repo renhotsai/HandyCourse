@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct StudentCourseDetailView: View {
-    @EnvironmentObject var user: User
     var course: Course
 
     var body: some View {
@@ -28,8 +27,4 @@ struct StudentCourseDetailView: View {
         }
         .navigationTitle(course.courseName)
     }
-}
-
-#Preview {
-    StudentCourseDetailView(course: Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])).environmentObject(User())
 }

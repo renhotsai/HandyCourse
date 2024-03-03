@@ -23,7 +23,6 @@
 		6C85B50E2B8BB22D00793AB9 /* CourseMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B50D2B8BB22D00793AB9 /* CourseMockData.swift */; };
 		6C85B51B2B8BB27100793AB9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5152B8BB27100793AB9 /* User.swift */; };
 		6C85B51C2B8BB27100793AB9 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5162B8BB27100793AB9 /* Student.swift */; };
-		6C85B51D2B8BB27100793AB9 /* UserMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5172B8BB27100793AB9 /* UserMockData.swift */; };
 		6C85B5222B8BB29800793AB9 /* Instructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5212B8BB29800793AB9 /* Instructor.swift */; };
 		6C85B52B2B8BB31F00793AB9 /* AddCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5252B8BB31E00793AB9 /* AddCourseView.swift */; };
 		6C85B52C2B8BB31F00793AB9 /* InstructorCourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B5262B8BB31F00793AB9 /* InstructorCourseDetailView.swift */; };
@@ -95,7 +94,6 @@
 		6C85B50D2B8BB22D00793AB9 /* CourseMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMockData.swift; sourceTree = "<group>"; };
 		6C85B5152B8BB27100793AB9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C85B5162B8BB27100793AB9 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
-		6C85B5172B8BB27100793AB9 /* UserMockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMockData.swift; sourceTree = "<group>"; };
 		6C85B5212B8BB29800793AB9 /* Instructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instructor.swift; sourceTree = "<group>"; };
 		6C85B5252B8BB31E00793AB9 /* AddCourseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseView.swift; sourceTree = "<group>"; };
 		6C85B5262B8BB31F00793AB9 /* InstructorCourseDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructorCourseDetailView.swift; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 				6C85B5232B8BB2B900793AB9 /* Student */,
 				6C85B5202B8BB27D00793AB9 /* Instructor */,
 				6C85B5152B8BB27100793AB9 /* User.swift */,
-				6C85B5172B8BB27100793AB9 /* UserMockData.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -437,7 +434,6 @@
 				6C85B53A2B8BB34500793AB9 /* StudentCourseDetailView.swift in Sources */,
 				6C85B4F62B8BB19300793AB9 /* WelcomeScreenView.swift in Sources */,
 				6C85B50C2B8BB22900793AB9 /* Course.swift in Sources */,
-				6C85B51D2B8BB27100793AB9 /* UserMockData.swift in Sources */,
 				6C85B52D2B8BB31F00793AB9 /* InstructorCourseInfoView.swift in Sources */,
 				6C85B5372B8BB34500793AB9 /* StudentCoursesView.swift in Sources */,
 				6C85B5002B8BB19300793AB9 /* DetailView.swift in Sources */,

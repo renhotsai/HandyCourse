@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct PasswordResetView: View {
-    @EnvironmentObject var user: User
+    @EnvironmentObject var fireAuthHelper : FireAuthHelper
     @State private var currentPassword = ""
     @State private var newPassword = ""
     @State private var confirmedPassword = ""
@@ -59,34 +59,46 @@ struct PasswordResetView: View {
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
             
-            // Submission Button
             Button(action: {
-                // Your submission logic goes here
-                if currentPassword != user.password {
-                    alertTitle = "Current Password Incorrect"
-                    alertMessage = "Please enter the correct current password."
-                } else if newPassword.isEmpty || confirmedPassword.isEmpty {
-                    alertTitle = "Empty Fields"
-                    alertMessage = "Please fill in all fields."
-                } else if newPassword != confirmedPassword {
-                    alertTitle = "Passwords Don't Match"
-                    alertMessage = "The new passwords entered do not match."
-                } else {
-                    // Password reset successful
-                    user.password = newPassword
-                    alertTitle = "Password Reset Successful"
-                    alertMessage = "Your password has been successfully reset."
-                }
-                
-                showAlert = true
-            }) {
+                fireAuthHelper.changePassword()
+            }, label: {
                 Text("Submit")
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.blue)
                     .cornerRadius(10)
-            }
+            })
+            
+            
+            // Submission Button
+//            Button(action: {
+//                // Your submission logic goes here
+//                if currentPassword != user.password {
+//                    alertTitle = "Current Password Incorrect"
+//                    alertMessage = "Please enter the correct current password."
+//                } else if newPassword.isEmpty || confirmedPassword.isEmpty {
+//                    alertTitle = "Empty Fields"
+//                    alertMessage = "Please fill in all fields."
+//                } else if newPassword != confirmedPassword {
+//                    alertTitle = "Passwords Don't Match"
+//                    alertMessage = "The new passwords entered do not match."
+//                } else {
+//                    // Password reset successful
+//                    user.password = newPassword
+//                    alertTitle = "Password Reset Successful"
+//                    alertMessage = "Your password has been successfully reset."
+//                }
+//                
+//                showAlert = true
+//            }) {
+//                Text("Submit")
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .frame(maxWidth: .infinity)
+//                    .background(Color.blue)
+//                    .cornerRadius(10)
+//            }
             
             Spacer()
         }

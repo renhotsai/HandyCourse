@@ -92,4 +92,8 @@ class FireAuthHelper: ObservableObject{
             print(#function, "Unable to sign out the user : \(err)")
         }
     }
+    
+    func changePassword(){
+        
+    }
 }

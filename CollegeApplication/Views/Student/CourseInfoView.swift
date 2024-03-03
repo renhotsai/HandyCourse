@@ -100,8 +100,3 @@ struct CourseInfoView: View {
         return dateFormatter.string(from: date)
     }
 }
-
-
-#Preview {
-    CourseInfoView(course: Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])).environmentObject(User())
-}

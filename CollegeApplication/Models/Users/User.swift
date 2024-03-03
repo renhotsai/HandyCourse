@@ -9,7 +9,7 @@ import Foundation
 
 class User : Identifiable, ObservableObject, Codable{
     var id : UUID = UUID()
-    var name: String
+    var name: String = ""
     var email:String = ""
     var address: String = ""
     var phoneNumber: String = ""
@@ -28,5 +28,13 @@ class User : Identifiable, ObservableObject, Codable{
         self.email = email
         self.address = address
         self.phoneNumber = phoneNumber
+    }
+    
+    init(email: String){
+        self.email = email
+    }
+    
+    init(){
+        
     }
 }

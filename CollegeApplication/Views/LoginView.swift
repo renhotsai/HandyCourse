@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var username: String = ""
+    @EnvironmentObject var fireAuthHelper : FireAuthHelper
+    @State private var email: String = ""
     @State private var password: String = ""
 
     @State private var showingLoginScreen: Bool = false
@@ -17,7 +18,7 @@ struct LoginView: View {
     @State private var isPasswordError: Bool = false
     @State private var errorMessage: String = ""
     
-    @State private var currUser : User = User()
+//    @State private var currUser : User = User()
 
     
     @State private var isLogin : Bool = false
@@ -30,7 +31,7 @@ struct LoginView: View {
                 .bold()
                 .padding()
             
-            TextField("Username", text: $username)
+            TextField("Email", text: $email)
                 .padding()
                 .frame(width: 300, height: 50)
                 .background(Color.black.opacity(0.05))
@@ -47,9 +48,10 @@ struct LoginView: View {
             Button("Login") {
                 isUsernameError = false
                 isPasswordError = false
-                authenticateUser(username: username, password: password)
+                fireAuthHelper.signIn(email: email, password: password)
+//                authenticateUser(username: username, password: password)
             }.navigationDestination(isPresented: $isLogin, destination: {
-                ContentView().environmentObject(currUser)
+                ContentView()
             })
             .foregroundColor(.white)
             .frame(width: 300, height: 50)
@@ -62,40 +64,40 @@ struct LoginView: View {
         }
     }
     
-    func authenticateUser(username: String, password: String) {
-   
-        if username.isEmpty {
-            isUsernameError = true
-            errorMessage = ErrorCode.EmptyUsername.localizedDescription
-            return
-        } else if password.isEmpty {
-            isPasswordError = true
-            errorMessage = ErrorCode.EmptyPassword.localizedDescription
-            return
-        }
-        
-        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
-            print("Error1")
-            isUsernameError = true
-            errorMessage = ErrorCode.WrongUsername.localizedDescription
-            return
-        }
-        
-        guard password.lowercased() == user.password else {
-            print("Error2")
-            isPasswordError = true
-            errorMessage = ErrorCode.WrongPassword.localizedDescription
-            return
-        }
-        
-        // No errors
-        self.errorMessage = ""
-        showingLoginScreen = true
-        currUser = user
-                
-
-        self.isLogin = true
-    }
+//    func authenticateUser(username: String, password: String) {
+//   
+//        if username.isEmpty {
+//            isUsernameError = true
+//            errorMessage = ErrorCode.EmptyUsername.localizedDescription
+//            return
+//        } else if password.isEmpty {
+//            isPasswordError = true
+//            errorMessage = ErrorCode.EmptyPassword.localizedDescription
+//            return
+//        }
+//        
+//        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
+//            print("Error1")
+//            isUsernameError = true
+//            errorMessage = ErrorCode.WrongUsername.localizedDescription
+//            return
+//        }
+//        
+//        guard password.lowercased() == user.password else {
+//            print("Error2")
+//            isPasswordError = true
+//            errorMessage = ErrorCode.WrongPassword.localizedDescription
+//            return
+//        }
+//        
+//        // No errors
+//        self.errorMessage = ""
+//        showingLoginScreen = true
+//        currUser = user
+//                
+//
+//        self.isLogin = true
+//    }
 }
 
 #Preview {

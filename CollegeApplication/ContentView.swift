@@ -11,28 +11,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var user : User
+    @EnvironmentObject var fireDBHelper :FireDBHelper
+    @EnvironmentObject var fireAuthHelper : FireAuthHelper
     @State private var selectedScreen : Int = 3
     var body: some View {
         VStack{
             TabView(selection: $selectedScreen){
-                if user is Student{
-                    StudentCoursesView().environmentObject(user as! Student).tabItem {
+                if fireDBHelper.user is Student{
+                    StudentCoursesView().environmentObject(fireDBHelper).tabItem {
                         Text("My Courses")
                         Image(systemName: "book.pages")
                     }.tag(1)
                 } else {
-                    InstructorCoursesView().environmentObject(user as! Instructor).tabItem {
+                    InstructorCoursesView().environmentObject(fireDBHelper).tabItem {
                         Text("My Courses")
                         Image(systemName: "book.pages")
                     }.tag(2)
                 }
-                MainView().environmentObject(user).tabItem{
+                MainView().environmentObject(fireDBHelper).tabItem{
                     Text("Home")
                     Image(systemName: "house")
                 }.tag(3)
                 
-                ProfileView().environmentObject(user).tabItem {
+                ProfileView().environmentObject(fireAuthHelper).environmentObject(fireDBHelper).tabItem {
                     Text("Profile")
                     Image(systemName: "person")
                 }.tag(4)
@@ -59,5 +60,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView().environmentObject(User())
+    ContentView()
 }

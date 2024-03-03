@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var user : User
+      @EnvironmentObject var fireDBHelper :FireDBHelper
+    @EnvironmentObject var fireAuthHelper : FireAuthHelper
     
     @State private var selectedScreen : Int = 2
     
@@ -18,27 +19,23 @@ struct HomeView: View {
         
         VStack{
             TabView(selection: $selectedScreen){
-                NavigationStack{
-                    if user is Student{
-                        StudentCoursesView().environmentObject(user as! Student)
-                    } else {
-                        InstructorCoursesView().environmentObject(user as! Instructor)
-                    }
-                }.tabItem {
-                    Text("My Courses")
-                    Image(systemName: "book.pages")
-                }.tag(1)
-                
-                NavigationStack{
-                    MainView().environmentObject(user)
-                }.tabItem{
+                if fireDBHelper.user is Student{
+                    StudentCoursesView().environmentObject(fireDBHelper).tabItem {
+                        Text("My Courses")
+                        Image(systemName: "book.pages")
+                    }.tag(1)
+                } else {
+                    InstructorCoursesView().environmentObject(fireDBHelper).tabItem {
+                        Text("My Courses")
+                        Image(systemName: "book.pages")
+                    }.tag(2)
+                }
+                MainView().environmentObject(fireDBHelper).tabItem{
                     Text("Home")
                     Image(systemName: "house")
                 }.tag(2)
                 
-                NavigationStack{
-                    ProfileView().environmentObject(user)
-                }                .tabItem {
+                ProfileView().environmentObject(fireAuthHelper).environmentObject(fireDBHelper).tabItem {
                     Text("Profile")
                     Image(systemName: "person")
                 }.tag(4)
@@ -59,4 +56,8 @@ struct HomeView: View {
             }
         }
     }
+}
+
+#Preview {
+    ContentView()
 }

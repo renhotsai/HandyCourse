@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WelcomeScreenView: View {
+    private let fireDBHelper = FireDBHelper.getInstance()
+    var fireAuthHelper = FireAuthHelper()
     @State private var pressLogin = false
     @State private var pressRegister = false
     
@@ -111,7 +113,7 @@ struct WelcomeScreenView: View {
                     HStack {
                         Text("New around here?")
                         NavigationLink (
-                            destination: SignInView(),
+                            destination: SignInView().environmentObject(fireDBHelper).environmentObject(fireAuthHelper),
                             label: {
                                 Text("Register")
                                     .foregroundColor(Color.blue)

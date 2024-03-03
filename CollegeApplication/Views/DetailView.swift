@@ -9,7 +9,8 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @EnvironmentObject var user: User
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+    
     var course: Course
     @State private var isActive: Bool = false
     @State private var alertMsg: Alert = Alert(title: Text(""))
@@ -87,13 +88,13 @@ struct DetailView: View {
             Spacer()
             
             // Add Course Button
-            if user is Student {
-                let student = user as? Student
-                if student?.courseGrade[course.id.uuidString] == nil {
+            if fireDBHelper.user is Student {
+                let student = fireDBHelper.user as! Student
+                if student.courseGrade[course.id.uuidString] == nil {
                     Button("Add Course", action: {
                         self.showAlert = true
-                        if course.addStudent(student: student!) {
-                            student?.addCourse(courseId: course.id.uuidString)
+                        if course.addStudent(student: student) {
+                            student.addCourse(courseId: course.id.uuidString)
                             self.isActive = true
                             alertMsg = Alert(title: Text("Success"), message: Text("Successfully registered to the course"))
                         } else {
@@ -132,15 +133,5 @@ struct DetailView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: date)
-    }
-}
-
-
-
-
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(course: Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])).environmentObject(User())
     }
 }

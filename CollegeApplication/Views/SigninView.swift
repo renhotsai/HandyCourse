@@ -8,57 +8,61 @@
 import SwiftUI
 
 struct SignInView: View {
-    @State private var email: String = ""
+    @EnvironmentObject var fireAuthHelper : FireAuthHelper
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+    @State private var email : String = ""
+    @State private var password : String = ""
+    @State private var confirmPassword : String = ""
+    @State private var isStudent = true
     
     var body: some View {
-        ZStack {
-            Color("BgColor").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            VStack {
-                VStack {
-                    Text("Register")
-                        .font(.largeTitle)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .padding(.top, 30)
-                        .padding(.bottom, 30)
-                    SocialLoginButton(image: Image("apple-logo"), text: Text("Sign in with Apple"))
-                    SocialLoginButton(image: Image("google"), text: Text("Sign in with Google"))
-                        .padding(.vertical)
+        VStack{
+            Form {
+                TextField("Enter Email", text: self.$email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                SecureField("Enter Password", text: self.$password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                SecureField("Enter Password Again", text: self.$confirmPassword)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Toggle(isOn: $isStudent) {
+                    Text("Student")
+                }
+            }.disableAutocorrection(true)
+            
+            Section{
+                Button(action: {
+                    //Task : validate the data
+                    //such as all the inputs are not empty
+                    //and check for password rule
+                    //and display alert accordingly
                     
-                    Text("or get a link emailed to you")
-                        .foregroundColor(Color.black.opacity(0.4))
+                    //if all the data is validated, create account on FirebaseAuth
+                    self.fireAuthHelper.signUp(email: self.email, password: self.password)
                     
-                    TextField("Work email address", text: $email)
-                        .font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .cornerRadius(50.0)
-                        .shadow(color: Color.black.opacity(0.08), radius: 60, x: 0.0, y: 16)
-                        .padding(.vertical)
                     
-                    Button("Email me a signup link") {
-                        
-                    }.font(.title3)
-                        .padding()
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .cornerRadius(50)
-                } // VStack
-                Spacer()
-                Divider()
-                Spacer()
-                Text("You are completely safe.")
-                Text("Read our Terms & conditions.")
-                    .foregroundColor(Color.blue)
-            }
-            .padding()
-        } // ZStack
-
-    
-    }
-    
+                    var user : User
+                    if isStudent {
+                        user = Student(email: self.email)
+                    } else {
+                        user = Instructor(email: self.email)
+                    }
+                    self.fireDBHelper.insertUser(user : user)
+                    //move to home screen
+//                    self.rootScreen = .Home
+                }){
+                    Text("Create Account")
+                }//Button ends
+                .disabled( self.password != self.confirmPassword && self.email.isEmpty && self.password.isEmpty && self.confirmPassword.isEmpty)
+                
+            }//Section ends
+            
+        }//VStack ends
+        .navigationTitle("Registration")
+        .navigationBarTitleDisplayMode(.inline)
+        
+    }//body ends
 }
 
 struct SocialLoginButton: View {

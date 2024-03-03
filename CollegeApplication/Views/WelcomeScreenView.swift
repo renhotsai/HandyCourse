@@ -60,7 +60,7 @@ struct WelcomeScreenView: View {
                     Button("Login") {
                         isUsernameError = false
                         isPasswordError = false
-                        authenticateUser(username: username, password: password)
+//                        authenticateUser(username: username, password: password)
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
@@ -129,38 +129,38 @@ struct WelcomeScreenView: View {
     }
     
     
-    func authenticateUser(username: String, password: String) {
-        if username.isEmpty {
-            isUsernameError = true
-            errorMessage = ErrorCode.EmptyUsername.localizedDescription
-            return
-        } else if password.isEmpty {
-            isPasswordError = true
-            errorMessage = ErrorCode.EmptyPassword.localizedDescription
-            return
-        }
-        
-        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
-            print("Error1")
-            isUsernameError = true
-            errorMessage = ErrorCode.WrongUsername.localizedDescription
-            return
-        }
-        
-        guard password.lowercased() == user.password else {
-            print("Error2")
-            isPasswordError = true
-            errorMessage = ErrorCode.WrongPassword.localizedDescription
-            return
-        }
-        
-        // No errors
-        self.errorMessage = ""
-        showingLoginScreen = true
-        currUser = user
-        self.isLogin = true
-        self.pressLogin = false
-    }
+//    func authenticateUser(username: String, password: String) {
+//        if username.isEmpty {
+//            isUsernameError = true
+//            errorMessage = ErrorCode.EmptyUsername.localizedDescription
+//            return
+//        } else if password.isEmpty {
+//            isPasswordError = true
+//            errorMessage = ErrorCode.EmptyPassword.localizedDescription
+//            return
+//        }
+//        
+//        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
+//            print("Error1")
+//            isUsernameError = true
+//            errorMessage = ErrorCode.WrongUsername.localizedDescription
+//            return
+//        }
+//        
+//        guard password.lowercased() == user.password else {
+//            print("Error2")
+//            isPasswordError = true
+//            errorMessage = ErrorCode.WrongPassword.localizedDescription
+//            return
+//        }
+//        
+//        // No errors
+//        self.errorMessage = ""
+//        showingLoginScreen = true
+//        currUser = user
+//        self.isLogin = true
+//        self.pressLogin = false
+//    }
 }
 #Preview {
     WelcomeScreenView()

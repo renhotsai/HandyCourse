@@ -8,5 +8,5 @@
 import Foundation
 
 enum RootScreen {
-    case Login,Main
+    case Login,Main,SignUp
 }

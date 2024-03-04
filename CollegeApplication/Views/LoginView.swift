@@ -63,7 +63,11 @@ struct LoginView: View {
             
             Text(self.errorMessage)
                 .foregroundColor(.red)
-            
+            Button(action: {
+                rootScreen = .SignUp
+            }, label: {
+                Text("Register")
+            })
         }
     }
     
@@ -101,4 +105,8 @@ struct LoginView: View {
 //
 //        self.isLogin = true
 //    }
+}
+
+#Preview {
+    LoginView(rootScreen: .constant(.Login))
 }

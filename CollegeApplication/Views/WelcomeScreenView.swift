@@ -110,16 +110,16 @@ struct WelcomeScreenView: View {
                             .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0.0, y: 16)
                             .padding(.vertical)
                     })
-                    HStack {
-                        Text("New around here?")
-                        NavigationLink (
-                            destination: SignInView().environmentObject(fireDBHelper).environmentObject(fireAuthHelper),
-                            label: {
-                                Text("Register")
-                                    .foregroundColor(Color.blue)
-                            }
-                        )
-                    }
+//                    HStack {
+//                        Text("New around here?")
+//                        NavigationLink (
+//                            destination: SignInView().environmentObject(fireDBHelper).environmentObject(fireAuthHelper),
+//                            label: {
+//                                Text("Register")
+//                                    .foregroundColor(Color.blue)
+//                            }
+//                        )
+//                    }
                 }
                 .padding()
             }

@@ -28,7 +28,7 @@ struct ContentView: View {
                     .environmentObject(fireDBHelper)
                     .environmentObject(fireAuthHelper)
             case .SignUp:
-                SignInView()
+                SignInView(rootScreen: $rootScreen)
                     .environmentObject(fireDBHelper)
                     .environmentObject(fireAuthHelper)
             }

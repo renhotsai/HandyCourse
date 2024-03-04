@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Binding var rootScreen : RootScreen
     @EnvironmentObject var fireAuthHelper : FireAuthHelper
     @EnvironmentObject var fireDBHelper : FireDBHelper
     @State private var email : String = ""
@@ -39,18 +40,9 @@ struct SignInView: View {
                     //and display alert accordingly
                     
                     //if all the data is validated, create account on FirebaseAuth
-                    self.fireAuthHelper.signUp(email: self.email, password: self.password)
-                    
-                    
-                    var user : User
-                    if isStudent {
-                        user = Student(email: self.email)
-                    } else {
-                        user = Instructor(email: self.email)
-                    }
-                    self.fireDBHelper.insertUser(user : user)
+                    self.fireAuthHelper.signUp(email: self.email, password: self.password, isStudent: self.isStudent,fireDBHelper: fireDBHelper)
                     //move to home screen
-//                    self.rootScreen = .Home
+                    //self.rootScreen = .Main
                 }){
                     Text("Create Account")
                 }//Button ends
@@ -89,5 +81,5 @@ struct SocialLoginButton: View {
     }
 }
 #Preview {
-    SignInView()
+    SignInView(rootScreen: .constant(.SignUp))
 }

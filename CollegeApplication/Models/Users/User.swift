@@ -9,7 +9,7 @@ import Foundation
 
 struct User: Identifiable ,Codable{
     var id : String = ""
-    var role : UserRole
+    var role : UserRole = .Student
     var name: String = ""
     var email:String = ""
     var address: String = ""

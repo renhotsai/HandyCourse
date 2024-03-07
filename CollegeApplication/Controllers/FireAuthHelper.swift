@@ -49,13 +49,13 @@ class FireAuthHelper: ObservableObject{
                 UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
                 UserDefaults.standard.set(password, forKey: "KEY_PASSWORD")
                 var user : User
-                
                 if isStudent {
-                    user = Student(id:self.user!.uid, email: email)
+                    user = User(id:self.user!.uid, email: email,userRole: .Student)
                 } else {
-                    user = Instructor(id:self.user!.uid, email: email)
+                    user = User(id:self.user!.uid, email: email,userRole: .Instructor)
                 }
                 fireDBHelper.insertUser(user : user)
+                
             }
         }
     }

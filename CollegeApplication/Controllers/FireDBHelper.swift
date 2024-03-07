@@ -18,9 +18,15 @@ class FireDBHelper : ObservableObject{
     private let FIELD_ADDRESS : String = "address"
     private let FIELD_PHONE : String = "phone"
     private let FIELD_IMAGE : String = "image"
-    
+    private let FIELD_TEST : String = "test"
     
     @Published var user : User = User()
+    @Published var userList : [User] = []
+ 
+    private let COLLECTION_COURSES : String = "courses"
+    
+    
+    @Published var courseList : [Course] = []
     
     init(db : Firestore){
         self.db = db
@@ -34,7 +40,8 @@ class FireDBHelper : ObservableObject{
         return shared!
     }
     
-    func insertUser(user:User){
+    //insert User
+    func insertUser(user : User){
         do{
             try self.db
                 .collection(COLLECTION_USERS)
@@ -43,4 +50,22 @@ class FireDBHelper : ObservableObject{
             print(#function, "Unable to add document to firestore : \(err)")
         }
     }
+    
+    //get User
+    
+    //get UserList
+    
+    //update User
+    
+    
+    
+    
+    //insert Course
+    
+    //get Course
+    
+    //get CourseList
+    
+    //update Course
+    
 }

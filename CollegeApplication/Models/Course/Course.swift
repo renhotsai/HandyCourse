@@ -7,16 +7,17 @@
 
 import Foundation
 
-class Course: CustomStringConvertible, Identifiable {
+class Course: CustomStringConvertible, Identifiable ,Codable{
     var id: UUID = UUID()
     var courseName: String
     var courseDesc: String
     var instructorList: [String] = []
-    var studentList: [Student] = []
+    var studentGrades : [StudentGrade] = []
     var studentLimit: Int
     var startDate: Date
     var endDate: Date
     var courseImageName: String? // New property for the image name
+    
     
     var description: String {
         return "id: \(id), Course Name: \(courseName), Course Desc: \(courseDesc), Instructors: \(instructorList)"
@@ -50,10 +51,11 @@ class Course: CustomStringConvertible, Identifiable {
     }
     
     // Function to add a student
-    func addStudent(student: Student) -> Bool {
-        if !studentList.contains(where: { $0.id == student.id }) {
-            if studentList.count < studentLimit {
-                studentList.append(student)
+    func addStudent(studentId: String) -> Bool {
+        if !studentGrades.contains(where: { $0.studentId == studentId }) {
+            if studentGrades.count < studentLimit {
+                var studentGrade = StudentGrade(studentId: studentId)
+                studentGrades.append(studentGrade)
                 return true
             }
         }

@@ -32,7 +32,7 @@ struct WelcomeScreenView: View {
             Color("BgColor").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             //ContentView
             if isLogin{
-                ContentView().environmentObject(currUser)
+                ContentView()
             }
             
             //Login page

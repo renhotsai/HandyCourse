@@ -70,7 +70,7 @@ struct AddCourseView: View {
             // Handle invalid input
             return
         }
-        var instructor = fireDBHelper.user as! Instructor
+        var instructor = fireDBHelper.user
         
         // Get the current instructor's name
         let instructorName = instructor.name

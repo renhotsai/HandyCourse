@@ -88,13 +88,13 @@ struct DetailView: View {
             Spacer()
             
             // Add Course Button
-            if fireDBHelper.user is Student {
-                let student = fireDBHelper.user as! Student
-                if student.courseGrade[course.id.uuidString] == nil {
+            if fireDBHelper.user.role == .Student {
+                var student = fireDBHelper.user
+                if student.courses.first(where: {$0 == course.id.uuidString}) == nil {
                     Button("Add Course", action: {
                         self.showAlert = true
-                        if course.addStudent(student: student) {
-                            student.addCourse(courseId: course.id.uuidString)
+                        if course.addStudent(studentId: student.id) {
+                            student.addCourse(course: course)
                             self.isActive = true
                             alertMsg = Alert(title: Text("Success"), message: Text("Successfully registered to the course"))
                         } else {

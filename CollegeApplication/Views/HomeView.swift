@@ -19,7 +19,7 @@ struct HomeView: View {
         
         VStack{
             TabView(selection: $selectedScreen){
-                if fireDBHelper.user is Student{
+                if fireDBHelper.user.role == .Student{
                     StudentCoursesView().environmentObject(fireDBHelper).tabItem {
                         Text("My Courses")
                         Image(systemName: "book.pages")

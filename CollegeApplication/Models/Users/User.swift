@@ -7,35 +7,38 @@
 
 import Foundation
 
-class User : Identifiable, ObservableObject, Codable{
+class User: Identifiable ,Codable{
     var id : String = ""
+    var role : UserRole = .Student
     var name: String = ""
     var email:String = ""
     var address: String = ""
     var phoneNumber: String = ""
     var imageName: String?
+    var courses : [String] = []
     
-    init(name: String, email: String, address: String, phoneNumber: String, imageName: String) {
-        self.name = name
-        self.email = email
-        self.address = address
-        self.phoneNumber = phoneNumber
-        self.imageName = imageName
-    }
-    
-    init(name: String, email: String, address: String, phoneNumber: String) {
-        self.name = name
-        self.email = email
-        self.address = address
-        self.phoneNumber = phoneNumber
-    }
-    
-    init(id: String, email: String){
+    init(id: String, email: String, userRole: UserRole){
         self.id = id
         self.email = email
+        self.role = userRole
     }
     
     init(){
         
+    }
+
+    func addCourse(course:Course){
+        if !self.courses.contains(where: {$0 == course.id}){
+            courses.append(course.id!)
+        }
+    }
+    
+    func removeCourse(course: Course) {
+        if let index = self.courses.firstIndex(where: { $0 == course.id}) {
+            courses.remove(at: index)
+            if let globalIndex = courses.firstIndex(where: { $0 == course.id}) {
+                courses.remove(at: globalIndex)
+            }
+        }
     }
 }

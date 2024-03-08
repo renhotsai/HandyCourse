@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CourseInfoView: View {
-    @EnvironmentObject var user: Student
+//    @EnvironmentObject var user: Student
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
     
@@ -77,11 +77,11 @@ struct CourseInfoView: View {
                         message: Text("Are you sure you want to delete this course?"),
                         primaryButton: .destructive(Text("Yes")) {
                             // Remove the course from the student's list of courses
-                            user.removeCourse(courseId: course.id.uuidString)
+                            //user.removeCourse(courseId: course.id.uuidString)
                             // Remove the student from the course's list of students
-                            if let index = course.studentList.firstIndex(where: { $0.id == user.id }) {
-                                course.studentList.remove(at: index)
-                            }
+                           // if let index = course.studentList.firstIndex(where: { $0.id == user.id }) {
+                           //     course.studentList.remove(at: index)
+                           // }
                             // Dismiss the current view (CourseInfoView)
                             presentationMode.wrappedValue.dismiss()
                         },

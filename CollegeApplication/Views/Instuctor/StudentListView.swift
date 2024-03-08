@@ -9,11 +9,13 @@ import SwiftUI
 
 
 struct StudentListView: View {
+    @EnvironmentObject var fireDBHelper: FireDBHelper
     var course: Course
 
     var body: some View {
-        List(course.studentList) { student in
-            Text(student.name) // Displaying only the student name
+        List(course.studentGrades, id: \.studentId) { studentGrade in
+            var user = fireDBHelper.userList.first(where: {$0.id == studentGrade.studentId})!
+            Text(user.name) // Displaying the student name
                 .padding()
         }
         .navigationTitle("Enrolled Students")

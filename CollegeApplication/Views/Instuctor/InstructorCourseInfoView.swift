@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct InstructorCourseInfoView: View {
-    @EnvironmentObject var user: Instructor
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
     
@@ -81,7 +80,7 @@ struct InstructorCourseInfoView: View {
                         message: Text("Are you sure you want to delete this course?"),
                         primaryButton: .destructive(Text("Yes")) {
                             // Remove the course from the instructor's list of courses
-                            user.removeCourse(course: course)
+                      //      user.removeCourse(course: course)
                             
                             // Dismiss the current view (InstructorCourseInfoView)
                             presentationMode.wrappedValue.dismiss()

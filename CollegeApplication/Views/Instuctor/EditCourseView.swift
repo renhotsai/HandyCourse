@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditCourseView: View {
-    @EnvironmentObject var user: Instructor
+//    @EnvironmentObject var user: Instructor
     var course: Course
     
     @State private var courseName: String

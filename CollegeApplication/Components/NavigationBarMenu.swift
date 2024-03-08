@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NavigationBarMenu: View {
-    @EnvironmentObject var user: User
+//    @EnvironmentObject var user: User
     
     var body: some View {
         Menu {

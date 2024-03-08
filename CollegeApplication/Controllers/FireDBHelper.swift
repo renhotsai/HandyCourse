@@ -16,11 +16,25 @@ class FireDBHelper : ObservableObject{
     private let FIELD_NAME : String = "name"
     private let FIELD_EMAIL : String = "email"
     private let FIELD_ADDRESS : String = "address"
-    private let FIELD_PHONE : String = "phone"
-    private let FIELD_IMAGE : String = "image"
-    
+    private let FIELD_PHONE : String = "phoneNumber"
+    private let FIELD_IMAGE : String = "imageName"
+    private let FIELD_COURSES : String = "courses"
     
     @Published var user : User = User()
+    @Published var userList : [User] = []
+ 
+    private let COLLECTION_COURSES : String = "courses"
+    private let FIELD_COURSENAME :String = "courseName"
+    private let FIELD_COURSEDESC : String = "courseDesc"
+    private let FIELD_INSTRUCTOR : String="instructorList"
+    private let FIELD_STUDENTGRADES :String = "studentGrades"
+    private let FIELD_STUDENTLIMIT :String = "studentLimit"
+    private let FIELD_STARTDATE :String = "startDate"
+    private let FIELD_ENDDATE : String = "endDate"
+    private let FIELD_COURSEIMAGENAME : String = "courseImageName"
+    
+    
+    @Published var courseList : [Course] = []
     
     init(db : Firestore){
         self.db = db
@@ -34,7 +48,8 @@ class FireDBHelper : ObservableObject{
         return shared!
     }
     
-    func insertUser(user:User){
+    //insert User
+    func insertUser(user : User){
         do{
             try self.db
                 .collection(COLLECTION_USERS)
@@ -42,5 +57,70 @@ class FireDBHelper : ObservableObject{
         }catch let err as NSError{
             print(#function, "Unable to add document to firestore : \(err)")
         }
+    }
+    
+    //get User
+    
+    //get UserList
+    
+    //update User
+    func updateUser(user:User){
+        self.db.collection(COLLECTION_USERS)
+            .document(user.id)
+            .updateData([FIELD_NAME: user.name,
+                        FIELD_EMAIL: user.email,
+                      FIELD_ADDRESS:user.address,
+                        FIELD_PHONE:user.phoneNumber,
+                      FIELD_COURSES:user.courses,
+                        FIELD_IMAGE: user.imageName,
+                        ]){ error in
+                
+                if let err = error{
+                    print(#function, "Unable to update document : \(err)")
+                }else{
+                    print(#function, "successfully updated : \(user.id)")
+                }
+            }
+    }
+    
+    
+    //insert Course
+    func insertCourse(course : Course){
+        do{
+            let newcourse = try self.db
+                .collection(COLLECTION_COURSES)
+                .addDocument(from: course)
+            user.courses.append(newcourse.documentID)
+            updateUser(user: user)
+        }catch let err as NSError{
+            print(#function, "Unable to add document to firestore : \(err)")
+        }
+    }
+    
+    //get Course
+    
+    //get CourseList
+    
+    //update Course
+    func updateUser(course:Course){
+        self.db.collection(COLLECTION_COURSES)
+            .document(course.id!)
+            .updateData([
+                FIELD_COURSENAME :course.courseName,
+                FIELD_COURSEDESC : course.courseDesc,
+                FIELD_INSTRUCTOR : course.instructorList,
+                FIELD_STUDENTGRADES :course.studentGrades,
+                FIELD_STUDENTLIMIT :course.studentLimit,
+                FIELD_STARTDATE :course.startDate,
+                FIELD_ENDDATE : course.endDate,
+                FIELD_COURSEIMAGENAME : course.courseImageName
+            ]){ error in
+                
+                if let err = error{
+                    print(#function, "Unable to update document : \(err)")
+                }else{
+                    print(#function, "successfully updated : \(course.id)")
+                }
+            }
     }
 }

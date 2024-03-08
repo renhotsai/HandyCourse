@@ -13,7 +13,7 @@ struct MainView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(courses) { course in
+                ForEach(fireDBHelper.courseList) { course in
                     NavigationLink(destination: DetailView(course: course).environmentObject(fireDBHelper)) {
                         VStack(alignment: .leading) {
                             if let imageName = course.courseImageName {
@@ -33,7 +33,7 @@ struct MainView: View {
                                 Text(course.courseName)
                                     .font(.headline)
                                 Spacer()
-                                Text("\(course.studentList.count)/\(course.studentLimit)")
+                                Text("\(course.studentGrades.count)/\(course.studentLimit)")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                             }

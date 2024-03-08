@@ -90,7 +90,7 @@ struct DetailView: View {
             // Add Course Button
             if fireDBHelper.user.role == .Student {
                 var student = fireDBHelper.user
-                if student.courses.first(where: {$0 == course.id.uuidString}) == nil {
+                if student.courses.first(where: {$0 == course.id}) == nil {
                     Button("Add Course", action: {
                         self.showAlert = true
                         if course.addStudent(studentId: student.id) {

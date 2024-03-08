@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 class Course: CustomStringConvertible, Identifiable ,Codable{
-    var id: UUID = UUID()
+    @DocumentID var id : String? = UUID().uuidString
     var courseName: String
     var courseDesc: String
     var instructorList: [String] = []

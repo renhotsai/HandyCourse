@@ -15,7 +15,7 @@ struct StudentCoursesView: View {
             VStack {
                 List {
                     ForEach(fireDBHelper.user.courses, id: \.self) { courseId in
-                        if let course = fireDBHelper.courseList.first(where: {$0.id.uuidString == courseId}){
+                        if let course = fireDBHelper.courseList.first(where: {$0.id == courseId}){
                             NavigationLink(destination: StudentCourseDetailView(course: course)) {
                                 HStack {
                                     if let imageName = course.courseImageName {

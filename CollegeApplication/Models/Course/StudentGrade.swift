@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct StudentGrade : Codable{
+    @DocumentID var id : String? = UUID().uuidString
     var studentId : String
     var grade : Int = 0
 }

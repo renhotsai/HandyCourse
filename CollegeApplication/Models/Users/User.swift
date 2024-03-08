@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Identifiable ,Codable{
+class User: Identifiable ,Codable{
     var id : String = ""
     var role : UserRole = .Student
     var name: String = ""
@@ -27,16 +27,16 @@ struct User: Identifiable ,Codable{
         
     }
 
-    mutating func addCourse(course:Course){
-        if !self.courses.contains(where: {$0 == course.id.uuidString}){
-            courses.append(course.id.uuidString)
+    func addCourse(course:Course){
+        if !self.courses.contains(where: {$0 == course.id}){
+            courses.append(course.id!)
         }
     }
     
-    mutating func removeCourse(course: Course) {
-        if let index = self.courses.firstIndex(where: { $0 == course.id.uuidString }) {
+    func removeCourse(course: Course) {
+        if let index = self.courses.firstIndex(where: { $0 == course.id}) {
             courses.remove(at: index)
-            if let globalIndex = courses.firstIndex(where: { $0 == course.id.uuidString }) {
+            if let globalIndex = courses.firstIndex(where: { $0 == course.id}) {
                 courses.remove(at: globalIndex)
             }
         }

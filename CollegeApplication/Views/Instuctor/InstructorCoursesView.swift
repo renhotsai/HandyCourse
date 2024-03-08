@@ -16,7 +16,7 @@ struct InstructorCoursesView: View {
                 List {
                     var instructor = fireDBHelper.user
                     ForEach(instructor.courses, id: \.self) { courseId in
-                        var course = fireDBHelper.courseList.first(where: {$0.id.uuidString == courseId})!
+                        var course = fireDBHelper.courseList.first(where: {$0.id == courseId})!
                         
                         NavigationLink(destination: InstructorCourseDetailView(course: course)) {
                             HStack {

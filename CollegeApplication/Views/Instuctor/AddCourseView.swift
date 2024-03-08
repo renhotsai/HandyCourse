@@ -84,7 +84,7 @@ struct AddCourseView: View {
                                instructorList: [instructorName])
             
         // Add the new course to the instructor's course list
-        instructor.addCourse(course: newCourse)
+        fireDBHelper.insertCourse(course: newCourse)
         
         // Optionally, you can reset the input fields here
         courseName = ""

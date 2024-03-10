@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-      @EnvironmentObject var fireDBHelper :FireDBHelper
+    @EnvironmentObject var fireDBHelper :FireDBHelper
     @EnvironmentObject var fireAuthHelper : FireAuthHelper
     
     @State private var selectedScreen : Int = 2
@@ -19,17 +19,19 @@ struct HomeView: View {
         
         VStack{
             TabView(selection: $selectedScreen){
-                if fireDBHelper.user.role == .Student{
-                    StudentCoursesView().environmentObject(fireDBHelper).tabItem {
-                        Text("My Courses")
-                        Image(systemName: "book.pages")
-                    }.tag(1)
-                } else {
+                
+//                if fireDBHelper.user.role == .Student{
+//                    StudentCoursesView().environmentObject(fireDBHelper).tabItem {
+//                        Text("My Courses")
+//                        Image(systemName: "book.pages")
+//                    }.tag(1)
+//                } else {
                     InstructorCoursesView().environmentObject(fireDBHelper).tabItem {
                         Text("My Courses")
+        
                         Image(systemName: "book.pages")
                     }.tag(2)
-                }
+//                }
                 MainView().environmentObject(fireDBHelper).tabItem{
                     Text("Home")
                     Image(systemName: "house")

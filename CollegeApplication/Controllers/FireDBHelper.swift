@@ -60,7 +60,9 @@ class FireDBHelper : ObservableObject{
     }
     
     //get User
-    
+    func getUser() {
+        
+    }
     //get UserList
     
     //update User

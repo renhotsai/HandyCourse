@@ -58,17 +58,4 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
             instructorList.append(instructor)
         }
     }
-    
-    // Function to add a student
-    func addStudent(studentId: String) -> Bool {
-        if !studentGrades.contains(where: { $0.studentId == studentId }) {
-            if studentGrades.count < studentLimit {
-                var studentGrade = StudentGrade(studentId: studentId)
-                studentGrades.append(studentGrade)
-                return true
-            }
-        }
-        
-        return false
-    }
 }

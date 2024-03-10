@@ -27,12 +27,11 @@ class FireDBHelper : ObservableObject{
     private let FIELD_COURSENAME :String = "courseName"
     private let FIELD_COURSEDESC : String = "courseDesc"
     private let FIELD_INSTRUCTOR : String="instructorList"
-    private let FIELD_STUDENTGRADES :String = "studentGrades"
     private let FIELD_STUDENTLIMIT :String = "studentLimit"
     private let FIELD_STARTDATE :String = "startDate"
     private let FIELD_ENDDATE : String = "endDate"
     private let FIELD_COURSEIMAGENAME : String = "courseImageName"
-    
+    private let COLLECTION_STUDENTGRADES :String = "studentGrades"
     
     @Published var courseList = [Course]()
     
@@ -92,8 +91,6 @@ class FireDBHelper : ObservableObject{
             let newcourse = try self.db
                 .collection(COLLECTION_COURSES)
                 .addDocument(from: course)
-            user.courses.append(newcourse.documentID)
-            updateUser(user: user)
         }catch let err as NSError{
             print(#function, "Unable to add document to firestore : \(err)")
         }
@@ -151,7 +148,6 @@ class FireDBHelper : ObservableObject{
                 FIELD_COURSENAME :course.courseName,
                 FIELD_COURSEDESC : course.courseDesc,
                 FIELD_INSTRUCTOR : course.instructorList,
-                FIELD_STUDENTGRADES :course.studentGrades,
                 FIELD_STUDENTLIMIT :course.studentLimit,
                 FIELD_STARTDATE :course.startDate,
                 FIELD_ENDDATE : course.endDate,
@@ -164,6 +160,17 @@ class FireDBHelper : ObservableObject{
                     print(#function, "successfully updated : \(course.id)")
                 }
             }
+    }
+    
+    //
+    func addStudentCourse(courseId:String,studentId:String){
+        do{
+            try self.db
+                .collection(COLLECTION_COURSES).document(courseId)
+                .collection(COLLECTION_STUDENTGRADES).addDocument(from: StudentGrade(studentId: studentId))
+        }catch let err as NSError{
+            print(#function, "Unable to add document to firestore : \(err)")
+        }
     }
     
     //delete Course

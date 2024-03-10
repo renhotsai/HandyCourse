@@ -53,3 +53,7 @@ struct InstructorCoursesView: View {
         }
     }
 }
+
+#Preview {
+    InstructorCoursesView()
+}

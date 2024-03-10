@@ -14,8 +14,9 @@ struct StudentCoursesView: View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(fireDBHelper.user.courses, id: \.self) { courseId in
-                        if let course = fireDBHelper.courseList.first(where: {$0.id == courseId}){
+                    let student = fireDBHelper.user
+                    ForEach(fireDBHelper.courseList) { course in
+                        if student.courses.contains(where: {$0 == course.id}){
                             NavigationLink(destination: StudentCourseDetailView(course: course)) {
                                 HStack {
                                     if let imageName = course.courseImageName {
@@ -51,4 +52,9 @@ struct StudentCoursesView: View {
         dateFormatter.dateFormat = "yyyy.MM.dd" // Format: Year.Month.Day
         return dateFormatter.string(from: date)
     }
+}
+
+
+#Preview {
+    StudentCoursesView()
 }

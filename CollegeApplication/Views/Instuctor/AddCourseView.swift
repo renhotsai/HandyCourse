@@ -81,7 +81,8 @@ struct AddCourseView: View {
             
         // Add the new course to the instructor's course list
         fireDBHelper.insertCourse(course: newCourse)
-        
+        fireDBHelper.user.addCourse(course: newCourse)
+        fireDBHelper.updateUser(user: fireDBHelper.user)
         // Optionally, you can reset the input fields here
         courseName = ""
         courseDescription = ""
@@ -97,8 +98,6 @@ struct AddCourseView: View {
     }
 }
 
-struct AddCourseView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCourseView()
-    }
+#Preview {
+    AddCourseView()
 }

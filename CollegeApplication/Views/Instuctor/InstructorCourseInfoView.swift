@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct InstructorCourseInfoView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+    @Environment(\.dismiss) var dismiss
     @State private var showAlert = false
     
     var course: Course
@@ -50,7 +51,7 @@ struct InstructorCourseInfoView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: EditCourseView(course: course)) {
+                NavigationLink(destination: EditCourseView(course: course).environmentObject(fireDBHelper)) {
                     Text("Update Course")
                         .foregroundColor(.white)
                         .font(.headline)
@@ -80,10 +81,9 @@ struct InstructorCourseInfoView: View {
                         message: Text("Are you sure you want to delete this course?"),
                         primaryButton: .destructive(Text("Yes")) {
                             // Remove the course from the instructor's list of courses
-                      //      user.removeCourse(course: course)
-                            
+                            deleteCourse()
                             // Dismiss the current view (InstructorCourseInfoView)
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         },
                         secondaryButton: .cancel(Text("No"))
                     )
@@ -101,11 +101,17 @@ struct InstructorCourseInfoView: View {
         dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: date)
     }
+    
+    func deleteCourse(){
+        if(course.studentGrades.count == 0){
+            fireDBHelper.deleteCourse(deleteCourse: course)
+        }else{
+            print(#function, "Course: \(course.courseName) can't delete. Student: \(course.studentGrades.count) ")
+        }
+    }
 }
 
-struct InstructorCourseInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        let testCourse = Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])
-        return InstructorCourseInfoView(course: testCourse)
-    }
+
+#Preview {
+    InstructorCourseInfoView(course: Course())
 }

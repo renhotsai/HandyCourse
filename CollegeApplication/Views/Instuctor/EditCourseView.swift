@@ -8,27 +8,18 @@
 import SwiftUI
 
 struct EditCourseView: View {
-//    @EnvironmentObject var user: Instructor
+    @EnvironmentObject var fireDBHelper :FireDBHelper
+    @Environment(\.dismiss) private var dismiss
     var course: Course
     
-    @State private var courseName: String
-    @State private var courseDescription: String
-    @State private var startDate: Date
-    @State private var endDate: Date
-    @State private var studentLimit: String
+    @State private var courseName: String = ""
+    @State private var courseDescription: String = ""
+    @State private var startDate: Date = Date()
+    @State private var endDate: Date = Date()
+    @State private var studentLimit: String = ""
+    
     @State private var showAlert = false // Add state variable for showing alert
     @State private var alertMessage = "" // Add state variable for alert message
-
-    init(course: Course) {
-        self.course = course
-        
-        // Initialize state properties with existing course details
-        _courseName = State(initialValue: course.courseName)
-        _courseDescription = State(initialValue: course.courseDesc)
-        _startDate = State(initialValue: course.startDate)
-        _endDate = State(initialValue: course.endDate)
-        _studentLimit = State(initialValue: "\(course.studentLimit)")
-    }
     
     var body: some View {
         VStack {
@@ -75,6 +66,13 @@ struct EditCourseView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .onAppear(){
+            self.courseName = course.courseName
+            self.courseDescription = course.courseDesc
+            self.startDate = course.startDate
+            self.endDate = course.endDate
+            self.studentLimit = String(course.studentLimit)
+        }
     }
     
     private func updateCourse() {
@@ -90,6 +88,8 @@ struct EditCourseView: View {
         course.endDate = endDate
         course.studentLimit = studentLimitInt
         
+        fireDBHelper.updateCourse(course: course)
+        
         // Optionally, you can reset the input fields here
         courseName = ""
         courseDescription = ""
@@ -100,12 +100,10 @@ struct EditCourseView: View {
         // Show success message
         showAlert = true
         alertMessage = "Course successfully updated"
+        dismiss()
     }
 }
 
-struct EditCourseView_Previews: PreviewProvider {
-    static var previews: some View {
-        let testCourse = Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])
-        return EditCourseView(course: testCourse)
-    }
+#Preview {
+    EditCourseView(course: Course())
 }

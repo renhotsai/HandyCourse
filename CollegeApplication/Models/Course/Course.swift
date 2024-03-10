@@ -24,6 +24,14 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
         return "id: \(id), Course Name: \(courseName), Course Desc: \(courseDesc), Instructors: \(instructorList)"
     }
     
+    init(){
+        self.courseName = ""
+        self.courseDesc = ""
+        self.studentLimit = 0
+        self.startDate = Date()
+        self.endDate = Date()
+    }
+    
     // Updated initializers with the new property
     init(courseName: String, courseDesc: String, studentLimit: Int, startDate: Date, endDate: Date, courseImageName: String? = nil) {
         self.courseName = courseName

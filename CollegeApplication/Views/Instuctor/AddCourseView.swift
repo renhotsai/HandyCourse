@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddCourseView: View {
     @EnvironmentObject var fireDBHelper: FireDBHelper
+    @Environment(\.dismiss) private var dismiss
     
     @State private var courseName = ""
     @State private var courseDescription = ""
@@ -70,18 +71,13 @@ struct AddCourseView: View {
             // Handle invalid input
             return
         }
-        var instructor = fireDBHelper.user
-        
-        // Get the current instructor's name
-        let instructorName = instructor.name
-        
         // Create a new course and add the current instructor's name to the instructor list
         let newCourse = Course(courseName: courseName,
                                courseDesc: courseDescription,
                                studentLimit: studentLimitInt,
                                startDate: startDate,
                                endDate: endDate,
-                               instructorList: [instructorName])
+                               instructorList: [fireDBHelper.user.id])
             
         // Add the new course to the instructor's course list
         fireDBHelper.insertCourse(course: newCourse)
@@ -96,6 +92,8 @@ struct AddCourseView: View {
         // Show success message
         showAlert = true
         alertMessage = "Course successfully added"
+        
+        dismiss()
     }
 }
 

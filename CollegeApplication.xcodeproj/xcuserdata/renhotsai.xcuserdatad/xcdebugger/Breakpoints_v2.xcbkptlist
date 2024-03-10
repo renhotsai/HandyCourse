@@ -30,9 +30,9 @@
             filePath = "CollegeApplication/Controllers/FireDBHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "updateCourse(course:)"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "getAllCourses()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

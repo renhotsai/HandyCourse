@@ -124,7 +124,6 @@ struct DetailView: View {
         if !course.studentGrades.contains(where: { $0.studentId == studentId }) {
             if course.studentGrades.count < course.studentLimit {
                 var studentGrade = StudentGrade(studentId: studentId)
-                course.studentGrades.append(studentGrade)
                 fireDBHelper.addStudentCourse(courseId: course.id!, studentId: studentId)
                 return true
             }

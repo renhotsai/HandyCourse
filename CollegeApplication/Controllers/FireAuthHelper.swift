@@ -62,7 +62,7 @@ class FireAuthHelper: ObservableObject{
         }
     }
     
-    func signIn(email : String, password : String){
+    func signIn(email : String, password : String, fireDBHelper:FireDBHelper){
         
         Auth.auth().signIn(withEmail: email, password: password){ [self] authResult, error in
             
@@ -84,10 +84,10 @@ class FireAuthHelper: ObservableObject{
       
                 UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
                 UserDefaults.standard.set(password, forKey: "KEY_PASSWORD")
+                fireDBHelper.getUser(userId: self.user!.uid)
+                fireDBHelper.getAllUsers()
             }
-            
         }
-        
     }
     
     func signOut(){

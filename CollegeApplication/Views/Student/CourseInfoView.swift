@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CourseInfoView: View {
-//    @EnvironmentObject var user: Student
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var fireDBHelper: FireDBHelper
+    @Environment(\.dismiss) private var dismiss
     @State private var showAlert = false
     
     var course: Course
@@ -77,13 +77,12 @@ struct CourseInfoView: View {
                         message: Text("Are you sure you want to delete this course?"),
                         primaryButton: .destructive(Text("Yes")) {
                             // Remove the course from the student's list of courses
-                            //user.removeCourse(courseId: course.id.uuidString)
+                            fireDBHelper.user.removeCourse(course: self.course)
+                            fireDBHelper.updateUser(user: fireDBHelper.user)
                             // Remove the student from the course's list of students
-                           // if let index = course.studentList.firstIndex(where: { $0.id == user.id }) {
-                           //     course.studentList.remove(at: index)
-                           // }
+                            fireDBHelper.removeStudentCourse(courseId: course.id!, studentId: fireDBHelper.user.id)
                             // Dismiss the current view (CourseInfoView)
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         },
                         secondaryButton: .cancel(Text("No"))
                     )

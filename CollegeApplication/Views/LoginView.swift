@@ -52,8 +52,7 @@ struct LoginView: View {
             Button("Login") {
                 isUsernameError = false
                 isPasswordError = false
-                fireAuthHelper.signIn(email: email, password: password)
-                fireDBHelper.getUser(email: email)
+                fireAuthHelper.signIn(email: email, password: password,fireDBHelper: fireDBHelper)
                 rootScreen = .Main
 
 //                authenticateUser(username: username, password: password)

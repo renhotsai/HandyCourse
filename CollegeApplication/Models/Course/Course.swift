@@ -24,6 +24,14 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
         return "id: \(id), Course Name: \(courseName), Course Desc: \(courseDesc), Instructors: \(instructorList)"
     }
     
+    init(){
+        self.courseName = ""
+        self.courseDesc = ""
+        self.studentLimit = 0
+        self.startDate = Date()
+        self.endDate = Date()
+    }
+    
     // Updated initializers with the new property
     init(courseName: String, courseDesc: String, studentLimit: Int, startDate: Date, endDate: Date, courseImageName: String? = nil) {
         self.courseName = courseName
@@ -49,18 +57,5 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
         if !instructorList.contains(instructor) {
             instructorList.append(instructor)
         }
-    }
-    
-    // Function to add a student
-    func addStudent(studentId: String) -> Bool {
-        if !studentGrades.contains(where: { $0.studentId == studentId }) {
-            if studentGrades.count < studentLimit {
-                var studentGrade = StudentGrade(studentId: studentId)
-                studentGrades.append(studentGrade)
-                return true
-            }
-        }
-        
-        return false
     }
 }

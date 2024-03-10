@@ -14,26 +14,26 @@ struct InstructorCoursesView: View {
         NavigationView {
             VStack {
                 List {
-                    var instructor = fireDBHelper.user
-                    ForEach(instructor.courses, id: \.self) { courseId in
-                        var course = fireDBHelper.courseList.first(where: {$0.id == courseId})!
-                        
-                        NavigationLink(destination: InstructorCourseDetailView(course: course)) {
-                            HStack {
-                                if let imageName = course.courseImageName {
-                                    Image(imageName)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(8)
-                                } else {
-                                    Image("default")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(8)
+                    let instructor = fireDBHelper.user
+                    ForEach(fireDBHelper.courseList) { course in
+                        if instructor.courses.contains(where: {$0 == course.id}){
+                            NavigationLink(destination: InstructorCourseDetailView(course: course).environmentObject(fireDBHelper)) {
+                                HStack {
+                                    if let imageName = course.courseImageName {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(8)
+                                    } else {
+                                        Image("default")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(8)
+                                    }
+                                    Text(course.courseName)
                                 }
-                                Text(course.courseName)
                             }
                         }
                     }
@@ -52,4 +52,8 @@ struct InstructorCoursesView: View {
             }
         }
     }
+}
+
+#Preview {
+    InstructorCoursesView()
 }

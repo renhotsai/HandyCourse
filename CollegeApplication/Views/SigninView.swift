@@ -42,7 +42,7 @@ struct SignInView: View {
                     //if all the data is validated, create account on FirebaseAuth
                     self.fireAuthHelper.signUp(email: self.email, password: self.password, isStudent: self.isStudent,fireDBHelper: fireDBHelper)
                     //move to home screen
-                    //self.rootScreen = .Main
+                    self.rootScreen = .Main
                 }){
                     Text("Create Account")
                 }//Button ends

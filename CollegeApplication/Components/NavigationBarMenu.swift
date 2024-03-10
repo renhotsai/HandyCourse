@@ -13,7 +13,7 @@ struct NavigationBarMenu: View {
     var body: some View {
         Menu {
             NavigationLink(
-                destination: WelcomeScreenView(),
+                destination: ContentView(),
                 label: {
                     Text("Log out")
                 }

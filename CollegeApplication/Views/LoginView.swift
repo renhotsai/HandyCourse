@@ -20,6 +20,7 @@ struct LoginView: View {
     @State private var isPasswordError: Bool = false
     @State private var errorMessage: String = ""
     
+    @State private var hideBackButton = true
 //    @State private var currUser : User = User()
 
     
@@ -71,43 +72,10 @@ struct LoginView: View {
             }, label: {
                 Text("Register")
             })
-        }
+        }.navigationBarBackButtonHidden(hideBackButton)
     }
     
-//    func authenticateUser(username: String, password: String) {
-//   
-//        if username.isEmpty {
-//            isUsernameError = true
-//            errorMessage = ErrorCode.EmptyUsername.localizedDescription
-//            return
-//        } else if password.isEmpty {
-//            isPasswordError = true
-//            errorMessage = ErrorCode.EmptyPassword.localizedDescription
-//            return
-//        }
-//        
-//        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
-//            print("Error1")
-//            isUsernameError = true
-//            errorMessage = ErrorCode.WrongUsername.localizedDescription
-//            return
-//        }
-//        
-//        guard password.lowercased() == user.password else {
-//            print("Error2")
-//            isPasswordError = true
-//            errorMessage = ErrorCode.WrongPassword.localizedDescription
-//            return
-//        }
-//        
-//        // No errors
-//        self.errorMessage = ""
-//        showingLoginScreen = true
-//        currUser = user
-//                
-//
-//        self.isLogin = true
-//    }
+
 }
 
 #Preview {

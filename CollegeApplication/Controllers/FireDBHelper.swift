@@ -60,9 +60,32 @@ class FireDBHelper : ObservableObject{
     }
     
     //get User
-    func getUser() {
-        
+    func getUser(email: String) {
+        db.collection(COLLECTION_USERS).whereField(FIELD_EMAIL, isEqualTo: email).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting user documents: \(error.localizedDescription)")
+                return
+            }
+
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                return
+            }
+
+            if documents.count > 0 {
+                // Assuming there's only one user with the given email
+                let document = documents[0]
+                if let user = try? document.data(as: User.self) {
+                    self.user = user
+                } else {
+                    print("Error parsing user data")
+                }
+            } else {
+                print("User document does not exist")
+            }
+        }
     }
+
     //get UserList
     
     //update User

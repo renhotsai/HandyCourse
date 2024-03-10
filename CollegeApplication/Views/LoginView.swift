@@ -51,8 +51,10 @@ struct LoginView: View {
             Button("Login") {
                 isUsernameError = false
                 isPasswordError = false
-                fireAuthHelper.signIn(email: email, password: password) 
+                fireAuthHelper.signIn(email: email, password: password)
+                fireDBHelper.getUser(email: email)
                 rootScreen = .Main
+
 //                authenticateUser(username: username, password: password)
             }.navigationDestination(isPresented: $isLogin, destination: {
                 ContentView()

@@ -28,7 +28,7 @@ class FireAuthHelper: ObservableObject{
         }
     }
     
-    func signUp(email : String, password : String, isStudent: Bool, fireDBHelper:FireDBHelper){
+    func signUp(email : String, password : String, isStudent: Bool, fireDBHelper: FireDBHelper){
         
         Auth.auth().createUser(withEmail: email, password: password){ [self] authResult, error in
             
@@ -49,10 +49,12 @@ class FireAuthHelper: ObservableObject{
                 UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
                 UserDefaults.standard.set(password, forKey: "KEY_PASSWORD")
                 var user : User
+                
                 if isStudent {
-                    user = User(id:self.user!.uid, email: email,userRole: .Student)
+                    user = User(id:self.user!.uid, email: email, userRole: .Student)
                 } else {
-                    user = User(id:self.user!.uid, email: email,userRole: .Instructor)
+                    
+                    user = User(id:self.user!.uid, email: email, userRole: .Instructor)
                 }
                 fireDBHelper.insertUser(user : user)
                 
@@ -79,7 +81,7 @@ class FireAuthHelper: ObservableObject{
                 self.user = authResult?.user
                 
                 print(#function, "Logged in user : \(self.user?.displayName ?? "NA" )")
-                
+      
                 UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
                 UserDefaults.standard.set(password, forKey: "KEY_PASSWORD")
             }

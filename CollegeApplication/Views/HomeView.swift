@@ -30,7 +30,7 @@ struct HomeView: View {
                         Text("My Courses")
         
                         Image(systemName: "book.pages")
-                    }.tag(2)
+                    }.tag(1)
                 }
                 MainView().environmentObject(fireDBHelper).tabItem{
                     Text("Home")
@@ -40,21 +40,24 @@ struct HomeView: View {
                 ProfileView().environmentObject(fireAuthHelper).environmentObject(fireDBHelper).tabItem {
                     Text("Profile")
                     Image(systemName: "person")
-                }.tag(4)
+                }.tag(3)
                 
                 AboutUsView()
                     .tabItem {
                         Text("About Us")
                         Image(systemName: "info.circle")
-                    }.tag(5)
+                    }.tag(4)
             }
         }
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Let's learn!")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationBarMenu()
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: {
+                    fireAuthHelper.signOut(fireDBHelper: fireDBHelper)
+                    rootScreen = .Login
+                },label: {Text("Logout")})
             }
         }
     }

@@ -146,6 +146,9 @@ class FireDBHelper : ObservableObject{
             let newcourse = try self.db
                 .collection(COLLECTION_COURSES)
                 .addDocument(from: course)
+            
+            self.user.addCourse(courseId: newcourse.documentID)
+            self.updateUser(user: self.user)
         }catch let err as NSError{
             print(#function, "Unable to add document to firestore : \(err)")
         }
@@ -290,5 +293,12 @@ class FireDBHelper : ObservableObject{
                     print(#function, "successfully deleted : \(deleteCourse.courseName)")
                 }
             }
+    }
+    
+    //logout
+    func logout(){
+        self.user = User()
+        self.userList = [User]()
+        self.courseList = [Course]()
     }
 }

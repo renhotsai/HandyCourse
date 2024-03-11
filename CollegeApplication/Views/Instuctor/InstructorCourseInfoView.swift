@@ -9,7 +9,8 @@ import SwiftUI
 
 struct InstructorCourseInfoView: View {
     @EnvironmentObject var fireDBHelper : FireDBHelper
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var showAlert = false
     
     var course: Course
@@ -83,7 +84,7 @@ struct InstructorCourseInfoView: View {
                             // Remove the course from the instructor's list of courses
                             deleteCourse()
                             // Dismiss the current view (InstructorCourseInfoView)
-                            dismiss()
+                            presentationMode.wrappedValue.dismiss()
                         },
                         secondaryButton: .cancel(Text("No"))
                     )

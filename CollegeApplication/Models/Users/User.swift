@@ -27,9 +27,9 @@ class User: Identifiable ,Codable{
         
     }
 
-    func addCourse(course:Course){
-        if !self.courses.contains(where: {$0 == course.id}){
-            courses.append(course.id!)
+    func addCourse(courseId:String){
+        if !self.courses.contains(where: {$0 == courseId}){
+            courses.append(courseId)
         }
     }
     

@@ -57,7 +57,7 @@ class FireAuthHelper: ObservableObject{
                     user = User(id:self.user!.uid, email: email, userRole: .Instructor)
                 }
                 fireDBHelper.insertUser(user : user)
-                
+                fireDBHelper.getAllCourses()
             }
         }
     }
@@ -81,11 +81,12 @@ class FireAuthHelper: ObservableObject{
                 self.user = authResult?.user
                 
                 print(#function, "Logged in user : \(self.user?.displayName ?? "NA" )")
-      
+                
                 UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
                 UserDefaults.standard.set(password, forKey: "KEY_PASSWORD")
                 fireDBHelper.getUser(userId: self.user!.uid)
                 fireDBHelper.getAllUsers()
+                fireDBHelper.getAllCourses()
             }
         }
     }

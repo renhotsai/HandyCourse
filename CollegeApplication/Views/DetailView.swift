@@ -135,7 +135,7 @@ struct DetailView: View {
         let student = fireDBHelper.user
         self.showAlert = true
         if addStudent(studentId: student.id) {
-            student.addCourse(course: course)
+            student.addCourse(courseId: course.id!)
             fireDBHelper.updateUser(user: student)
             alertMsg = Alert(title: Text("Success"), message: Text("Successfully registered to the course"))
         } else {

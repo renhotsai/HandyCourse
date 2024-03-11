@@ -53,8 +53,11 @@ struct HomeView: View {
         .navigationTitle("Let's learn!")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationBarMenu()
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: {
+                    fireAuthHelper.signOut(fireDBHelper: fireDBHelper)
+                    rootScreen = .Login
+                },label: {Text("Logout")})
             }
         }
     }

@@ -294,4 +294,11 @@ class FireDBHelper : ObservableObject{
                 }
             }
     }
+    
+    //logout
+    func logout(){
+        self.user = User()
+        self.userList = [User]()
+        self.courseList = [Course]()
+    }
 }

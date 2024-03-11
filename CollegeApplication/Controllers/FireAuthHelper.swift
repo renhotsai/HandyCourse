@@ -91,10 +91,11 @@ class FireAuthHelper: ObservableObject{
         }
     }
     
-    func signOut(){
+    func signOut(fireDBHelper:FireDBHelper){
         do{
             try Auth.auth().signOut()
             self.user = nil
+            fireDBHelper.logout()
         }catch let err as NSError{
             print(#function, "Unable to sign out the user : \(err)")
         }

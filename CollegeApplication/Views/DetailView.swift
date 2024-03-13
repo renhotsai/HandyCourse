@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     
     @EnvironmentObject var fireDBHelper : FireDBHelper
+    @Environment(\.dismiss) var dismiss
     
     var course: Course
     @State private var alertMsg: Alert = Alert(title: Text(""))
@@ -141,6 +142,7 @@ struct DetailView: View {
         } else {
             alertMsg = Alert(title: Text("Error"), message: Text("Error: Exceed max number of students"))
         }
+        dismiss()
     }
     
     private func formattedDate(_ date: Date) -> String {

@@ -31,7 +31,9 @@ class FireDBHelper : ObservableObject{
     private let FIELD_STARTDATE :String = "startDate"
     private let FIELD_ENDDATE : String = "endDate"
     private let FIELD_COURSEIMAGENAME : String = "courseImageName"
+    
     private let COLLECTION_STUDENTGRADES :String = "studentGrades"
+    private let FIELD_GRADE : String = "grade"
     
     @Published var courseList = [Course]()
     
@@ -182,6 +184,7 @@ class FireDBHelper : ObservableObject{
                             print(#function, "Document updated : \(docChange.document.documentID)")
                             if (matchedIndex != nil){
                                 self.courseList[matchedIndex!] = course
+                                self.getStudentGrade(course: course)
                             }
                         case .removed:
                             //remove object from index in bookList
@@ -197,6 +200,7 @@ class FireDBHelper : ObservableObject{
                 }//forEach
             })//addSnapshotListener
     }
+
     
     func getStudentGrade(course: Course) {
         self.db.collection(COLLECTION_COURSES).document(course.id!).collection(COLLECTION_STUDENTGRADES)
@@ -216,6 +220,7 @@ class FireDBHelper : ObservableObject{
                             print("Document added to studentGrades")
                             // Handle adding studentGrade to the course
                             course.studentGrades.append(studentGrade)
+                            self.objectWillChange.send()
                         case .modified:
                             print("Document modified in studentGrades")
                             // Find the corresponding studentGrade in the course and update it
@@ -270,6 +275,21 @@ class FireDBHelper : ObservableObject{
         }
     }
     
+    //updateStudentGrade
+    func updateStudentCourse(courseId:String, studentId:String, grade:Int){
+        self.db.collection(COLLECTION_COURSES).document(courseId)
+            .collection(COLLECTION_STUDENTGRADES).document(studentId)
+            .updateData([
+                FIELD_GRADE : grade
+            ]){ error in
+                if let err = error{
+                    print(#function, "Unable to update document : \(err)")
+                }else{
+                    print(#function, "successfully updated : \(courseId)")
+                }
+            }
+    }
+    
     //removeStudentCourse
     func removeStudentCourse(courseId:String,studentId:String){
         self.db.collection(COLLECTION_COURSES).document(courseId)
@@ -293,6 +313,14 @@ class FireDBHelper : ObservableObject{
                     print(#function, "successfully deleted : \(deleteCourse.courseName)")
                 }
             }
+    }
+    
+    //signin
+    func signin(userId : String){
+        self.getUser(userId: userId)
+        self.getAllUsers()
+        self.getAllCourses()
+        print(#function, "courseList: \(self.courseList)")
     }
     
     //logout

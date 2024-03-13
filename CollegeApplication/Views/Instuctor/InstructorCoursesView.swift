@@ -9,7 +9,8 @@ import SwiftUI
 
 struct InstructorCoursesView: View {
     @EnvironmentObject var fireDBHelper: FireDBHelper
-
+    @State private var course : Course = Course()
+    @State private var showAlert : Bool = false
     var body: some View {
         NavigationView {
             VStack {
@@ -36,7 +37,21 @@ struct InstructorCoursesView: View {
                                 }
                             }
                         }
-                    }
+                    }.onDelete(perform: { indexSet in
+                        for index in indexSet{
+                            self.course = fireDBHelper.courseList[index]
+                            showAlert = true
+                        }
+                    })
+                }.alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Confirm Deletion"),
+                        message: Text("Are you sure you want to delete this course?"),
+                        primaryButton: .destructive(Text("Yes")) {
+                            deleteCourse()
+                        },
+                        secondaryButton: .cancel(Text("No"))
+                    )
                 }
                 .navigationBarTitle("My Courses")
                 NavigationLink(destination: AddCourseView().environmentObject(fireDBHelper)) {
@@ -50,6 +65,14 @@ struct InstructorCoursesView: View {
                         .padding()
                 }
             }
+        }
+    }
+    
+    private func deleteCourse(){
+        if(course.studentGrades.count == 0){
+            fireDBHelper.deleteCourse(deleteCourse: course)
+        }else{
+            print(#function, "Course: \(course.courseName) can't delete. Student: \(course.studentGrades.count) ")
         }
     }
 }

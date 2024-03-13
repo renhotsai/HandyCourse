@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct ContentsView: View {
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+    var course: Course
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text(course.courseName)
+            HStack{
+                ForEach(course.instructorList, id: \.self){ instructorId in
+                    if let instructor = fireDBHelper.userList.first(where: {$0.id == instructorId}){
+                        Text(instructor.name)
+                    }
+                }
+            }
+            Text(course.courseDesc)
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    ContentsView()
+    ContentsView(course: Course())
 }

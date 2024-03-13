@@ -21,7 +21,8 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
     
     
     var description: String {
-        return "id: \(id), Course Name: \(courseName), Course Desc: \(courseDesc), Instructors: \(instructorList)"
+       // return "id: \(id), Course Name: \(courseName), Course Desc: \(courseDesc), Instructors: \(instructorList)"
+        return "students : \(self.studentGrades)"
     }
     
     init(){

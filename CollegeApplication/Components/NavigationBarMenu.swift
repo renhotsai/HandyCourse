@@ -13,7 +13,11 @@ struct NavigationBarMenu: View {
     var body: some View {
         Menu {
             NavigationLink(
-                destination: ContentView(),
+                destination: ContentView().onAppear {
+                    // Clear email and password from UserDefaults upon navigation to ContentView
+                    UserDefaults.standard.removeObject(forKey: "email")
+                    UserDefaults.standard.removeObject(forKey: "password")
+                },
                 label: {
                     Text("Log out")
                 }

@@ -26,7 +26,10 @@ struct LoginView: View {
     
     @State private var isLogin : Bool = false
     
+
+    
     @Binding var rootScreen : RootScreen
+    
     var body: some View {
         let loginButtonBackgroundColor = Color(red: 79/255, green: 204/255, blue: 163/255)
 
@@ -82,6 +85,7 @@ struct LoginView: View {
             HStack {
                 Button(action: {
                     rememberMe.toggle()
+      
                 }) {
                     ZStack {
                         Rectangle()
@@ -97,8 +101,7 @@ struct LoginView: View {
                     
                 Text("Remember me")
                     .foregroundColor(.gray)
-                
-                
+                                
             }
             .padding(.top, 15)
             .padding(.bottom, 50)
@@ -108,10 +111,20 @@ struct LoginView: View {
             Button("Login") {
                 isUsernameError = false
                 isPasswordError = false
+                
+                if (rememberMe) {
+                    UserDefaults.standard.set(email, forKey: "email")
+                    UserDefaults.standard.set(password, forKey: "password")
+                } else {
+                    UserDefaults.standard.removeObject(forKey: "email")
+                    UserDefaults.standard.removeObject(forKey: "password")
+                }
+                
                 fireAuthHelper.signIn(email: email, password: password)
                 fireDBHelper.getUser(email: email)
                 rootScreen = .Main
-
+     
+          
             }.navigationDestination(isPresented: $isLogin, destination: {
                 ContentView()
             })
@@ -133,6 +146,17 @@ struct LoginView: View {
                 }
             }
         }.navigationBarBackButtonHidden(hideBackButton)
+            .onAppear {
+                let savedEmail = UserDefaults.standard.string(forKey: "email") ?? ""
+                let savedPassword = UserDefaults.standard.string(forKey: "password") ?? ""
+                
+                if !savedEmail.isEmpty && !savedPassword.isEmpty {
+                    fireAuthHelper.signIn(email: savedEmail, password: savedPassword)
+                    fireDBHelper.getUser(email: savedEmail)
+                    rootScreen = .Main
+                }
+              
+            }
     }
     
 

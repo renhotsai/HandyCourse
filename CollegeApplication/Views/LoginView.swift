@@ -120,8 +120,7 @@ struct LoginView: View {
                     UserDefaults.standard.removeObject(forKey: "password")
                 }
                 
-                fireAuthHelper.signIn(email: email, password: password)
-                fireDBHelper.getUser(email: email)
+                fireAuthHelper.signIn(email: email, password: password, fireDBHelper: fireDBHelper)
                 rootScreen = .Main
      
           
@@ -151,8 +150,7 @@ struct LoginView: View {
                 let savedPassword = UserDefaults.standard.string(forKey: "password") ?? ""
                 
                 if !savedEmail.isEmpty && !savedPassword.isEmpty {
-                    fireAuthHelper.signIn(email: savedEmail, password: savedPassword)
-                    fireDBHelper.getUser(email: savedEmail)
+                    fireAuthHelper.signIn(email: savedEmail, password: savedPassword, fireDBHelper: fireDBHelper)
                     rootScreen = .Main
                 }
               

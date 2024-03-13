@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EditProfileView: View {
     @EnvironmentObject var fireDBHelper :FireDBHelper
@@ -18,7 +19,8 @@ struct EditProfileView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
-    
+    @State private var permissionGranted: Bool = false
+   
     var body: some View {
         VStack(alignment: .leading) {
             Text("Edit Profile")
@@ -106,6 +108,36 @@ struct EditProfileView: View {
         .padding()
         .alert(isPresented: $showAlert) {
             Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }
+    
+    func checkPermission(){
+        switch PHPhotoLibrary.authorizationStatus(){
+        case .authorized:
+            self.permissionGranted = true
+        case.notDetermined, .denied:
+            self.requestPermission()
+        case.limited,.restricted: break
+            //inform the user abouut possibly granting full access
+            
+        @unknown default:
+            return
+        }
+    }
+    
+    func requestPermission(){
+        PHPhotoLibrary.requestAuthorization{ status in
+            switch status {
+            case .authorized:
+                self.permissionGranted = true
+            case.notDetermined, .denied:
+                self.permissionGranted = false
+            case.limited,.restricted: break
+                //inform the user abouut possibly granting full access
+                
+            @unknown default:
+                return
+            }
         }
     }
 }

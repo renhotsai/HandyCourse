@@ -17,11 +17,11 @@ struct StudentCourseDetailView: View {
                 .tabItem {
                     Label("Course Info", systemImage: "info.circle")
                 }
-            ContentsView()
+            ContentsView(course: course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Contents", systemImage: "list.bullet")
                 }
-            GradesView()
+            GradesView(course: course)
                 .tabItem {
                     Label("Grades", systemImage: "star.circle")
                 }

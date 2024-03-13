@@ -184,6 +184,7 @@ class FireDBHelper : ObservableObject{
                             print(#function, "Document updated : \(docChange.document.documentID)")
                             if (matchedIndex != nil){
                                 self.courseList[matchedIndex!] = course
+                                self.getStudentGrade(course: course)
                             }
                         case .removed:
                             //remove object from index in bookList

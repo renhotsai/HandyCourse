@@ -62,35 +62,6 @@ struct InstructorCourseInfoView: View {
                         .cornerRadius(10)
                 }
                 .padding()
-                
-                
-                Button(action: {
-                    showAlert = true
-                }) {
-                    Text("Delete Course")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.red)
-                        .cornerRadius(10)
-                }
-                .padding()
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("Confirm Deletion"),
-                        message: Text("Are you sure you want to delete this course?"),
-                        primaryButton: .destructive(Text("Yes")) {
-                            // Remove the course from the instructor's list of courses
-                            deleteCourse()
-                            // Dismiss the current view (InstructorCourseInfoView)
-                            presentationMode.wrappedValue.dismiss()
-                        },
-                        secondaryButton: .cancel(Text("No"))
-                    )
-                }
-                
-               
             }
             .padding()
             .navigationBarTitle(course.courseName)
@@ -101,14 +72,6 @@ struct InstructorCourseInfoView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: date)
-    }
-    
-    func deleteCourse(){
-        if(course.studentGrades.count == 0){
-            fireDBHelper.deleteCourse(deleteCourse: course)
-        }else{
-            print(#function, "Course: \(course.courseName) can't delete. Student: \(course.studentGrades.count) ")
-        }
     }
 }
 

@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct GradesView: View {
+    @EnvironmentObject var fireDBHelper : FireDBHelper
+    var course:Course
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text(course.courseName)
+            if let studentGrade = course.studentGrades.first(where: {$0.studentId == fireDBHelper.user.id}){
+                Text("\(studentGrade.grade)")
+            }
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    GradesView()
+    GradesView(course:Course())
 }

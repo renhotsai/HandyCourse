@@ -14,18 +14,20 @@ struct StudentListView: View {
 
     var body: some View {
         List(course.studentGrades, id: \.studentId) { studentGrade in
-            var user = fireDBHelper.userList.first(where: {$0.id == studentGrade.studentId})!
-            Text(user.name) // Displaying the student name
-                .padding()
+            var student = fireDBHelper.userList.first(where: {$0.id == studentGrade.studentId})!
+            NavigationLink(destination: {GradeUpdate(course:course,student:student).environmentObject(fireDBHelper)}, label: {
+                HStack{
+                    Text(student.name).padding()
+                    Spacer()
+                    Text("Grade: \(course.studentGrades.first(where: {$0.studentId == student.id})!.grade)")
+                }
+            })
         }
         .navigationTitle("Enrolled Students")
     }
 }
 
 
-struct StudentListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let testCourse = Course(courseName: "Test Course", courseDesc: "Description", studentLimit: 20, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 30))
-        return StudentListView(course: testCourse)
-    }
+#Preview {
+    StudentListView(course: Course())
 }

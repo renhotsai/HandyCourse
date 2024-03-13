@@ -84,9 +84,7 @@ class FireAuthHelper: ObservableObject{
                 
                 UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
                 UserDefaults.standard.set(password, forKey: "KEY_PASSWORD")
-                fireDBHelper.getUser(userId: self.user!.uid)
-                fireDBHelper.getAllUsers()
-                fireDBHelper.getAllCourses()
+                fireDBHelper.signin(userId: self.user!.uid)
             }
         }
     }

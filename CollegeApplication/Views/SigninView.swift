@@ -53,7 +53,7 @@ struct SignInView: View {
         }//VStack ends
         .navigationTitle("Registration")
         .navigationBarTitleDisplayMode(.inline)
-        
+    
     }//body ends
 }
 

@@ -61,33 +61,63 @@ class FireDBHelper : ObservableObject{
     }
     
     //get User
-    func getUser(email: String) {
-        db.collection(COLLECTION_USERS).whereField(FIELD_EMAIL, isEqualTo: email).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting user documents: \(error.localizedDescription)")
+    func getUser(userId: String) {
+        db.collection(COLLECTION_USERS).document(userId).addSnapshotListener({ querySnapshot, error in
+            guard let snapshot = querySnapshot else{
+                print(#function, "Unable to retrieve data from firestore : \(error)")
                 return
             }
-
-            guard let documents = querySnapshot?.documents else {
-                print("No documents found")
-                return
+            do {
+                // Attempt to decode the snapshot data into a User object
+                self.user = try snapshot.data(as: User.self)
+            } catch {
+                print(#function, "Error decoding user data: \(error)")
             }
-
-            if documents.count > 0 {
-                // Assuming there's only one user with the given email
-                let document = documents[0]
-                if let user = try? document.data(as: User.self) {
-                    self.user = user
-                } else {
-                    print("Error parsing user data")
-                }
-            } else {
-                print("User document does not exist")
-            }
-        }
+        })
     }
 
     //get UserList
+    func getAllUsers(){
+        self.db.collection(COLLECTION_USERS)
+            .addSnapshotListener({ (querySnapshot, error) in
+                guard let snapshot = querySnapshot else{
+                    print(#function, "Unable to retrieve data from firestore : \(error)")
+                    return
+                }
+                
+                snapshot.documentChanges.forEach{ (docChange) in
+                    
+                    do{
+                        
+                        var user : User = try docChange.document.data(as: User.self)
+                        user.id = docChange.document.documentID
+                        
+                        let matchedIndex = self.courseList.firstIndex(where: {($0.id?.elementsEqual(docChange.document.documentID))!})
+                        
+                        switch(docChange.type){
+                        case .added:
+                            print(#function, "Document added : \(docChange.document.documentID)")
+                            self.userList.append(user)
+                        case .modified:
+                            //replace existing object with updated one
+                            print(#function, "Document updated : \(docChange.document.documentID)")
+                            if (matchedIndex != nil){
+                                self.userList[matchedIndex!] = user
+                            }
+                        case .removed:
+                            //remove object from index in bookList
+                            print(#function, "Document removed : \(docChange.document.documentID)")
+                            if (matchedIndex != nil){
+                                self.userList.remove(at: matchedIndex!)
+                            }
+                        }
+                        
+                    }catch let err as NSError{
+                        print(#function, "Unable to convert document into Swift object : \(err)")
+                    }
+                }//forEach
+            })//addSnapshotListener
+    }
     
     //update User
     func updateUser(user:User){
@@ -116,16 +146,19 @@ class FireDBHelper : ObservableObject{
             let newcourse = try self.db
                 .collection(COLLECTION_COURSES)
                 .addDocument(from: course)
+            
+            self.user.addCourse(courseId: newcourse.documentID)
+            self.updateUser(user: self.user)
         }catch let err as NSError{
             print(#function, "Unable to add document to firestore : \(err)")
         }
     }
+    
     //get CourseList
     func getAllCourses(){
         
         self.db.collection(COLLECTION_COURSES)
             .addSnapshotListener({ (querySnapshot, error) in
-                
                 guard let snapshot = querySnapshot else{
                     print(#function, "Unable to retrieve data from firestore : \(error)")
                     return
@@ -134,7 +167,6 @@ class FireDBHelper : ObservableObject{
                 snapshot.documentChanges.forEach{ (docChange) in
                     
                     do{
-                        
                         var course : Course = try docChange.document.data(as: Course.self)
                         course.id = docChange.document.documentID
                         
@@ -143,6 +175,7 @@ class FireDBHelper : ObservableObject{
                         switch(docChange.type){
                         case .added:
                             print(#function, "Document added : \(docChange.document.documentID)")
+                            self.getStudentGrade(course: course)
                             self.courseList.append(course)
                         case .modified:
                             //replace existing object with updated one
@@ -163,7 +196,46 @@ class FireDBHelper : ObservableObject{
                     }
                 }//forEach
             })//addSnapshotListener
-    }//getAllBooks
+    }
+    
+    func getStudentGrade(course: Course) {
+        self.db.collection(COLLECTION_COURSES).document(course.id!).collection(COLLECTION_STUDENTGRADES)
+            .addSnapshotListener({ (querySnapshot, error) in
+                guard let snapshot = querySnapshot else{
+                    print(#function, "Unable to retrieve data from firestore : \(error)")
+                    return
+                }
+                
+                snapshot.documentChanges.forEach { (docChange) in
+                    do{
+                        var studentGrade : StudentGrade = try docChange.document.data(as:StudentGrade.self)
+                        let matchedIndex = course.studentGrades.firstIndex(where: {($0.studentId.elementsEqual(studentGrade.studentId))})
+                        
+                        switch(docChange.type) {
+                        case .added:
+                            print("Document added to studentGrades")
+                            // Handle adding studentGrade to the course
+                            course.studentGrades.append(studentGrade)
+                        case .modified:
+                            print("Document modified in studentGrades")
+                            // Find the corresponding studentGrade in the course and update it
+                            if let index = course.studentGrades.firstIndex(where: { $0.studentId == studentGrade.studentId}) {
+                                course.studentGrades[index] = studentGrade
+                            }
+                        case .removed:
+                            print("Document removed from studentGrades")
+                            // Remove the studentGrade from the course
+                            if let index = course.studentGrades.firstIndex(where: { $0.studentId == studentGrade.studentId }) {
+                                course.studentGrades.remove(at: index)
+                            }
+                        }
+                    }catch let err as NSError{
+                        print(#function, "Unable to convert document into Swift object : \(err)")
+                    }
+                }
+            })
+    }
+
     
     //update Course
     func updateCourse(course:Course){
@@ -187,15 +259,27 @@ class FireDBHelper : ObservableObject{
             }
     }
     
-    //
+    //addStudentCourse
     func addStudentCourse(courseId:String,studentId:String){
         do{
             try self.db
                 .collection(COLLECTION_COURSES).document(courseId)
-                .collection(COLLECTION_STUDENTGRADES).addDocument(from: StudentGrade(studentId: studentId))
+                .collection(COLLECTION_STUDENTGRADES).document(studentId).setData(from: StudentGrade(studentId: studentId))
         }catch let err as NSError{
             print(#function, "Unable to add document to firestore : \(err)")
         }
+    }
+    
+    //removeStudentCourse
+    func removeStudentCourse(courseId:String,studentId:String){
+        self.db.collection(COLLECTION_COURSES).document(courseId)
+            .collection(COLLECTION_STUDENTGRADES).document(studentId).delete{error in
+                if let err = error{
+                    print(#function, "Unable to delete document : \(err)")
+                }else{
+                    print(#function, "successfully deleted : \(studentId) in courseId: \(courseId)")
+                }
+            }
     }
     
     //delete Course
@@ -209,5 +293,12 @@ class FireDBHelper : ObservableObject{
                     print(#function, "successfully deleted : \(deleteCourse.courseName)")
                 }
             }
+    }
+    
+    //logout
+    func logout(){
+        self.user = User()
+        self.userList = [User]()
+        self.courseList = [Course]()
     }
 }

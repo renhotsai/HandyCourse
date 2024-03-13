@@ -52,10 +52,10 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
         self.courseImageName = courseImageName
     }
     
-    // Function to add an instructor
-    func addInstructor(instructor: String) {
-        if !instructorList.contains(instructor) {
-            instructorList.append(instructor)
-        }
-    }
+//    // Function to add an instructor
+//    func addInstructor(instructor: String) {
+//        if !instructorList.contains(instructor) {
+//            instructorList.append(instructor)
+//        }
+//    }
 }

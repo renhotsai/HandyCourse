@@ -33,9 +33,6 @@ struct ContentView: View {
                     .environmentObject(fireAuthHelper)
             }
         }//NavigationView
-        .onAppear(){
-            fireDBHelper.getAllCourses()
-        }
     }
 
 }

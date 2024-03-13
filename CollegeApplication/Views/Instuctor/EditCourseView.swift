@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditCourseView: View {
     @EnvironmentObject var fireDBHelper :FireDBHelper
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     var course: Course
     
     @State private var courseName: String = ""
@@ -100,7 +100,7 @@ struct EditCourseView: View {
         // Show success message
         showAlert = true
         alertMessage = "Course successfully updated"
-        dismiss()
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

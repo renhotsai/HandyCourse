@@ -27,7 +27,7 @@ struct EditProfileView: View {
     @State private var showPicker: Bool = false
     @State private var isUsingCamera: Bool = false
     @State private var currentLocationAddress: String = ""
-    @StateObject private var locationHelper = LocationHelper()
+    let locationHelper = LocationHelper()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -150,7 +150,6 @@ struct EditProfileView: View {
                 LibraryPicker(selectedImage: self.$profileImage)
             }
         }
-        .environmentObject(locationHelper)
     }
 
     func updateUser() {
@@ -196,17 +195,18 @@ struct EditProfileView: View {
     }
 
     func fetchCurrentLocation() {
+        locationHelper.checkPermission()
         guard let location = locationHelper.currentLocation else {
             print("Location not available")
             return
         }
-
+        
         locationHelper.doReverseGeocoding(location: location) { address, error in
             if let error = error {
                 print("Error fetching address: \(error.localizedDescription)")
                 return
             }
-
+            
             if let address = address {
                 DispatchQueue.main.async {
                     self.newAddress = address

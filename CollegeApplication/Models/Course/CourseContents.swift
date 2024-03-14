@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-class CourseContents: CustomStringConvertible, Identifiable, Codable {
+class CourseContents: Identifiable, Codable {
     @DocumentID var id: String? = UUID().uuidString
     var title: String
     var description: String

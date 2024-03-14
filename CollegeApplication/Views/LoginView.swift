@@ -112,6 +112,16 @@ struct LoginView: View {
                 isUsernameError = false
                 isPasswordError = false
                 
+                guard !email.isEmpty else{
+                    isUsernameError = false
+                    return
+                }
+                
+                guard !password.isEmpty else {
+                    isPasswordError = true
+                    return
+                }
+                
                 if (rememberMe) {
                     UserDefaults.standard.set(email, forKey: "email")
                     UserDefaults.standard.set(password, forKey: "password")
@@ -121,8 +131,9 @@ struct LoginView: View {
                 }
                 
                 fireAuthHelper.signIn(email: email, password: password,fireDBHelper: fireDBHelper)
-                rootScreen = .Main
-     
+                if (fireAuthHelper.user != nil){
+                    rootScreen = .Main
+                }
           
             }.navigationDestination(isPresented: $isLogin, destination: {
                 ContentView()

@@ -59,6 +59,8 @@ struct HomeView: View {
                     UserDefaults.standard.removeObject(forKey: "email")
                     UserDefaults.standard.removeObject(forKey: "password")
                     fireAuthHelper.signOut(fireDBHelper: fireDBHelper)
+                    UserDefaults.standard.removeObject(forKey: "email")
+                    UserDefaults.standard.removeObject(forKey: "password")
                     rootScreen = .Login
                 },label: {Text("Logout")})
             }

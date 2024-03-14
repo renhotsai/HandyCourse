@@ -16,6 +16,7 @@ class User: Identifiable ,Codable{
     var phoneNumber: String = ""
     var imageName: String?
     var courses : [String] = []
+    var watchedContents: [String: [String]] = [:]
     
     init(id: String, email: String, userRole: UserRole){
         self.id = id
@@ -41,4 +42,21 @@ class User: Identifiable ,Codable{
             }
         }
     }
+    
+    func markContentAsWatched(courseId: String, contentId: String) {
+        // Check if the courseId exists in watchedContents
+        if watchedContents[courseId] != nil {
+            // If yes, append the contentId to the existing array
+            if !watchedContents[courseId]!.contains(contentId) {
+                watchedContents[courseId]?.append(contentId)
+            }
+        } else {
+            // If not, create a new array with the contentId and associate it with the courseId
+            watchedContents[courseId] = [contentId]
+        }
+        
+        print("Watched contents: \(self.watchedContents)")
+    }
+    
+ 
 }

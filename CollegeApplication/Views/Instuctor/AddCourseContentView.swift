@@ -12,6 +12,9 @@ struct AddCourseContentView: View {
     @State private var contentTitle: String = ""
     @State private var videoURL: String = ""
     @State private var description: String = "" // New state for description
+    @Environment(\.dismiss) private var dismiss
+    @State private var showAlert = false // Add state variable for showing alert
+    @State private var alertMessage = "" // Add state variable for alert message
     
     var course: Course
     
@@ -36,6 +39,10 @@ struct AddCourseContentView: View {
                 
                 // Add functionality to save content title, video URL, and description to the database
                 fireDBHelper.addContent(content: content, courseId: course.id!)
+                showAlert = true
+                alertMessage = "Course successfully added"
+                
+                dismiss()
             }) {
                 Text("Add Content")
                     .padding()
@@ -44,7 +51,14 @@ struct AddCourseContentView: View {
                     .cornerRadius(8)
             }
             .padding()
-            
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Success"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+                
+            }
             Spacer()
         }
         .padding()

@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 class CourseContents: Identifiable, Codable {
-    var id: String? = UUID().uuidString
+    @DocumentID var id: String? = UUID().uuidString
     var title: String
     var description: String
     var videoURL: String

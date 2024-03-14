@@ -59,17 +59,17 @@ struct PasswordResetView: View {
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
             
-            Button(action: {
-                fireAuthHelper.changePassword()
-            }, label: {
-                Text("Submit")
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-            })
-            
+//            Button(action: {
+//                fireAuthHelper.changePassword()
+//            }, label: {
+//                Text("Submit")
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .frame(maxWidth: .infinity)
+//                    .background(Color.blue)
+//                    .cornerRadius(10)
+//            })
+//            
             
             // Submission Button
 //            Button(action: {

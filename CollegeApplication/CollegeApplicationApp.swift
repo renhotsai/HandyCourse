@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseStorage
 
 @main
 struct CollegeApplicationApp: App {

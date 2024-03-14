@@ -125,6 +125,7 @@ struct DetailView: View {
         if !course.studentGrades.contains(where: { $0.studentId == studentId }) {
             if course.studentGrades.count < course.studentLimit {
                 var studentGrade = StudentGrade(studentId: studentId)
+
                 fireDBHelper.addStudentCourse(courseId: course.id!, studentId: studentId)
                 return true
             }
@@ -134,6 +135,7 @@ struct DetailView: View {
     
     private func addCourse(){
         let student = fireDBHelper.user
+        print("Student: \(student.id)")
         self.showAlert = true
         if addStudent(studentId: student.id) {
             student.addCourse(courseId: course.id!)

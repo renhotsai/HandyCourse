@@ -11,39 +11,42 @@ struct StudentCoursesView: View {
     @EnvironmentObject var fireDBHelper: FireDBHelper
 
     var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    let student = fireDBHelper.user
-                    ForEach(fireDBHelper.courseList) { course in
-                        if student.courses.contains(where: {$0 == course.id}){
-                            NavigationLink(destination: StudentCourseDetailView(course: course).environmentObject(fireDBHelper)) {
-                                HStack {
-                                    if let imageName = course.courseImageName {
-                                        Image(imageName)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .cornerRadius(8)
-                                    } else {
-                                        Image("default")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .cornerRadius(8)
-                                    }
-                                    VStack(alignment: .leading) {
-                                        Text(course.courseName)
-                                            .font(.headline)
-                                    }
+        VStack {
+            List {
+                let student = fireDBHelper.user
+                ForEach(fireDBHelper.courseList) { course in
+                    if student.courses.contains(where: { $0 == course.id }) {
+                        NavigationLink(destination: StudentCourseDetailView(course: course).environmentObject(fireDBHelper)) {
+                            VStack(alignment: .leading) {
+                                if let imageName = course.courseImageName {
+                                    Image(imageName)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(maxWidth: .infinity, maxHeight: 125)
+                                        .clipped()
+                                } else {
+                                    Image("default")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(maxWidth: .infinity, maxHeight: 125)
+                                        .clipped()
                                 }
-                                .padding(.vertical)
+                                Text(course.courseName)
+                                    .bold()
+                                    .padding(.vertical, 5)
+
+                                Text("Category: \(course.courseCategories.rawValue)")
+                                    .foregroundColor(.gray)
+                                
+                                Text("Duration: \(formattedDate(course.startDate)) ~ \(formattedDate(course.endDate))")
+                                    .foregroundColor(.gray)
                             }
+                            .padding(.top, 20)
                         }
                     }
                 }
-                .navigationBarTitle("My Courses") // Set the navigation bar title
             }
+            .navigationBarTitle("My Courses") // Set the navigation bar title
         }
     }
 
@@ -53,6 +56,10 @@ struct StudentCoursesView: View {
         return dateFormatter.string(from: date)
     }
 }
+
+
+
+
 
 
 #Preview {

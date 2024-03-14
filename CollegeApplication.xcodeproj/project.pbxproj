@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C1DB0A12BA3549F00D991F0 /* VideoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1DB0A02BA3549F00D991F0 /* VideoDetailView.swift */; };
+		6C1DB0A32BA354A900D991F0 /* AddCourseContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1DB0A22BA354A900D991F0 /* AddCourseContentView.swift */; };
+		6C1DB0A52BA354B300D991F0 /* InstructorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1DB0A42BA354B300D991F0 /* InstructorContentView.swift */; };
+		6C1DB0A72BA355AA00D991F0 /* CourseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1DB0A62BA355AA00D991F0 /* CourseCategory.swift */; };
+		6C1DB0A92BA355F600D991F0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1DB0A82BA355F600D991F0 /* MapView.swift */; };
+		6C1DB0AB2BA3563A00D991F0 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1DB0AA2BA3563A00D991F0 /* LocationHelper.swift */; };
 		6C85B4F52B8BB19300793AB9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B4E82B8BB19100793AB9 /* LoginView.swift */; };
 		6C85B4F62B8BB19300793AB9 /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B4E92B8BB19100793AB9 /* WelcomeScreenView.swift */; };
 		6C85B4F72B8BB19300793AB9 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C85B4EA2B8BB19100793AB9 /* AboutUsView.swift */; };
@@ -141,6 +147,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C1DB0A02BA3549F00D991F0 /* VideoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDetailView.swift; path = Instuctor/VideoDetailView.swift; sourceTree = "<group>"; };
+		6C1DB0A22BA354A900D991F0 /* AddCourseContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddCourseContentView.swift; path = Instuctor/AddCourseContentView.swift; sourceTree = "<group>"; };
+		6C1DB0A42BA354B300D991F0 /* InstructorContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructorContentView.swift; path = Instuctor/InstructorContentView.swift; sourceTree = "<group>"; };
+		6C1DB0A62BA355AA00D991F0 /* CourseCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCategory.swift; sourceTree = "<group>"; };
+		6C1DB0A82BA355F600D991F0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		6C1DB0AA2BA3563A00D991F0 /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		6C85B4E82B8BB19100793AB9 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6C85B4E92B8BB19100793AB9 /* WelcomeScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
 		6C85B4EA2B8BB19100793AB9 /* AboutUsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
@@ -283,9 +295,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C1DB0992BA3526600D991F0 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				CA3CD9DD2BA25A5300A76BEE /* AddCourseContentView.swift */,
+				CA3CD9DF2BA25A9C00A76BEE /* InstructorContentView.swift */,
+				CA3CD9E62BA26B8D00A76BEE /* VideoDetailView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6C85B4E72B8BB17A00793AB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C1DB0A42BA354B300D991F0 /* InstructorContentView.swift */,
+				6C1DB0A22BA354A900D991F0 /* AddCourseContentView.swift */,
+				6C1DB0A02BA3549F00D991F0 /* VideoDetailView.swift */,
 				6CFD0F652B75399300E2BA4E /* ContentView.swift */,
 				6C85B5312B8BB33800793AB9 /* Student */,
 				6C85B5242B8BB31100793AB9 /* Instuctor */,
@@ -301,6 +326,7 @@
 				6C85B4F12B8BB19200793AB9 /* SigninView.swift */,
 				6C85B4E92B8BB19100793AB9 /* WelcomeScreenView.swift */,
 				6C85B53F2B8BDE0A00793AB9 /* HomeView.swift */,
+				6C1DB0A82BA355F600D991F0 /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				6C85B6F82BA2634100793AB9 /* LibraryPicker.swift */,
+				6C1DB0AA2BA3563A00D991F0 /* LocationHelper.swift */,
 				6C85B6F62BA2633800793AB9 /* CameraPicker.swift */,
 				6C85B54E2B8C43F600793AB9 /* FireDBHelper.swift */,
 				6C85B5862B8D8CA900793AB9 /* FireAuthHelper.swift */,
@@ -335,6 +362,7 @@
 				6C85B50B2B8BB22900793AB9 /* Course.swift */,
 				6C85B5B82B9A1CC800793AB9 /* StudentGrade.swift */,
 				CA3CD9E42BA2657000A76BEE /* CourseContents.swift */,
+				6C1DB0A62BA355AA00D991F0 /* CourseCategory.swift */,
 			);
 			path = Course;
 			sourceTree = "<group>";
@@ -358,7 +386,6 @@
 				6C85B5272B8BB31F00793AB9 /* InstructorCourseInfoView.swift */,
 				6C85B5282B8BB31F00793AB9 /* InstructorCoursesView.swift */,
 				6C85B5292B8BB31F00793AB9 /* StudentListView.swift */,
-
 			);
 			path = Instuctor;
 			sourceTree = "<group>";
@@ -380,6 +407,7 @@
 			children = (
 				6CFD0F622B75399300E2BA4E /* CollegeApplication */,
 				6CFD0F612B75399300E2BA4E /* Products */,
+				6C1DB0992BA3526600D991F0 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -585,6 +613,7 @@
 				6C85B53E2B8BBCAF00793AB9 /* RootScreen.swift in Sources */,
 				6C85B52B2B8BB31F00793AB9 /* AddCourseView.swift in Sources */,
 				6C85B6EF2BA24ADA00793AB9 /* (null) in Sources */,
+				6C1DB0A32BA354A900D991F0 /* AddCourseContentView.swift in Sources */,
 				6C85B4F82B8BB19300793AB9 /* EditProfileView.swift in Sources */,
 				6C85B6F12BA24AF400793AB9 /* (null) in Sources */,
 				6C85B5402B8BDE0A00793AB9 /* HomeView.swift in Sources */,
@@ -592,12 +621,16 @@
 				6C85B5AD2B99084400793AB9 /* UserRole.swift in Sources */,
 				6C85B4F92B8BB19300793AB9 /* MainView.swift in Sources */,
 				6C85B5872B8D8CA900793AB9 /* FireAuthHelper.swift in Sources */,
+				6C1DB0A52BA354B300D991F0 /* InstructorContentView.swift in Sources */,
 				6C85B4FE2B8BB19300793AB9 /* SigninView.swift in Sources */,
 				6C85B4FF2B8BB19300793AB9 /* PasswordResetView.swift in Sources */,
 				6C85B4FD2B8BB19300793AB9 /* GradeView.swift in Sources */,
+				6C1DB0A92BA355F600D991F0 /* MapView.swift in Sources */,
 				6C85B5082B8BB1EB00793AB9 /* ErrorCode.swift in Sources */,
 				6C85B5302B8BB31F00793AB9 /* EditCourseView.swift in Sources */,
+				6C1DB0AB2BA3563A00D991F0 /* LocationHelper.swift in Sources */,
 				6C85B52F2B8BB31F00793AB9 /* StudentListView.swift in Sources */,
+				6C1DB0A12BA3549F00D991F0 /* VideoDetailView.swift in Sources */,
 				6C85B5392B8BB34500793AB9 /* UserContentView.swift in Sources */,
 				CA3CD9E02BA25A9C00A76BEE /* InstructorContentView.swift in Sources */,
 				6C85B54F2B8C43F600793AB9 /* FireDBHelper.swift in Sources */,
@@ -609,6 +642,7 @@
 				6C85B4F62B8BB19300793AB9 /* WelcomeScreenView.swift in Sources */,
 				6C85B50C2B8BB22900793AB9 /* Course.swift in Sources */,
 				6C85B52D2B8BB31F00793AB9 /* InstructorCourseInfoView.swift in Sources */,
+				6C1DB0A72BA355AA00D991F0 /* CourseCategory.swift in Sources */,
 				6C85B6F52BA255F100793AB9 /* GradeUpdate.swift in Sources */,
 				6C85B5372B8BB34500793AB9 /* StudentCoursesView.swift in Sources */,
 				6C85B5002B8BB19300793AB9 /* DetailView.swift in Sources */,
@@ -763,6 +797,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CollegeApplication/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "CameraDemo app needs to access Camera to click pictures";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(MARKETING_VERSION)";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CameraDemo app needs to access Photo Library to save pictures";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CameraDemo app needs to access Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -795,6 +831,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CollegeApplication/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "CameraDemo app needs to access Camera to click pictures";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(MARKETING_VERSION)";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CameraDemo app needs to access Photo Library to save pictures";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CameraDemo app needs to access Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

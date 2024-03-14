@@ -18,7 +18,7 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
     var startDate: Date
     var endDate: Date
     var courseImageName: String? // New property for the image name
-    
+    var contents: [CourseContents] = []
     
     var description: String {
        // return "id: \(id), Course Name: \(courseName), Course Desc: \(courseDesc), Instructors: \(instructorList)"
@@ -53,10 +53,7 @@ class Course: CustomStringConvertible, Identifiable ,Codable{
         self.courseImageName = courseImageName
     }
     
-//    // Function to add an instructor
-//    func addInstructor(instructor: String) {
-//        if !instructorList.contains(instructor) {
-//            instructorList.append(instructor)
-//        }
-//    }
+    func addContent(content: CourseContents) {
+        contents.append(content)
+    }
 }

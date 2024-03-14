@@ -35,6 +35,12 @@ class FireDBHelper : ObservableObject{
     private let COLLECTION_STUDENTGRADES :String = "studentGrades"
     private let FIELD_GRADE : String = "grade"
     
+    private let COLLECTION_CONTENTS : String = "contents"
+    private let FIELD_CONTENTTITLE: String = "contentTitle"
+    private let FIELD_CONTENTDESCRIPTION: String = "contentDescription"
+    private let FIELD_VIDEOURL: String = "videoURL"
+    private let FIELD_VIDEOWATCHED: String = "videoWatched"
+    
     @Published var courseList = [Course]()
     
     init(db : Firestore){
@@ -315,6 +321,47 @@ class FireDBHelper : ObservableObject{
             }
     }
     
+    //add content 
+    func addContent(content: CourseContents, courseId: String) {
+        do {
+            try self.db
+                .collection(COLLECTION_COURSES)
+                .document(courseId)
+                .collection(COLLECTION_CONTENTS)
+                .addDocument(from: content)
+        } catch let err as NSError {
+            print(#function, "Unable to add document to firestore : \(err)")
+        }
+    }
+
+    //get contents
+    func getContentsForCourse(courseID: String, completion: @escaping ([CourseContents]) -> Void) {
+        db.collection(COLLECTION_COURSES)
+            .document(courseID)
+            .collection(COLLECTION_CONTENTS)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion([])
+                } else {
+                    var contents: [CourseContents] = []
+                    
+                    for document in querySnapshot!.documents {
+                        do {
+                            let content = try document.data(as: CourseContents.self)
+                            contents.append(content)                            
+                        } catch {
+                            print("Error decoding content data: \(error)")
+                        }
+                    }
+                    
+                    // Return the contents array through completion handler
+                    completion(contents)
+                }
+            }
+    }
+
+  
     //signin
     func signin(userId : String){
         self.getUser(userId: userId)

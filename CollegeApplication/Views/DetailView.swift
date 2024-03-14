@@ -15,7 +15,7 @@ struct DetailView: View {
     var course: Course
     @State private var alertMsg: Alert = Alert(title: Text(""))
     @State private var showAlert: Bool = false
-    
+    @State private var instructorName: String = ""
     var body: some View {
         VStack(alignment: .leading) {
             if let imageName = course.courseImageName {
@@ -39,10 +39,8 @@ struct DetailView: View {
                     .padding(.trailing, 10)
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    if let instructorName = course.instructorList.first {
-                        Text("\(instructorName)")
+                    Text("\(instructorName)")
                             .font(.subheadline)
-                    }
                 }
             }
             .padding(.vertical, 10)
@@ -112,6 +110,20 @@ struct DetailView: View {
                         .padding()
                 }
             }
+        }
+        .onAppear {
+            if let instructorId = course.instructorList.first {
+                fireDBHelper.getInstructor(userId: instructorId) { instructor in
+                    if let instructor = instructor {
+                        self.instructorName = instructor.name
+                    
+                    } else {
+                        self.instructorName = "instructor not found"
+                  
+                    }
+                }
+            }
+
         }
         .alert(isPresented: $showAlert, content: {
             alertMsg

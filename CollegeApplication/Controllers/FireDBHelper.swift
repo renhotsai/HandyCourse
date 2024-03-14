@@ -169,9 +169,9 @@ class FireDBHelper : ObservableObject{
             let newcourse = try self.db
                 .collection(COLLECTION_COURSES)
                 .addDocument(from: course)
-            
-            self.user.addCourse(courseId: newcourse.documentID)
-            self.updateUser(user: self.user)
+            let user = self.user
+            user.addCourse(courseId: newcourse.documentID)
+            self.updateUser(user: user)
         }catch let err as NSError{
             print(#function, "Unable to add document to firestore : \(err)")
         }

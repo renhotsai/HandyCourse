@@ -56,6 +56,8 @@ struct HomeView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button(action: {
+                    UserDefaults.standard.removeObject(forKey: "email")
+                    UserDefaults.standard.removeObject(forKey: "password")
                     fireAuthHelper.signOut(fireDBHelper: fireDBHelper)
                     rootScreen = .Login
                 },label: {Text("Logout")})

@@ -17,7 +17,7 @@ struct StudentCourseDetailView: View {
                 .tabItem {
                     Label("Course Info", systemImage: "info.circle")
                 }
-            ContentsView(course: course).environmentObject(fireDBHelper)
+            UserContentView(course: course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Contents", systemImage: "list.bullet")
                 }

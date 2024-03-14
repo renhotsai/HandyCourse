@@ -19,6 +19,7 @@ struct InstructorContentView: View {
                 .padding()
             
             // Iterate over the contents array
+
             List {
                 ForEach(contents) { content in
                     NavigationLink(destination: VideoDetailView(videoURL: URL(string: content.videoURL)!, markAsWatched: {})) {
@@ -45,6 +46,7 @@ struct InstructorContentView: View {
                         }
                     }
                 }
+
             }
             .padding(.horizontal)
             

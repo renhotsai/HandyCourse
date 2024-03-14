@@ -17,6 +17,7 @@ struct SignInView: View {
     @State private var username: String = ""
     
     @State private var isStudent = true
+    @State private var errorMsg = ""
     
     var body: some View {
         VStack{
@@ -36,6 +37,8 @@ struct SignInView: View {
                 Toggle(isOn: $isStudent) {
                     Text("Student")
                 }
+                
+                Text(errorMsg)
             }.disableAutocorrection(true)
             
             Section{
@@ -44,11 +47,28 @@ struct SignInView: View {
                     //such as all the inputs are not empty
                     //and check for password rule
                     //and display alert accordingly
+                    guard !email.isEmpty else{
+                        self.errorMsg = "Email empty."
+                        return
+                    }
+                    
+                    guard !password.isEmpty else {
+                        self.errorMsg = "Password empty."
+                        return
+                    }
+                    
+                    guard password == confirmPassword else{
+                        self.errorMsg = "password is different."
+                        return
+                    }
+                    
                     
                     //if all the data is validated, create account on FirebaseAuth
                     self.fireAuthHelper.signUp(email: self.email, password: self.password, isStudent: self.isStudent,fireDBHelper: fireDBHelper)
                     //move to home screen
-                    self.rootScreen = .Main
+                    
+                        rootScreen = .Main
+
                 }){
                     Text("Create Account")
                 }//Button ends

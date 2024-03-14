@@ -131,9 +131,8 @@ struct LoginView: View {
                 }
                 
                 fireAuthHelper.signIn(email: email, password: password,fireDBHelper: fireDBHelper)
-                if (fireAuthHelper.user != nil){
                     rootScreen = .Main
-                }
+                
           
             }.navigationDestination(isPresented: $isLogin, destination: {
                 ContentView()

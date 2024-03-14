@@ -19,17 +19,34 @@ struct InstructorContentView: View {
                 .padding()
             
             // Iterate over the contents array
-            List(contents) { content in
-//                NavigationLink(destination: VideoDetailView(videoURL: URL(string: content.videoURL)!)) {
-//                    HStack(spacing: 8) {
-//                        Image(systemName: "checkmark")
-//                            .foregroundColor(content.watched ? .green : .black) // Change color based on watched status
-//                            .padding(.trailing, 4)
-//                        Text(content.title)
-//                            .font(.headline)
-//                    }
-//                    .padding()
-//                }
+
+            List {
+                ForEach(contents) { content in
+                    NavigationLink(destination: VideoDetailView(videoURL: URL(string: content.videoURL)!, markAsWatched: {})) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(content.watched ? .green : .black)
+                                .padding(.trailing, 4)
+                            Text(content.title)
+                                .font(.headline)
+                        }
+                        .padding()
+                    }
+                }
+                .onDelete { indexSet in
+                    // Loop through the index set and delete each content
+                    for index in indexSet {
+                        let contentToDelete = contents[index]
+                        if let courseId = self.course.id {
+                            fireDBHelper.deleteContent(content: contentToDelete, course: course)
+                          
+                            fireDBHelper.deleteWatchedContent(courseId: courseId, contentId: contentToDelete.id!)
+                            // Remove the deleted content from the local array
+                            self.contents.remove(at: index)
+                        }
+                    }
+                }
+
             }
             .padding(.horizontal)
             
@@ -41,7 +58,7 @@ struct InstructorContentView: View {
                     .font(.headline)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green) // Changed to light green
+                    .background(Color.green)
                     .cornerRadius(10)
             }
             .padding()

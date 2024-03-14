@@ -19,6 +19,7 @@ class FireDBHelper : ObservableObject{
     private let FIELD_PHONE : String = "phoneNumber"
     private let FIELD_IMAGE : String = "imageName"
     private let FIELD_COURSES : String = "courses"
+    private let FIELD_VIDEOWATCHED: String = "videoWatched"
     
     @Published var user : User = User()
     @Published var userList : [User] = []
@@ -41,7 +42,7 @@ class FireDBHelper : ObservableObject{
     private let FIELD_CONTENTTITLE: String = "contentTitle"
     private let FIELD_CONTENTDESCRIPTION: String = "contentDescription"
     private let FIELD_VIDEOURL: String = "videoURL"
-    private let FIELD_VIDEOWATCHED: String = "videoWatched"
+
     
     @Published var courseList = [Course]()
     
@@ -164,6 +165,93 @@ class FireDBHelper : ObservableObject{
         }
     }
     
+    //user marked as watched content
+    func markContentAsWatched(userId: String, courseId: String, contentId: String) {
+        let userRef = db.collection(COLLECTION_USERS).document(userId)
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                var userData = document.data() ?? [:]
+                var watchedContents = userData["watchedContents"] as? [String: [String]] ?? [:]
+                
+                // Check if the courseId exists in watchedContents
+                if watchedContents[courseId] != nil {
+                    // If yes, append the contentId to the existing array
+                    if !watchedContents[courseId]!.contains(contentId) {
+                        watchedContents[courseId]?.append(contentId)
+                    }
+                } else {
+                    // If not, create a new array with the contentId and associate it with the courseId
+                    watchedContents[courseId] = [contentId]
+                }
+                
+                // Update the watchedContents field in the user document
+                userData["watchedContents"] = watchedContents
+                
+                // Update the user document in Firestore
+                userRef.setData(userData) { error in
+                    if let error = error {
+                        print("Error updating document: \(error)")
+                    } else {
+                        print("Document successfully updated")
+                    }
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+
+    //delete watched content   
+    func deleteWatchedContent(courseId: String, contentId: String) {
+        let usersRef = db.collection(COLLECTION_USERS)
+        
+        // Get all users
+        usersRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let userId = document.documentID
+                    self.deleteWatchedContentForUser(userId: userId, courseId: courseId, contentId: contentId)
+                }
+            }
+        }
+    }
+    
+    private func deleteWatchedContentForUser(userId: String, courseId: String, contentId: String) {
+        let userRef = db.collection(COLLECTION_USERS).document(userId)
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                var userData = document.data() ?? [:]
+                var watchedContents = userData["watchedContents"] as? [String: [String]] ?? [:]
+                
+                // Check if the courseId exists in watchedContents
+                if var contentIds = watchedContents[courseId] {
+                    // Remove the specified contentId from the array
+                    contentIds.removeAll { $0 == contentId }
+                    
+                    // Update the watchedContents dictionary
+                    watchedContents[courseId] = contentIds
+                    
+                    // Update the userData dictionary
+                    userData["watchedContents"] = watchedContents
+                    
+                    // Update the user document in Firestore
+                    userRef.setData(userData) { error in
+                        if let error = error {
+                            print("Error updating document: \(error)")
+                        } else {
+                            print("Watched content successfully deleted for user \(userId)")
+                        }
+                    }
+                }
+            } else {
+                print("Document does not exist for user \(userId)")
+            }
+        }
+    }
     
     //insert Course
     func insertCourse(course : Course){
@@ -267,6 +355,7 @@ class FireDBHelper : ObservableObject{
     
     //update Course
     func updateCourse(course:Course){
+
         self.db.collection(COLLECTION_COURSES)
             .document(course.id!)
             .updateData([
@@ -291,6 +380,7 @@ class FireDBHelper : ObservableObject{
     
     //addStudentCourse
     func addStudentCourse(courseId:String,studentId:String){
+        print("Course ID is: \(courseId), student ID is : \(studentId)")
         do{
             try self.db
                 .collection(COLLECTION_COURSES).document(courseId)
@@ -380,7 +470,19 @@ class FireDBHelper : ObservableObject{
             }
     }
 
-  
+    func deleteContent(content: CourseContents, course: Course) {
+        self.db.collection(COLLECTION_COURSES)
+            .document(course.id!)
+            .collection(COLLECTION_CONTENTS)
+            .document(content.id!) // Assuming content.id exists and uniquely identifies the content
+            .delete { error in
+                if let error = error {
+                    print(#function, "Unable to delete content document: \(error)")
+                } else {
+                    print(#function, "Successfully deleted content: \(content.title)")
+                }
+            }
+    }
     //signin
     func signin(userId : String){
         self.getUser(userId: userId)

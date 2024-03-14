@@ -14,7 +14,7 @@ struct SignInView: View {
     @State private var email : String = ""
     @State private var password : String = ""
     @State private var confirmPassword : String = ""
-    @State private var username: String = ""
+    @State private var fullName: String = ""
     
     @State private var isStudent = true
     @State private var errorMsg = ""
@@ -31,7 +31,7 @@ struct SignInView: View {
                 SecureField("Enter Password Again", text: self.$confirmPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Enter Full Name", text: self.$username)
+                TextField("Enter Full Name", text: self.$fullName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Toggle(isOn: $isStudent) {
@@ -64,7 +64,7 @@ struct SignInView: View {
                     
                     
                     //if all the data is validated, create account on FirebaseAuth
-                    self.fireAuthHelper.signUp(email: self.email, password: self.password, isStudent: self.isStudent,fireDBHelper: fireDBHelper)
+                    self.fireAuthHelper.signUp(email: self.email, password: self.password, fullName: self.fullName, isStudent: self.isStudent,fireDBHelper: fireDBHelper)
                     //move to home screen
                     
                         rootScreen = .Main

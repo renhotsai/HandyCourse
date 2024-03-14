@@ -28,7 +28,7 @@ class FireAuthHelper: ObservableObject{
         }
     }
     
-    func signUp(email : String, password : String, isStudent: Bool, fireDBHelper: FireDBHelper){
+    func signUp(email : String, password : String, fullName: String, isStudent: Bool, fireDBHelper: FireDBHelper){
         
         Auth.auth().createUser(withEmail: email, password: password){ [self] authResult, error in
             
@@ -51,10 +51,9 @@ class FireAuthHelper: ObservableObject{
                 var user : User
                 
                 if isStudent {
-                    user = User(id:self.user!.uid, email: email, userRole: .Student)
+                    user = User(id:self.user!.uid, email: email, name: fullName, userRole: .Student)
                 } else {
-                    
-                    user = User(id:self.user!.uid, email: email, userRole: .Instructor)
+                    user = User(id:self.user!.uid, email: email, name: fullName, userRole: .Instructor)
                 }
                 fireDBHelper.insertUser(user : user)
                 fireDBHelper.getAllCourses()

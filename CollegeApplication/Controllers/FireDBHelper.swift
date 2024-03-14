@@ -87,6 +87,28 @@ class FireDBHelper : ObservableObject{
         })
     }
 
+    func getInstructor(userId: String, completion: @escaping (User?) -> Void) {
+        db.collection(COLLECTION_USERS).document(userId).getDocument { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print(#function, "Unable to retrieve data from Firestore : \(error!)")
+                completion(nil)
+                return
+            }
+            do {
+                if document.exists {
+                    let user = try document.data(as: User.self)
+                    completion(user)
+                } else {
+                    print(#function, "Document does not exist for user ID: \(userId)")
+                    completion(nil)
+                }
+            } catch {
+                print(#function, "Error decoding user data: \(error)")
+                completion(nil)
+            }
+        }
+    }
+    
     //get UserList
     func getAllUsers(){
         self.db.collection(COLLECTION_USERS)

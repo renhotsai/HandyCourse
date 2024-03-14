@@ -18,9 +18,10 @@ class User: Identifiable ,Codable{
     var courses : [String] = []
     var watchedContents: [String: [String]] = [:]
     
-    init(id: String, email: String, userRole: UserRole){
+    init(id: String, email: String, name: String, userRole: UserRole){
         self.id = id
         self.email = email
+        self.name = name 
         self.role = userRole
     }
     

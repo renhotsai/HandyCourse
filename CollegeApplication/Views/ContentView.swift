@@ -14,6 +14,7 @@ struct ContentView: View {
    
     private let fireDBHelper = FireDBHelper.getInstance()
     var fireAuthHelper = FireAuthHelper()
+    private let fireStorageHelper = FireStorageHelper.getInstance()
     
     @State private var rootScreen : RootScreen = .Login
     var body: some View {
@@ -28,6 +29,7 @@ struct ContentView: View {
                 HomeView(rootScreen: $rootScreen)
                     .environmentObject(fireDBHelper)
                     .environmentObject(fireAuthHelper)
+                    .environmentObject(fireStorageHelper)
             case .SignUp:
                 SignInView(rootScreen: $rootScreen)
                     .environmentObject(fireDBHelper)

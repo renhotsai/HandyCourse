@@ -129,10 +129,10 @@ class FireDBHelper : ObservableObject{
     
     //update User
     func updateUser(user:User){
+        
         self.db.collection(COLLECTION_USERS)
             .document(user.id)
             .updateData([FIELD_NAME: user.name,
-                        FIELD_EMAIL: user.email,
                       FIELD_ADDRESS:user.address,
                         FIELD_PHONE:user.phoneNumber,
                       FIELD_COURSES:user.courses,
@@ -145,6 +145,21 @@ class FireDBHelper : ObservableObject{
                     print(#function, "successfully updated : \(user.id)")
                 }
             }
+        
+    }
+    
+    func updateUserImage(user:User, image:UIImage? = nil, fireStorageHelper: FireStorageHelper? = nil){
+        if image != nil {
+            fireStorageHelper?.uploadImage(image: image!, imageName: user.name){ result in
+                switch result {
+                case .success(let url):
+                    user.imageName = url.absoluteString
+                    self.updateUser(user: user)
+                case .failure(let error):
+                    print("Error uploading image: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     

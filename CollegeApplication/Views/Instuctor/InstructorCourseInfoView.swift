@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct InstructorCourseInfoView: View {
-    @EnvironmentObject var user: Instructor
+    @EnvironmentObject var fireDBHelper : FireDBHelper
     @Environment(\.presentationMode) var presentationMode
+    
     @State private var showAlert = false
     
     var course: Course
@@ -51,7 +52,7 @@ struct InstructorCourseInfoView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: EditCourseView(course: course)) {
+                NavigationLink(destination: EditCourseView(course: course).environmentObject(fireDBHelper)) {
                     Text("Update Course")
                         .foregroundColor(.white)
                         .font(.headline)
@@ -61,36 +62,6 @@ struct InstructorCourseInfoView: View {
                         .cornerRadius(10)
                 }
                 .padding()
-                
-                
-                Button(action: {
-                    showAlert = true
-                }) {
-                    Text("Delete Course")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.red)
-                        .cornerRadius(10)
-                }
-                .padding()
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("Confirm Deletion"),
-                        message: Text("Are you sure you want to delete this course?"),
-                        primaryButton: .destructive(Text("Yes")) {
-                            // Remove the course from the instructor's list of courses
-                            user.removeCourse(course: course)
-                            
-                            // Dismiss the current view (InstructorCourseInfoView)
-                            presentationMode.wrappedValue.dismiss()
-                        },
-                        secondaryButton: .cancel(Text("No"))
-                    )
-                }
-                
-               
             }
             .padding()
             .navigationBarTitle(course.courseName)
@@ -104,9 +75,7 @@ struct InstructorCourseInfoView: View {
     }
 }
 
-struct InstructorCourseInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        let testCourse = Course(courseName: "C-Course", courseDesc: "Test C", studentLimit: 35, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 12), instructorList: ["aaa", "bbb"])
-        return InstructorCourseInfoView(course: testCourse)
-    }
+
+#Preview {
+    InstructorCourseInfoView(course: Course())
 }

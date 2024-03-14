@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct InstructorCourseDetailView: View {
+    @EnvironmentObject var fireDBHelper : FireDBHelper
     var course: Course
     var body: some View {
         TabView {
-            InstructorCourseInfoView(course: course)
+            InstructorCourseInfoView(course: course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Course Info", systemImage: "info.circle")
                 }
-            ContentsView()
+            InstructorContentView(course:course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Contents", systemImage: "list.bullet")
                 }
-            StudentListView(course: course)
+            StudentListView(course: course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Students", systemImage: "person.2")
                 }
@@ -29,7 +30,7 @@ struct InstructorCourseDetailView: View {
 
 struct InstructorCourseDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let testCourse = Course(courseName: "Test Course", courseDesc: "Description", studentLimit: 20, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 30), instructorList: ["Instructor"])
+        let testCourse = Course(courseName: "Test Course", courseDesc: "Description", studentLimit: 20, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 30), instructorList: ["Instructor"],coursePrice : 0.0, courseCategories: CourseCategory.defaultCategory)
         return InstructorCourseDetailView(course: testCourse)
     }
 }

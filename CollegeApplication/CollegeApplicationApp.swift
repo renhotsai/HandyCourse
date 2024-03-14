@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseStorage
 
 @main
 struct CollegeApplicationApp: App {
@@ -19,7 +20,7 @@ struct CollegeApplicationApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            WelcomeScreenView()
+            ContentView()
         }
     }
 }

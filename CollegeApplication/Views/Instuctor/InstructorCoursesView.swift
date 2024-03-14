@@ -9,32 +9,58 @@ import SwiftUI
 
 struct InstructorCoursesView: View {
     @EnvironmentObject var fireDBHelper: FireDBHelper
-
+    @State private var course : Course = Course()
+    @State private var showAlert : Bool = false
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    var instructor = fireDBHelper.user as! Instructor
-                    ForEach(instructor.courseList) { course in
-                        NavigationLink(destination: InstructorCourseDetailView(course: course)) {
-                            HStack {
-                                if let imageName = course.courseImageName {
-                                    Image(imageName)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(8)
-                                } else {
-                                    Image("default")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(8)
+                    let instructor = fireDBHelper.user
+                    ForEach(fireDBHelper.courseList) { course in
+                        if instructor.courses.contains(where: {$0 == course.id}){
+                            NavigationLink(destination: InstructorCourseDetailView(course: course).environmentObject(fireDBHelper)) {
+                                VStack(alignment: .leading) {
+                                    if let imageName = course.courseImageName {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(maxWidth: .infinity, maxHeight: 125)
+                                            .clipped()
+                                    } else {
+                                        Image("default")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(maxWidth: .infinity, maxHeight: 125)
+                                            .clipped()
+                                    }
+                                    Text(course.courseName)
+                                        .bold()
+                                        .padding(.vertical, 5)
+
+                                    Text("Category: \(course.courseCategories.rawValue)")
+                                        .foregroundColor(.gray)
+                                    
+                                    Text("Duration: \(formattedDate(course.startDate)) ~ \(formattedDate(course.endDate))")
+                                        .foregroundColor(.gray)
                                 }
-                                Text(course.courseName)
+                                .padding(.top, 20)
                             }
                         }
-                    }
+                    }.onDelete(perform: { indexSet in
+                        for index in indexSet{
+                            self.course = fireDBHelper.courseList[index]
+                            showAlert = true
+                        }
+                    })
+                }.alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Confirm Deletion"),
+                        message: Text("Are you sure you want to delete this course?"),
+                        primaryButton: .destructive(Text("Yes")) {
+                            deleteCourse()
+                        },
+                        secondaryButton: .cancel(Text("No"))
+                    )
                 }
                 .navigationBarTitle("My Courses")
                 NavigationLink(destination: AddCourseView().environmentObject(fireDBHelper)) {
@@ -50,4 +76,22 @@ struct InstructorCoursesView: View {
             }
         }
     }
+    
+    private func deleteCourse(){
+        if(course.studentGrades.count == 0){
+            fireDBHelper.deleteCourse(deleteCourse: course)
+        }else{
+            print(#function, "Course: \(course.courseName) can't delete. Student: \(course.studentGrades.count) ")
+        }
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd" // Format: Year.Month.Day
+        return dateFormatter.string(from: date)
+    }
+}
+
+#Preview {
+    InstructorCoursesView()
 }

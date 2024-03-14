@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var fireAuthHelper : FireAuthHelper
+    @EnvironmentObject var fireDBHelper: FireDBHelper
+    
     @State private var email: String = ""
     @State private var password: String = ""
 
@@ -18,88 +20,156 @@ struct LoginView: View {
     @State private var isPasswordError: Bool = false
     @State private var errorMessage: String = ""
     
-//    @State private var currUser : User = User()
-
+    @State private var hideBackButton = true
+    
+    @State private var rememberMe = false
     
     @State private var isLogin : Bool = false
     
+
+    
+    @Binding var rootScreen : RootScreen
+    
     var body: some View {
-        
+        let loginButtonBackgroundColor = Color(red: 79/255, green: 204/255, blue: 163/255)
+
         VStack {
-            Text("Login")
-                .font(.largeTitle)
-                .bold()
+            Image("handycourse-logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 300, height: 100)
                 .padding()
+
             
-            TextField("Email", text: $email)
-                .padding()
-                .frame(width: 300, height: 50)
-                .background(Color.black.opacity(0.05))
-                .cornerRadius(10)
-                .border(isUsernameError ? Color.red : Color.clear, width: 2)
-            
-            SecureField("Password", text: $password)
-                .padding()
-                .frame(width: 300, height: 50)
-                .background(Color.black.opacity(0.05))
-                .cornerRadius(10)
-                .border(isPasswordError ? Color.red : Color.clear, width: 2)
+            ZStack(alignment: .bottomLeading) {
+                Rectangle()
+                    .fill(isUsernameError ? Color.red : Color.gray)
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .frame(width: UIScreen.main.bounds.width / 1.3)
+
+                HStack {
+                    Image(systemName: "envelope")
+                        .foregroundColor(.gray)
+                        
+                    TextField("Email", text: $email)
+                        .padding(.vertical)
+                        .frame(height: 50)
+                        .frame(width: UIScreen.main.bounds.width / 1.7)
+                        .border(Color.clear, width: 1)
+                }
+                
+            }
+
+           
+
+            ZStack(alignment: .bottomLeading) {
+                Rectangle()
+                    .fill(isPasswordError ? Color.red : Color.gray)
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .frame(width: UIScreen.main.bounds.width / 1.3)
+
+                HStack {
+                    Image(systemName: "lock")
+                        .foregroundColor(.gray)
+                    SecureField("Password", text: $password)
+                        .padding(.vertical)
+                        .frame(height: 50)
+                        .frame(width: UIScreen.main.bounds.width / 1.7)
+                        .border(Color.clear, width: 1)
+                }
+            }
+
+         
+            HStack {
+                Button(action: {
+                    rememberMe.toggle()
+      
+                }) {
+                    ZStack {
+                        Rectangle()
+                            .stroke(Color.gray, lineWidth: 1)
+                                .frame(width: 20, height: 20)
+                        
+                        if (rememberMe) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                }
+                    
+                Text("Remember me")
+                    .foregroundColor(.gray)
+                                
+            }
+            .padding(.top, 15)
+            .padding(.bottom, 50)
+            .padding(.trailing, 160)
+    
             
             Button("Login") {
                 isUsernameError = false
                 isPasswordError = false
-                fireAuthHelper.signIn(email: email, password: password)
-//                authenticateUser(username: username, password: password)
+                
+                guard !email.isEmpty else{
+                    isUsernameError = false
+                    return
+                }
+                
+                guard !password.isEmpty else {
+                    isPasswordError = true
+                    return
+                }
+                
+                if (rememberMe) {
+                    UserDefaults.standard.set(email, forKey: "email")
+                    UserDefaults.standard.set(password, forKey: "password")
+                } else {
+                    UserDefaults.standard.removeObject(forKey: "email")
+                    UserDefaults.standard.removeObject(forKey: "password")
+                }
+                
+                fireAuthHelper.signIn(email: email, password: password,fireDBHelper: fireDBHelper)
+                    rootScreen = .Main
+                
+          
             }.navigationDestination(isPresented: $isLogin, destination: {
                 ContentView()
             })
             .foregroundColor(.white)
-            .frame(width: 300, height: 50)
-            .background(Color.blue)
-            .cornerRadius(10)
+            .frame(width:  UIScreen.main.bounds.width / 1.3, height: 50)
+            .background(loginButtonBackgroundColor)
+            .cornerRadius(15)
             
             Text(self.errorMessage)
                 .foregroundColor(.red)
             
-        }
+            HStack {
+                Text("Don't have an account?")
+                
+                Button(action: {
+                    rootScreen = .SignUp
+                }) {
+                    Text("Sign up")
+                }
+            }
+        }.navigationBarBackButtonHidden(hideBackButton)
+            .onAppear {
+                let savedEmail = UserDefaults.standard.string(forKey: "email") ?? ""
+                let savedPassword = UserDefaults.standard.string(forKey: "password") ?? ""
+                
+                if !savedEmail.isEmpty && !savedPassword.isEmpty {
+                    fireAuthHelper.signIn(email: savedEmail, password: savedPassword,fireDBHelper: fireDBHelper)
+                    rootScreen = .Main
+                }
+              
+            }
     }
     
-//    func authenticateUser(username: String, password: String) {
-//   
-//        if username.isEmpty {
-//            isUsernameError = true
-//            errorMessage = ErrorCode.EmptyUsername.localizedDescription
-//            return
-//        } else if password.isEmpty {
-//            isPasswordError = true
-//            errorMessage = ErrorCode.EmptyPassword.localizedDescription
-//            return
-//        }
-//        
-//        guard let user = users.first(where: { $0.username == username.lowercased() }) else {
-//            print("Error1")
-//            isUsernameError = true
-//            errorMessage = ErrorCode.WrongUsername.localizedDescription
-//            return
-//        }
-//        
-//        guard password.lowercased() == user.password else {
-//            print("Error2")
-//            isPasswordError = true
-//            errorMessage = ErrorCode.WrongPassword.localizedDescription
-//            return
-//        }
-//        
-//        // No errors
-//        self.errorMessage = ""
-//        showingLoginScreen = true
-//        currUser = user
-//                
-//
-//        self.isLogin = true
-//    }
+
 }
 
 #Preview {
-    LoginView()
+    LoginView(rootScreen: .constant(.Login))
 }

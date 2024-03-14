@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct StudentCourseDetailView: View {
+    @EnvironmentObject var fireDBHelper: FireDBHelper
     var course: Course
 
     var body: some View {
         TabView {
-            CourseInfoView(course: course)
+            CourseInfoView(course: course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Course Info", systemImage: "info.circle")
                 }
-            ContentsView()
+            UserContentView(course: course).environmentObject(fireDBHelper)
                 .tabItem {
                     Label("Contents", systemImage: "list.bullet")
                 }
-            GradesView()
+            GradesView(course: course)
                 .tabItem {
                     Label("Grades", systemImage: "star.circle")
                 }

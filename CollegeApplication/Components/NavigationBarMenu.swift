@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct NavigationBarMenu: View {
-    @EnvironmentObject var user: User
+//    @EnvironmentObject var user: User
     
     var body: some View {
         Menu {
             NavigationLink(
-                destination: WelcomeScreenView(),
+                destination: ContentView().onAppear {
+                    // Clear email and password from UserDefaults upon navigation to ContentView
+                    UserDefaults.standard.removeObject(forKey: "email")
+                    UserDefaults.standard.removeObject(forKey: "password")
+                },
                 label: {
                     Text("Log out")
                 }

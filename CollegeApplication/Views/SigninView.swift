@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Binding var rootScreen : RootScreen
     @EnvironmentObject var fireAuthHelper : FireAuthHelper
     @EnvironmentObject var fireDBHelper : FireDBHelper
     @State private var email : String = ""
     @State private var password : String = ""
     @State private var confirmPassword : String = ""
+    @State private var username: String = ""
+    
     @State private var isStudent = true
+    @State private var errorMsg = ""
     
     var body: some View {
         VStack{
@@ -26,9 +30,15 @@ struct SignInView: View {
                 
                 SecureField("Enter Password Again", text: self.$confirmPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                TextField("Enter Full Name", text: self.$username)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
                 Toggle(isOn: $isStudent) {
                     Text("Student")
                 }
+                
+                Text(errorMsg)
             }.disableAutocorrection(true)
             
             Section{
@@ -37,20 +47,28 @@ struct SignInView: View {
                     //such as all the inputs are not empty
                     //and check for password rule
                     //and display alert accordingly
+                    guard !email.isEmpty else{
+                        self.errorMsg = "Email empty."
+                        return
+                    }
+                    
+                    guard !password.isEmpty else {
+                        self.errorMsg = "Password empty."
+                        return
+                    }
+                    
+                    guard password == confirmPassword else{
+                        self.errorMsg = "password is different."
+                        return
+                    }
+                    
                     
                     //if all the data is validated, create account on FirebaseAuth
-                    self.fireAuthHelper.signUp(email: self.email, password: self.password)
-                    
-                    
-                    var user : User
-                    if isStudent {
-                        user = Student(email: self.email)
-                    } else {
-                        user = Instructor(email: self.email)
-                    }
-                    self.fireDBHelper.insertUser(user : user)
+                    self.fireAuthHelper.signUp(email: self.email, password: self.password, isStudent: self.isStudent,fireDBHelper: fireDBHelper)
                     //move to home screen
-//                    self.rootScreen = .Home
+                    
+                        rootScreen = .Main
+
                 }){
                     Text("Create Account")
                 }//Button ends
@@ -61,7 +79,7 @@ struct SignInView: View {
         }//VStack ends
         .navigationTitle("Registration")
         .navigationBarTitleDisplayMode(.inline)
-        
+    
     }//body ends
 }
 
@@ -89,5 +107,5 @@ struct SocialLoginButton: View {
     }
 }
 #Preview {
-    SignInView()
+    SignInView(rootScreen: .constant(.SignUp))
 }

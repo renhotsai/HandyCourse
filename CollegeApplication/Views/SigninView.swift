@@ -14,6 +14,8 @@ struct SignInView: View {
     @State private var email : String = ""
     @State private var password : String = ""
     @State private var confirmPassword : String = ""
+    @State private var username: String = ""
+    
     @State private var isStudent = true
     @State private var errorMsg = ""
     
@@ -28,6 +30,10 @@ struct SignInView: View {
                 
                 SecureField("Enter Password Again", text: self.$confirmPassword)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                TextField("Enter Full Name", text: self.$username)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
                 Toggle(isOn: $isStudent) {
                     Text("Student")
                 }

@@ -20,6 +20,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             switch(rootScreen){
+            
             case .Login:
                 LoginView(rootScreen: $rootScreen)
                     .environmentObject(fireDBHelper)

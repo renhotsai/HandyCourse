@@ -10,6 +10,10 @@ import PhotosUI
 
 struct EditProfileView: View {
     @EnvironmentObject var fireDBHelper :FireDBHelper
+    @EnvironmentObject var fireStorageHelper :FireStorageHelper
+    
+    @Environment(\.dismiss) var dismiss
+    @State private var profileImage : UIImage?
     @State private var newName = ""
     @State private var newUsername = ""
     @State private var newEmail = ""
@@ -19,7 +23,12 @@ struct EditProfileView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    
+    @State private var showSheet: Bool = false
     @State private var permissionGranted: Bool = false
+    @State private var showPicker : Bool = false
+    @State private var isUsingCamera : Bool = false
+    
    
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,6 +36,62 @@ struct EditProfileView: View {
                 .font(.title)
                 .bold()
                 .padding(.bottom, 20)
+            
+            Image(uiImage: profileImage ?? UIImage(systemName: "person")!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+                .padding(.bottom, 10)
+                .padding(.top, 40)
+                .padding(.leading, 30)
+                .onAppear{
+                    fireStorageHelper.getImageFromFirebaseStorage(imageName: fireDBHelper.user.name){ image in
+                        if let image = image {
+                            print("Image loaded successfully")
+                            profileImage = image
+                        } else {
+                            print("Failed to load image")
+                        }
+                    }
+                }
+                .onTapGesture {
+                    // Handle tap event here
+                    print("Image tapped")
+                    if (self.permissionGranted){
+                        self.showSheet = true
+                    }else{
+                        checkPermission()
+                    }
+                    checkPermission()
+                }.actionSheet(isPresented: self.$showSheet){
+                    ActionSheet(title: Text("Select Photo"),
+                                message: Text("Choose profile picture to upload"),
+                                buttons: [
+                    .default(Text("Choose photo from library")){
+                        //show library picture picker
+                        
+                        //check if the source is availabe
+                        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else{
+                            print(#function, "The PhotoLibrary isn't available")
+                            return
+                        }
+                        self.isUsingCamera = false
+                        self.showPicker = true
+                        
+                    },
+                    .default(Text("Take a new pic from Camera")){
+                        //open camera
+                        guard UIImagePickerController.isSourceTypeAvailable(.camera) else{
+                            print(#function, "The Camera isn't available")
+                            return
+                        }
+                        self.isUsingCamera = true
+                        self.showPicker = false
+                    },
+                  .cancel()
+                 ])
+                }
             
             // New Name Field
             Text("New Name")
@@ -36,26 +101,6 @@ struct EditProfileView: View {
                 .padding(.bottom, 10)
                 .onAppear {
                     newName = fireDBHelper.user.name
-                }
-            
-            // New Username Field
-            Text("New Username")
-                .font(.headline)
-            TextField("New Username", text: $newUsername)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.bottom, 10)
-                .onAppear {
-//                    newUsername = user.username
-                }
-            
-            // New Email Field
-            Text("New Email")
-                .font(.headline)
-            TextField("New Email", text: $newEmail)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.bottom, 10)
-                .onAppear {
-                    newEmail = fireDBHelper.user.email
                 }
             
             // New Address Field
@@ -79,22 +124,7 @@ struct EditProfileView: View {
                 }
             
             // Submission Button
-            Button(action: {
-                // Update the user profile
-                fireDBHelper.user.name = newName
-//                user.username = newUsername
-                fireDBHelper.user.email = newEmail
-                fireDBHelper.user.address = newAddress
-                fireDBHelper.user.phoneNumber = newPhoneNumber
-                
-                // Send an object will change notification
-                //fireDBHelper.user.objectWillChange.send()
-                
-                // Show an alert message
-                alertTitle = "Profile Updated"
-                alertMessage = "Your profile has been successfully updated."
-                showAlert = true
-            }) {
+            Button(action: self.updateUser) {
                 Text("Submit")
                     .foregroundColor(.white)
                     .padding()
@@ -109,6 +139,33 @@ struct EditProfileView: View {
         .alert(isPresented: $showAlert) {
             Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
+        .fullScreenCover(isPresented: self.$showPicker){
+            if (isUsingCamera){
+                //open camera Picker
+                CameraPicker(selectedImage: self.$profileImage)
+            }else{
+                //open library picker
+                LibraryPicker(selectedImage: self.$profileImage)
+            }
+        }
+    }
+    
+    func updateUser(){
+        // Update the user profile
+        var user = fireDBHelper.user
+        user.name = newName
+        user.address = newAddress
+        user.phoneNumber = newPhoneNumber
+        if profileImage == nil{
+            fireDBHelper.updateUser(user : user)
+        }else{
+            fireDBHelper.updateUserImage(user: user,image: profileImage,fireStorageHelper: fireStorageHelper)
+        }
+        // Show an alert message
+        alertTitle = "Profile Updated"
+        alertMessage = "Your profile has been successfully updated."
+        showAlert = true
+        dismiss()
     }
     
     func checkPermission(){

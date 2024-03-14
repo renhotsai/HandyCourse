@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var fireDBHelper :FireDBHelper
     @EnvironmentObject var fireAuthHelper : FireAuthHelper
+    @EnvironmentObject var fireStorageHelper : FireStorageHelper
     
     @State private var selectedScreen : Int = 2
     
@@ -37,7 +38,7 @@ struct HomeView: View {
                     Image(systemName: "house")
                 }.tag(2)
                 
-                ProfileView().environmentObject(fireAuthHelper).environmentObject(fireDBHelper).tabItem {
+                ProfileView().environmentObject(fireAuthHelper).environmentObject(fireDBHelper).environmentObject(fireStorageHelper).tabItem {
                     Text("Profile")
                     Image(systemName: "person")
                 }.tag(3)

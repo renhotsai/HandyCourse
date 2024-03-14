@@ -30,7 +30,7 @@ struct InstructorCourseDetailView: View {
 
 struct InstructorCourseDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let testCourse = Course(courseName: "Test Course", courseDesc: "Description", studentLimit: 20, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 30), instructorList: ["Instructor"])
+        let testCourse = Course(courseName: "Test Course", courseDesc: "Description", studentLimit: 20, startDate: Date(), endDate: Date().addingTimeInterval(3600 * 24 * 30), instructorList: ["Instructor"],coursePrice : 0.0, courseCategories: CourseCategory.defaultCategory)
         return InstructorCourseDetailView(course: testCourse)
     }
 }

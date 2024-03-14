@@ -19,22 +19,31 @@ struct InstructorCoursesView: View {
                     ForEach(fireDBHelper.courseList) { course in
                         if instructor.courses.contains(where: {$0 == course.id}){
                             NavigationLink(destination: InstructorCourseDetailView(course: course).environmentObject(fireDBHelper)) {
-                                HStack {
+                                VStack(alignment: .leading) {
                                     if let imageName = course.courseImageName {
                                         Image(imageName)
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .cornerRadius(8)
+                                            .frame(maxWidth: .infinity, maxHeight: 125)
+                                            .clipped()
                                     } else {
                                         Image("default")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .cornerRadius(8)
+                                            .frame(maxWidth: .infinity, maxHeight: 125)
+                                            .clipped()
                                     }
                                     Text(course.courseName)
+                                        .bold()
+                                        .padding(.vertical, 5)
+
+                                    Text("Category: \(course.courseCategories.rawValue)")
+                                        .foregroundColor(.gray)
+                                    
+                                    Text("Duration: \(formattedDate(course.startDate)) ~ \(formattedDate(course.endDate))")
+                                        .foregroundColor(.gray)
                                 }
+                                .padding(.top, 20)
                             }
                         }
                     }.onDelete(perform: { indexSet in
@@ -74,6 +83,12 @@ struct InstructorCoursesView: View {
         }else{
             print(#function, "Course: \(course.courseName) can't delete. Student: \(course.studentGrades.count) ")
         }
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd" // Format: Year.Month.Day
+        return dateFormatter.string(from: date)
     }
 }
 

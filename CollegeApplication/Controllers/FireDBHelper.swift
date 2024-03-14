@@ -31,6 +31,8 @@ class FireDBHelper : ObservableObject{
     private let FIELD_STUDENTLIMIT :String = "studentLimit"
     private let FIELD_STARTDATE :String = "startDate"
     private let FIELD_ENDDATE : String = "endDate"
+    private let FIELD_COURSEPRICE : String = "coursePrice"
+    private let FIELD_COURSECATEGORIES : String = "courseCategories"
     private let FIELD_COURSEIMAGENAME : String = "courseImageName"
     
     private let COLLECTION_STUDENTGRADES :String = "studentGrades"
@@ -363,6 +365,8 @@ class FireDBHelper : ObservableObject{
                 FIELD_STUDENTLIMIT :course.studentLimit,
                 FIELD_STARTDATE :course.startDate,
                 FIELD_ENDDATE : course.endDate,
+                FIELD_COURSEPRICE: course.coursePrice,
+                FIELD_COURSECATEGORIES: course.courseCategories.rawValue,
                 FIELD_COURSEIMAGENAME : course.courseImageName
             ]){ error in
                 

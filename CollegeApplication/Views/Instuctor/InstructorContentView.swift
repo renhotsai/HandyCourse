@@ -20,16 +20,16 @@ struct InstructorContentView: View {
             
             // Iterate over the contents array
             List(contents) { content in
-                NavigationLink(destination: VideoDetailView(videoURL: URL(string: content.videoURL)!)) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(content.watched ? .green : .black) // Change color based on watched status
-                            .padding(.trailing, 4)
-                        Text(content.title)
-                            .font(.headline)
-                    }
-                    .padding()
-                }
+//                NavigationLink(destination: VideoDetailView(videoURL: URL(string: content.videoURL)!)) {
+//                    HStack(spacing: 8) {
+//                        Image(systemName: "checkmark")
+//                            .foregroundColor(content.watched ? .green : .black) // Change color based on watched status
+//                            .padding(.trailing, 4)
+//                        Text(content.title)
+//                            .font(.headline)
+//                    }
+//                    .padding()
+//                }
             }
             .padding(.horizontal)
             
